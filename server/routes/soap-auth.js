@@ -16,13 +16,16 @@ router.post("/login", async (req, res) => {
         },
         function (err, result) {
           if (err) return console.log(err);
+          let response = "";
           if (result.result.erroExecucao) {
-            res.json("Credenciais inválidas");
+            response = "Credenciais inválidas";
           } else if (result.result.codUsu) {
-            res.json(result.result);
+            response = result.result;
           } else {
-            res.json("Erro desconhecido");
+            response = "Erro desconhecido";
           }
+
+          res.json(response);
         }
       );
     });
