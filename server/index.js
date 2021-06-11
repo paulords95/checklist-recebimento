@@ -4,8 +4,8 @@ require("dotenv").config();
 soap.createClient(process.env.SOAP_ENDPOINT, function (err, client) {
   client.GetUser(
     {
-      user: "paulo.silva",
-      password: "1995!Oluap",
+      user: "user",
+      password: "senha",
       encryption: "0",
       parameters: "",
     },
