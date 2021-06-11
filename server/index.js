@@ -1,17 +1,15 @@
-const soap = require("soap");
+const express = require("express");
+const app = express();
+const cors = require("cors");
+
 require("dotenv").config();
 
-soap.createClient(process.env.SOAP_ENDPOINT, function (err, client) {
-  client.GetUser(
-    {
-      user: "user",
-      password: "senha",
-      encryption: "0",
-      parameters: "",
-    },
-    function (err, result) {
-      if (err) return console.log(err);
-      console.log(result);
-    }
-  );
+app.use(cors());
+app.use(express.json());
+
+//routes
+app.use("/auth", require("./routes/soap-auth"));
+
+app.listen(process.env.PORT, () => {
+  console.log(`server running at port ${process.env.PORT}`);
 });
