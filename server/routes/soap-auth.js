@@ -18,8 +18,10 @@ router.post("/login", async (req, res) => {
           if (err) return console.log(err);
           if (result.result.erroExecucao) {
             res.json("Credenciais inválidas");
-          } else {
+          } else if (result.result.codUsu) {
             res.json(result.result);
+          } else {
+            res.json("Erro desconhecido");
           }
         }
       );
