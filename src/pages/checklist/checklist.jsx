@@ -66,7 +66,7 @@ const CheckList = () => {
         handleChange={(e) => setQuestion5(e.target.value)}
         value={question5}
       />
-      <div style={{ paddingBottom: 50 }}>
+      <div style={{ paddingBottom: 30, height: 70 }}>
         {showErr ? (
           <Alert severity="error">
             A pergunta <strong>{errorMsg.strong}</strong> não foi respondida
@@ -77,7 +77,7 @@ const CheckList = () => {
       </div>
       <Button
         type="submit"
-        fullWidth
+        width="50px"
         variant="contained"
         color="primary"
         onClick={(e) => {

@@ -10,6 +10,8 @@ app.use(express.json());
 //routes
 app.use("/auth", require("./routes/soap-auth"));
 
+app.use("/item", require("./routes/searchChecklist"));
+
 app.listen(process.env.PORT, () => {
   console.log(`server running at port ${process.env.PORT}`);
 });
