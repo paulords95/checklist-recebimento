@@ -12,7 +12,10 @@ const db = async (query, ...parameters) => {
       password,
       connectString,
     });
-    result = await connection.execute(query, [...parameters]);
+
+    result = await connection.execute(query, [...parameters], {
+      autoCommit: true,
+    });
     return result;
   } catch (err) {
     return err.message;
