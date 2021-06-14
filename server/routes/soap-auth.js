@@ -2,6 +2,8 @@ const router = require("express").Router();
 const soap = require("soap");
 require("dotenv").config();
 
+const jwtGen = require("../utils/jwtGen");
+
 router.post("/login", async (req, res) => {
   try {
     const { user, password } = req.body;
@@ -20,7 +22,15 @@ router.post("/login", async (req, res) => {
           if (result.result.erroExecucao) {
             response = "Credenciais inválidas";
           } else if (result.result.codUsu) {
-            response = result.result;
+            response = [];
+            const token = jwtGen(result.result.codUsu);
+
+            response.push({
+              codUsu: result.result.codUsu,
+              nomCom: result.result.nomCom,
+              nomUsu: result.result.nomUsu,
+              token: token,
+            });
           } else {
             response = "Erro desconhecido";
           }
