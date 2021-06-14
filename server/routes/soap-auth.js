@@ -3,6 +3,7 @@ const soap = require("soap");
 require("dotenv").config();
 
 const jwtGen = require("../utils/jwtGen");
+const authorization = require("../middleware/authorization");
 
 router.post("/login", async (req, res) => {
   try {
@@ -16,6 +17,7 @@ router.post("/login", async (req, res) => {
           encryption: "0",
           parameters: "",
         },
+
         function (err, result) {
           if (err) return console.log(err);
           let response = "";
@@ -41,6 +43,15 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+  }
+});
+
+router.get("/is-verify", authorization, async (req, res) => {
+  try {
+    res.json(true);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("server error");
   }
 });
 
