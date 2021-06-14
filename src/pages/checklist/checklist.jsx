@@ -1,18 +1,44 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import FormQuestion from "../components/question";
+import { makeStyles } from "@material-ui/core/styles";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 import "./checklist.css";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    ...theme.typography.button,
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(1),
+    paddingBottom: 35,
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
 const CheckList = () => {
+  const classes = useStyles();
   const [question1, setQuestion1] = useState("");
   const [question2, setQuestion2] = useState("");
   const [question3, setQuestion3] = useState("");
   const [question4, setQuestion4] = useState("");
   const [question5, setQuestion5] = useState("");
+  const [showErr, setShowErr] = useState(false);
+  const [errorMsg, setErrorMsg] = useState({
+    title: "",
+    msg: "",
+    strong: "",
+  });
 
   return (
     <div className="checklist-wrap">
+      <div className={classes.root}>
+        Conferência geral do produto recebido e das condições do veículo
+        transportador
+      </div>
       <FormQuestion
         question=" 1. Os lacres se encontram íntegros, sem evidências de violações e
         correspondem ao informado na Nota Fiscal?"
@@ -40,23 +66,63 @@ const CheckList = () => {
         handleChange={(e) => setQuestion5(e.target.value)}
         value={question5}
       />
+      <div style={{ paddingBottom: 50 }}>
+        {showErr ? (
+          <Alert severity="error">
+            A pergunta <strong>{errorMsg.strong}</strong> não foi respondida
+          </Alert>
+        ) : (
+          ""
+        )}
+      </div>
       <Button
         type="submit"
         fullWidth
         variant="contained"
         color="primary"
         onClick={(e) => {
-          console.log(
-            question1 +
-              "\n" +
-              question2 +
-              "\n" +
-              question3 +
-              "\n" +
-              question4 +
-              "\n" +
-              question5
-          );
+          if (question1 === "") {
+            setShowErr(true);
+            setErrorMsg({
+              strong: "1",
+            });
+          } else if (question2 === "") {
+            setShowErr(true);
+            setErrorMsg({
+              strong: "2",
+            });
+          } else if (question3 === "") {
+            setShowErr(true);
+            setErrorMsg({
+              strong: "3",
+            });
+          } else if (question4 === "") {
+            setShowErr(true);
+            setErrorMsg({
+              strong: "4",
+            });
+          } else if (question5 === "") {
+            setShowErr(true);
+            setErrorMsg({
+              strong: "5",
+            });
+          } else {
+            setShowErr(false);
+            setErrorMsg({
+              strong: "",
+            });
+            console.log(
+              question1 +
+                "\n" +
+                question2 +
+                "\n" +
+                question3 +
+                "\n" +
+                question4 +
+                "\n" +
+                question5
+            );
+          }
         }}
       >
         Salvar
