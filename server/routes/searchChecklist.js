@@ -5,6 +5,19 @@ const { db } = require("../db");
 
 const authorization = require("../middleware/authorization");
 
+const formatDate = (date) => {
+  const d = date;
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+
+  const formatBr = d
+    .toLocaleDateString("pt-BR", options)
+    .split("-")
+    .reverse()
+    .join("/");
+
+  return formatBr;
+};
+
 router.get("/search/chklst=:seqChk", authorization, async (req, res) => {
   try {
     const sql = "select * from usu_t158 where usu_codrec = :seq";
@@ -15,7 +28,7 @@ router.get("/search/chklst=:seqChk", authorization, async (req, res) => {
       for (let i of result.rows) {
         response.push({
           codRec: i[0],
-          datRec: i[1],
+          datRec: formatDate(i[1]),
           codRev: i[2],
           tipVei: i[3],
           tipCar: i[4],
@@ -27,7 +40,7 @@ router.get("/search/chklst=:seqChk", authorization, async (req, res) => {
           quesThree: i[10],
           quesFour: i[11],
           quesFive: i[18],
-          datEmi: i[14],
+          datEmi: formatDate(i[14]),
         });
       }
     }

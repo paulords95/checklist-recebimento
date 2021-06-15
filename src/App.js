@@ -1,4 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -10,8 +14,20 @@ import {
 import LoginPage from "./pages/login/Login";
 import Checklist from "./pages/checklist/checklist";
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
@@ -41,6 +57,13 @@ function App() {
     <Fragment>
       <Router>
         <div className="App">
+          <Backdrop
+            className={classes.backdrop}
+            open={open}
+            onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <Switch>
             <Route
               exact

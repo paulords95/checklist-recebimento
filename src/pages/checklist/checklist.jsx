@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
-
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import "./checklist.css";
 
 import ChecklistTabs from "../components/ChecklistTabs/CheckListTabs";
+import OutlinedCard from "../components/Card/Card";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +22,7 @@ const CheckList = ({ setAuth }) => {
   const [itemSeq, setItemSeq] = useState(0);
   const [renderItem, setRenderItem] = useState(false);
   const [itemInfo, setItemInfo] = useState([]);
+  const [itemInfoValid, setItemInfoValid] = useState([]);
 
   const SearchItem = async () => {
     const response = await fetch(
@@ -35,6 +37,7 @@ const CheckList = ({ setAuth }) => {
 
     if (itemData.codRec) {
       console.log(itemData);
+      setItemInfoValid(itemData);
       setRenderItem(true);
     } else {
       console.log(itemData);
@@ -57,12 +60,22 @@ const CheckList = ({ setAuth }) => {
         </Button>
       </div>
       <div className="checklist-wrap">
-        Checklist de recebimento
+        <Typography component="h1" variant="h4">
+          Checklist de Recebimento
+        </Typography>
+
         <div style={{ marginTop: 40 }}>
-          <form className={classes.root} noValidate autoComplete="off">
+          <form
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <Input
               onChange={(e) => {
-                setItemSeq(e.target.value);
+                const regex = /[.,\s]/g;
+                const string = e.target.value.toString().replace(regex, "");
+                setItemSeq(string);
               }}
               inputProps={{ "aria-label": "description" }}
             />
@@ -70,8 +83,19 @@ const CheckList = ({ setAuth }) => {
               <SearchIcon />
             </Button>
           </form>
-
-          {renderItem ? <ChecklistTabs /> : <div>{itemInfo}</div>}
+          {renderItem ? (
+            <OutlinedCard
+              nroRec={itemInfoValid.codRec.toLocaleString("pt-BR")}
+              datRec={itemInfoValid.datRec}
+              codRev={itemInfoValid.codRev}
+              datEmi={itemInfoValid.datEmi}
+            />
+          ) : (
+            ""
+          )}
+          <div style={{ paddingTop: 30 }}>
+            {renderItem ? <ChecklistTabs /> : <div>{itemInfo}</div>}
+          </div>
         </div>
       </div>
     </div>

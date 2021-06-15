@@ -51,7 +51,7 @@ router.get("/is-verify", authorization, async (req, res) => {
     res.json(true);
   } catch (error) {
     console.log(error.message);
-    res.status(500).send("server error");
+    res.status(500).send(false);
   }
 });
 

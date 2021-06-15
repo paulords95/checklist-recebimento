@@ -1,0 +1,14 @@
+.card-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.card-seq {
+  display: flex;
+}
+
+.sub-info {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5em;
+}

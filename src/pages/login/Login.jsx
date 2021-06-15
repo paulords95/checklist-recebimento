@@ -65,9 +65,6 @@ export default function LoginPage({ setAuth }) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
 
   const { user, password } = inputs;
 
@@ -105,6 +102,7 @@ export default function LoginPage({ setAuth }) {
           show: true,
           msg: "Credenciais inválidas",
         });
+        setOpen(false);
       }
       if (parseRes.token) {
         localStorage.setItem("codUsu", parseRes.codUsu);
@@ -120,6 +118,9 @@ export default function LoginPage({ setAuth }) {
 
   return (
     <Container component="main" maxWidth="xs">
+      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
