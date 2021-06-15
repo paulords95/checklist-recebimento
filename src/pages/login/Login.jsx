@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,6 +8,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 
 function Copyright() {
@@ -38,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
   root: {
     width: "100%",
     "& > * + *": {
@@ -56,6 +61,13 @@ export default function LoginPage({ setAuth }) {
     show: false,
     msg: "",
   });
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
 
   const { user, password } = inputs;
 
@@ -78,6 +90,7 @@ export default function LoginPage({ setAuth }) {
       });
     }
     try {
+      setOpen(true);
       const body = { user, password };
       const response = await fetch("http://192.168.2.39:1106/auth/login", {
         method: "POST",
