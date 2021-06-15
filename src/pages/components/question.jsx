@@ -9,23 +9,33 @@ const FormQuestion = (props) => {
   return (
     <FormControl component="fieldset" required>
       <FormLabel component="legend">{props.question}</FormLabel>
-      <RadioGroup
-        required
-        aria-label="gender"
-        name="gender1"
-        value={props.value}
-        onChange={props.handleChange}
-        style={{ margin: "auto", paddingBottom: "70px" }}
-        row
-      >
-        <FormControlLabel value="1" control={<Radio required />} label="Sim" />
-        <FormControlLabel value="2" control={<Radio required />} label="Não" />
-        <FormControlLabel
-          value="3"
-          control={<Radio required />}
-          label="Não aplicável"
-        />
-      </RadioGroup>
+      <div>
+        <RadioGroup
+          required
+          aria-label="gender"
+          name="gender1"
+          value={props.value}
+          onChange={props.handleChange}
+          style={{ margin: "auto", paddingBottom: "70px" }}
+          row
+        >
+          <FormControlLabel
+            value="1"
+            control={<Radio required />}
+            label="Sim"
+          />
+          <FormControlLabel
+            value="2"
+            control={<Radio required />}
+            label="Não"
+          />
+          <FormControlLabel
+            value="3"
+            control={<Radio required />}
+            label="Não aplicável"
+          />
+        </RadioGroup>
+      </div>
     </FormControl>
   );
 };
