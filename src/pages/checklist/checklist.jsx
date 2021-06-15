@@ -25,8 +25,7 @@ const CheckList = () => {
       `http://192.168.2.39:1106/item/search/chklst=${itemSeq}`,
       {
         headers: {
-          Token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjc3IiwiaWF0IjoxNjIzNzY0NDU0LCJleHAiOjE2MjM3NjgwNTR9.wfHgv50KxiaLhT2p7VRb71Jwf3QK9xuvUdIxIbhHhC4",
+          Token: localStorage.token.toString(),
         },
       }
     );

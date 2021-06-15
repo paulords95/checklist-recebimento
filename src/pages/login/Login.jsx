@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
-import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
 function Copyright() {
   return (
@@ -48,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginPage() {
+export default function LoginPage({ setAuth }) {
   const classes = useStyles();
   const [inputs, setInputs] = useState({
     user: "",
@@ -89,7 +87,7 @@ export default function LoginPage() {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      if (parseRes == "Credenciais inválidas") {
+      if (parseRes === "Credenciais inválidas") {
         setShowAlert({
           show: true,
           msg: "Credenciais inválidas",
@@ -100,6 +98,7 @@ export default function LoginPage() {
         localStorage.setItem("nomCom", parseRes.nomCom);
         localStorage.setItem("nomUsu", parseRes.nomUsu);
         localStorage.setItem("token", parseRes.token);
+        setAuth(true);
       }
     } catch (error) {
       console.log(error);
@@ -116,44 +115,46 @@ export default function LoginPage() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="outlined-required"
-            label="Usuário"
-            name="user"
-            autoFocus
-            onChange={(e) => onChange(e)}
-            onInput={(e) => onChange(e)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Senha"
-            type="password"
-            id="password"
-            onChange={(e) => onChange(e)}
-            onInput={(e) => onChange(e)}
-            autoComplete="current-password"
-          />
+        <Fragment>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="outlined-required"
+              label="Usuário"
+              name="user"
+              autoFocus
+              onChange={(e) => onChange(e)}
+              onInput={(e) => onChange(e)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Senha"
+              type="password"
+              id="password"
+              onChange={(e) => onChange(e)}
+              onInput={(e) => onChange(e)}
+              autoComplete="current-password"
+            />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={HandleLogin}
-            className={classes.submit}
-          >
-            Entrar
-          </Button>
-        </form>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={HandleLogin}
+              className={classes.submit}
+            >
+              Entrar
+            </Button>
+          </form>
+        </Fragment>
         {showAlert.show ? (
           <Alert variant="filled" severity="error">
             {showAlert.msg}
