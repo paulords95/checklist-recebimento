@@ -7,8 +7,8 @@ import DialogComponent from "./pages/Dialog/Dialog";
 function App() {
   return (
     <div className="App">
-      <Checklist />
-      {/*<LoginPage />*/}
+      {/*<Checklist />*/}
+      <LoginPage />
     </div>
   );
 }

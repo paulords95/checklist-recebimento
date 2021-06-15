@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
           if (err) return console.log(err);
           let response = "";
           if (result.result.erroExecucao) {
-            response = "Credenciais inválidas";
+            response = ["Credenciais inválidas"];
           } else if (result.result.codUsu) {
             response = [];
             const token = jwtGen(result.result.codUsu);
@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
             response = "Erro desconhecido";
           }
 
-          res.json(response);
+          res.json(response[0]);
         }
       );
     });
