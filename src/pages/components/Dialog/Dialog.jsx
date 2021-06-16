@@ -10,11 +10,13 @@ import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
 export default function DialogForm1(props) {
+  const [sealNum, setSealNum] = useState();
+  const [sealEnable, setSealEnable] = useState(true);
   const [vehicleValues, setVehiclesValues] = useState({
     vehicle: "",
     trailer: "",
     seal: "",
-    numSeal: "",
+    numSeal: sealNum,
     cleaning: "",
   });
 
@@ -23,7 +25,6 @@ export default function DialogForm1(props) {
       vehicle: value,
       trailer: vehicleValues.trailer,
       seal: vehicleValues.seal,
-      numSeal: vehicleValues.numSeal,
       cleaning: vehicleValues.cleaning,
     });
   };
@@ -33,7 +34,6 @@ export default function DialogForm1(props) {
       vehicle: vehicleValues.vehicle,
       trailer: value,
       seal: vehicleValues.seal,
-      numSeal: vehicleValues.numSeal,
       cleaning: vehicleValues.cleaning,
     });
   };
@@ -43,7 +43,6 @@ export default function DialogForm1(props) {
       vehicle: vehicleValues.vehicle,
       trailer: vehicleValues.trailer,
       seal: value,
-      numSeal: vehicleValues.numSeal,
       cleaning: vehicleValues.cleaning,
     });
   };
@@ -52,7 +51,6 @@ export default function DialogForm1(props) {
       vehicle: vehicleValues.vehicle,
       trailer: vehicleValues.trailer,
       seal: vehicleValues.seal,
-      numSeal: vehicleValues.numSeal,
       cleaning: value,
     });
   };
@@ -188,6 +186,7 @@ export default function DialogForm1(props) {
                     value="Sim"
                     name="lacre"
                     onChange={() => {
+                      setSealEnable(false);
                       handleSealValue("1");
                     }}
                   />
@@ -200,6 +199,7 @@ export default function DialogForm1(props) {
                     value="Não"
                     name="lacre"
                     onChange={() => {
+                      setSealEnable(true);
                       handleSealValue("2");
                     }}
                   />
@@ -212,30 +212,23 @@ export default function DialogForm1(props) {
                     value="Não aplicável"
                     name="lacre"
                     onChange={() => {
+                      setSealEnable(true);
                       handleSealValue("3");
                     }}
                   />
                   <label htmlFor="Não aplicável">Não aplicável</label>
                 </div>
                 <div>
-                  <input type="radio" id="text" value="text" name="lacre" />
                   <label htmlFor="Nº Lacre">Nº Lacre: </label>
                   <input
                     type="text"
                     id="Nº Lacre"
                     name="lacre"
+                    disabled={sealEnable}
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      setVehiclesValues({
-                        vehicle: vehicleValues.vehicle,
-                        trailer: vehicleValues.trailer,
-                        seal: vehicleValues.seal,
-                        numSeal: e.target.value,
-                        cleaning: vehicleValues.cleaning,
-                      });
-                      handleSealValue("1");
+                      setSealNum(e.target.value);
                     }}
-                    value={vehicleValues.numSeal}
+                    value={sealNum}
                   />
                 </div>
               </form>
@@ -282,6 +275,7 @@ export default function DialogForm1(props) {
           <Button
             onClick={() => {
               console.log(vehicleValues);
+              console.log(sealNum);
             }}
             color="primary"
           >
