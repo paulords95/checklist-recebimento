@@ -20,11 +20,16 @@ export default function DialogForm1(props) {
             input={
               <form className="radio-form">
                 <div>
-                  <input type="radio" id="Caminhão" value="Caminhão" />
+                  <input
+                    type="radio"
+                    id="Caminhão"
+                    value="Caminhão"
+                    name="truck"
+                  />
                   <label htmlFor="Caminhão">Caminhão</label>
                 </div>
                 <div>
-                  <input type="radio" id="Van" value="Van" />
+                  <input type="radio" id="Van" value="Van" name="truck" />
                   <label htmlFor="Van">Van</label>
                 </div>
                 <div>
@@ -32,11 +37,12 @@ export default function DialogForm1(props) {
                     type="radio"
                     id="Pickup fechada"
                     value="Pickup fechada"
+                    name="truck"
                   />
                   <label htmlFor="Pickup fechada">Pickup fechada</label>
                 </div>
                 <div>
-                  <input type="radio" id="Outro" value="Outro" />
+                  <input type="radio" id="Outro" value="Outro" name="truck" />
                   <label htmlFor="Outro">Outro</label>
                 </div>
               </form>
@@ -49,19 +55,34 @@ export default function DialogForm1(props) {
             input={
               <form className="radio-form">
                 <div>
-                  <input type="radio" id="Baú/sider" value="Baú/sider" />
+                  <input
+                    type="radio"
+                    id="Baú/sider"
+                    value="Baú/sider"
+                    name="trailer"
+                  />
                   <label htmlFor="Baú/sider">Baú/sider</label>
                 </div>
                 <div>
-                  <input type="radio" id="Enlonado" value="Enlonado" />
+                  <input
+                    type="radio"
+                    id="Enlonado"
+                    value="Enlonado"
+                    name="trailer"
+                  />
                   <label htmlFor="Enlonado">Enlonado</label>
                 </div>
                 <div>
-                  <input type="radio" id="Container" value="Container" />
+                  <input
+                    type="radio"
+                    id="Container"
+                    value="Container"
+                    name="trailer"
+                  />
                   <label htmlFor="Container">Container</label>
                 </div>
                 <div>
-                  <input type="radio" id="Outro" value="Outro" />
+                  <input type="radio" id="Outro" value="Outro" name="trailer" />
                   <label htmlFor="Outro">Outro</label>
                 </div>
               </form>
@@ -74,11 +95,11 @@ export default function DialogForm1(props) {
             input={
               <form className="radio-form">
                 <div>
-                  <input type="radio" id="Sim" value="Sim" />
+                  <input type="radio" id="Sim" value="Sim" name="lacre" />
                   <label htmlFor="Sim">Sim</label>
                 </div>
                 <div>
-                  <input type="radio" id="Não" value="Não" />
+                  <input type="radio" id="Não" value="Não" name="lacre" />
                   <label htmlFor="Não">Não</label>
                 </div>
                 <div>
@@ -86,14 +107,17 @@ export default function DialogForm1(props) {
                     type="radio"
                     id="Não aplicável"
                     value="Não aplicável"
+                    name="lacre"
                   />
                   <label htmlFor="Não aplicável">Não aplicável</label>
                 </div>
                 <div>
+                  <input type="radio" id="text" value="text" name="lacre" />
                   <label htmlFor="Nº Lacre">Nº Lacre: </label>
                   <input
                     type="number"
                     id="Nº Lacre"
+                    name="lacre"
                     onChange={() => {}}
                     value=" "
                   />
@@ -108,20 +132,22 @@ export default function DialogForm1(props) {
             input={
               <form className="radio-form">
                 <div>
-                  <input type="radio" id="Baú/sider" value="Baú/sider" />
-                  <label htmlFor="Baú/sider">Baú/sider</label>
+                  <input
+                    type="radio"
+                    id="Satisfatório"
+                    value="Satisfatório"
+                    name="clean"
+                  />
+                  <label htmlFor="Satisfatório">Satisfatório</label>
                 </div>
                 <div>
-                  <input type="radio" id="Enlonado" value="Enlonado" />
-                  <label htmlFor="Enlonado">Enlonado</label>
-                </div>
-                <div>
-                  <input type="radio" id="Container" value="Container" />
-                  <label htmlFor="Container">Container</label>
-                </div>
-                <div>
-                  <input type="radio" id="Outro" value="Outro" />
-                  <label htmlFor="Outro">Outro</label>
+                  <input
+                    type="radio"
+                    id="Não satisfatório"
+                    value="Não satisfatório"
+                    name="clean"
+                  />
+                  <label htmlFor="Não satisfatório">Não satisfatório</label>
                 </div>
               </form>
             }
