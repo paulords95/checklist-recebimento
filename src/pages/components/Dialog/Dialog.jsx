@@ -14,6 +14,7 @@ export default function DialogForm1(props) {
     vehicle: "",
     trailer: "",
     seal: "",
+    numSeal: "",
     cleaning: "",
   });
 
@@ -22,6 +23,7 @@ export default function DialogForm1(props) {
       vehicle: value,
       trailer: vehicleValues.trailer,
       seal: vehicleValues.seal,
+      numSeal: vehicleValues.numSeal,
       cleaning: vehicleValues.cleaning,
     });
   };
@@ -31,6 +33,7 @@ export default function DialogForm1(props) {
       vehicle: vehicleValues.vehicle,
       trailer: value,
       seal: vehicleValues.seal,
+      numSeal: vehicleValues.numSeal,
       cleaning: vehicleValues.cleaning,
     });
   };
@@ -40,6 +43,7 @@ export default function DialogForm1(props) {
       vehicle: vehicleValues.vehicle,
       trailer: vehicleValues.trailer,
       seal: value,
+      numSeal: vehicleValues.numSeal,
       cleaning: vehicleValues.cleaning,
     });
   };
@@ -48,6 +52,7 @@ export default function DialogForm1(props) {
       vehicle: vehicleValues.vehicle,
       trailer: vehicleValues.trailer,
       seal: vehicleValues.seal,
+      numSeal: vehicleValues.numSeal,
       cleaning: value,
     });
   };
@@ -177,11 +182,27 @@ export default function DialogForm1(props) {
             input={
               <form className="radio-form">
                 <div>
-                  <input type="radio" id="Sim" value="Sim" name="lacre" />
+                  <input
+                    type="radio"
+                    id="Sim"
+                    value="Sim"
+                    name="lacre"
+                    onChange={() => {
+                      handleSealValue("1");
+                    }}
+                  />
                   <label htmlFor="Sim">Sim</label>
                 </div>
                 <div>
-                  <input type="radio" id="Não" value="Não" name="lacre" />
+                  <input
+                    type="radio"
+                    id="Não"
+                    value="Não"
+                    name="lacre"
+                    onChange={() => {
+                      handleSealValue("2");
+                    }}
+                  />
                   <label htmlFor="Não">Não</label>
                 </div>
                 <div>
@@ -190,6 +211,9 @@ export default function DialogForm1(props) {
                     id="Não aplicável"
                     value="Não aplicável"
                     name="lacre"
+                    onChange={() => {
+                      handleSealValue("3");
+                    }}
                   />
                   <label htmlFor="Não aplicável">Não aplicável</label>
                 </div>
@@ -197,11 +221,21 @@ export default function DialogForm1(props) {
                   <input type="radio" id="text" value="text" name="lacre" />
                   <label htmlFor="Nº Lacre">Nº Lacre: </label>
                   <input
-                    type="number"
+                    type="text"
                     id="Nº Lacre"
                     name="lacre"
-                    onChange={() => {}}
-                    value=" "
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setVehiclesValues({
+                        vehicle: vehicleValues.vehicle,
+                        trailer: vehicleValues.trailer,
+                        seal: vehicleValues.seal,
+                        numSeal: e.target.value,
+                        cleaning: vehicleValues.cleaning,
+                      });
+                      handleSealValue("1");
+                    }}
+                    value={vehicleValues.numSeal}
                   />
                 </div>
               </form>
@@ -219,6 +253,9 @@ export default function DialogForm1(props) {
                     id="Satisfatório"
                     value="Satisfatório"
                     name="clean"
+                    onChange={() => {
+                      handleCleaningValue("1");
+                    }}
                   />
                   <label htmlFor="Satisfatório">Satisfatório</label>
                 </div>
@@ -228,6 +265,9 @@ export default function DialogForm1(props) {
                     id="Não satisfatório"
                     value="Não satisfatório"
                     name="clean"
+                    onChange={() => {
+                      handleCleaningValue("2");
+                    }}
                   />
                   <label htmlFor="Não satisfatório">Não satisfatório</label>
                 </div>
