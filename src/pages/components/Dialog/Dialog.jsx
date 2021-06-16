@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -10,6 +10,48 @@ import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
 export default function DialogForm1(props) {
+  const [vehicleValues, setVehiclesValues] = useState({
+    vehicle: "",
+    trailer: "",
+    seal: "",
+    cleaning: "",
+  });
+
+  const handleVehicleValue = (value) => {
+    setVehiclesValues({
+      vehicle: value,
+      trailer: vehicleValues.trailer,
+      seal: vehicleValues.seal,
+      cleaning: vehicleValues.cleaning,
+    });
+  };
+
+  const handleTrailerValue = (value) => {
+    setVehiclesValues({
+      vehicle: vehicleValues.vehicle,
+      trailer: value,
+      seal: vehicleValues.seal,
+      cleaning: vehicleValues.cleaning,
+    });
+  };
+
+  const handleSealValue = (value) => {
+    setVehiclesValues({
+      vehicle: vehicleValues.vehicle,
+      trailer: vehicleValues.trailer,
+      seal: value,
+      cleaning: vehicleValues.cleaning,
+    });
+  };
+  const handleCleaningValue = (value) => {
+    setVehiclesValues({
+      vehicle: vehicleValues.vehicle,
+      trailer: vehicleValues.trailer,
+      seal: vehicleValues.seal,
+      cleaning: value,
+    });
+  };
+
   return (
     <div>
       <Dialog open={props.isOpen} aria-labelledby="form-dialog-title">
@@ -23,13 +65,25 @@ export default function DialogForm1(props) {
                   <input
                     type="radio"
                     id="Caminhão"
-                    value="Caminhão"
+                    value={vehicleValues.vehicle}
                     name="truck"
+                    onChange={() => {
+                      handleVehicleValue("1");
+                    }}
                   />
                   <label htmlFor="Caminhão">Caminhão</label>
                 </div>
+
                 <div>
-                  <input type="radio" id="Van" value="Van" name="truck" />
+                  <input
+                    type="radio"
+                    id="Van"
+                    value="Van"
+                    name="truck"
+                    onChange={() => {
+                      handleVehicleValue("2");
+                    }}
+                  />
                   <label htmlFor="Van">Van</label>
                 </div>
                 <div>
@@ -38,11 +92,22 @@ export default function DialogForm1(props) {
                     id="Pickup fechada"
                     value="Pickup fechada"
                     name="truck"
+                    onChange={() => {
+                      handleVehicleValue("3");
+                    }}
                   />
                   <label htmlFor="Pickup fechada">Pickup fechada</label>
                 </div>
                 <div>
-                  <input type="radio" id="Outro" value="Outro" name="truck" />
+                  <input
+                    type="radio"
+                    id="Outro"
+                    value="Outro"
+                    name="truck"
+                    onChange={() => {
+                      handleVehicleValue("4");
+                    }}
+                  />
                   <label htmlFor="Outro">Outro</label>
                 </div>
               </form>
@@ -60,6 +125,9 @@ export default function DialogForm1(props) {
                     id="Baú/sider"
                     value="Baú/sider"
                     name="trailer"
+                    onChange={() => {
+                      handleTrailerValue("1");
+                    }}
                   />
                   <label htmlFor="Baú/sider">Baú/sider</label>
                 </div>
@@ -69,6 +137,9 @@ export default function DialogForm1(props) {
                     id="Enlonado"
                     value="Enlonado"
                     name="trailer"
+                    onChange={() => {
+                      handleTrailerValue("2");
+                    }}
                   />
                   <label htmlFor="Enlonado">Enlonado</label>
                 </div>
@@ -78,11 +149,22 @@ export default function DialogForm1(props) {
                     id="Container"
                     value="Container"
                     name="trailer"
+                    onChange={() => {
+                      handleTrailerValue("3");
+                    }}
                   />
                   <label htmlFor="Container">Container</label>
                 </div>
                 <div>
-                  <input type="radio" id="Outro" value="Outro" name="trailer" />
+                  <input
+                    type="radio"
+                    id="Outro"
+                    value="Outro"
+                    name="trailer"
+                    onChange={() => {
+                      handleTrailerValue("4");
+                    }}
+                  />
                   <label htmlFor="Outro">Outro</label>
                 </div>
               </form>
@@ -157,7 +239,12 @@ export default function DialogForm1(props) {
           <Button onClick={props.handleClose} color="primary">
             Cancelar
           </Button>
-          <Button onClick={props.handleClose} color="primary">
+          <Button
+            onClick={() => {
+              console.log(vehicleValues);
+            }}
+            color="primary"
+          >
             Salvar
           </Button>
         </DialogActions>

@@ -27,6 +27,8 @@ const CheckList = ({ setAuth }) => {
   const [itemLoading, setItemLoading] = useState(false);
 
   const SearchItem = async () => {
+    setRenderItem(false);
+    setItemInfo("");
     setItemLoading(true);
     const response = await fetch(
       `http://192.168.2.39:1106/item/search/chklst=${itemSeq}`,
@@ -70,7 +72,7 @@ const CheckList = ({ setAuth }) => {
         }}
       >
         <div>
-          <Typography>| {localStorage.getItem("nomUsu")} |</Typography>
+          <Typography> {localStorage.getItem("nomUsu")} |</Typography>
         </div>
         <Button
           color="primary"
@@ -80,7 +82,7 @@ const CheckList = ({ setAuth }) => {
             setAuth(false);
           }}
         >
-          Desconectar usuário
+          Desconectar
         </Button>
       </div>
       <div className="checklist-wrap">
@@ -108,7 +110,9 @@ const CheckList = ({ setAuth }) => {
               <SearchIcon />
             </Button>
           </form>
-          {itemLoading ? <CircularProgress /> : ""}
+          <div style={{ paddingTop: "40px" }}>
+            {itemLoading ? <CircularProgress /> : ""}
+          </div>
           {renderItem ? (
             <OutlinedCard
               nroRec={itemInfoValid.codRec.toLocaleString("pt-BR")}
