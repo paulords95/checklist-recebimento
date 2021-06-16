@@ -58,15 +58,29 @@ const CheckList = ({ setAuth }) => {
 
   return (
     <div>
-      <div style={{ right: "5%", position: "absolute", paddingBottom: 10 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          right: "5%",
+          position: "absolute",
+          paddingBottom: 10,
+          marginTop: 5,
+        }}
+      >
+        <div>
+          <Typography>| {localStorage.getItem("nomUsu")} |</Typography>
+        </div>
         <Button
+          color="primary"
           onClick={(e) => {
             e.preventDefault();
             localStorage.clear();
             setAuth(false);
           }}
         >
-          Sair
+          Desconectar usuário
         </Button>
       </div>
       <div className="checklist-wrap">
