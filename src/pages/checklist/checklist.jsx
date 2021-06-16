@@ -41,12 +41,10 @@ const CheckList = ({ setAuth }) => {
     const itemData = await response.json();
 
     if (itemData.codRec) {
-      console.log(itemData);
       setItemInfoValid(itemData);
       setRenderItem(true);
       setItemLoading(false);
     } else {
-      console.log(itemData);
       setItemInfo(itemData);
       setRenderItem(false);
       setItemLoading(false);
@@ -126,6 +124,8 @@ const CheckList = ({ setAuth }) => {
           <div style={{ paddingTop: 30 }}>
             {renderItem ? (
               <ChecklistTabs
+                seqRec={itemInfoValid}
+                onClickBtnTransVehicle={() => {}}
                 onClickBtn={(e) => {
                   if (e.currentTarget.id === "1") {
                     console.log("First Dialog");

@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { toast } from "react-toastify";
 
 import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
 export default function DialogForm1(props) {
-  const [sealNum, setSealNum] = useState();
+  const [item, setItem] = useState();
+  const [sealNum, setSealNum] = useState("");
   const [sealEnable, setSealEnable] = useState(true);
   const [vehicleValues, setVehiclesValues] = useState({
     vehicle: "",
@@ -55,10 +57,17 @@ export default function DialogForm1(props) {
     });
   };
 
+  useEffect(() => {
+    console.log(props.seqRec);
+    setItem(props.seqRec);
+  }, []);
+
   return (
     <div>
       <Dialog open={props.isOpen} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Meio de Transporte</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          Meio de Transporte | Nº Recebimento: {"item.codRec.toString()"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>Veículo</DialogContentText>
           <RadioBtn
@@ -200,6 +209,7 @@ export default function DialogForm1(props) {
                     name="lacre"
                     onChange={() => {
                       setSealEnable(true);
+                      setSealNum("");
                       handleSealValue("2");
                     }}
                   />
@@ -213,6 +223,7 @@ export default function DialogForm1(props) {
                     name="lacre"
                     onChange={() => {
                       setSealEnable(true);
+                      setSealNum("");
                       handleSealValue("3");
                     }}
                   />
@@ -274,6 +285,28 @@ export default function DialogForm1(props) {
           </Button>
           <Button
             onClick={() => {
+              console.log(item);
+              if (vehicleValues.vehicle.length < 1) {
+                toast.error("Informe o tipo de veículo");
+                return;
+              }
+              if (vehicleValues.trailer.length < 1) {
+                toast.error("Informe o tipo de carroceria");
+                return;
+              }
+              if (vehicleValues.seal == 1 && sealNum < 1) {
+                toast.error("Informe o nº do lacre");
+                return;
+              }
+              if (vehicleValues.seal.length < 1) {
+                toast.error("Informe o tipo de lacre");
+                return;
+              }
+              if (vehicleValues.cleaning.length < 1) {
+                toast.error("Informe as condições de limpeza");
+                return;
+              }
+              toast.success("Registros salvos com sucesso");
               console.log(vehicleValues);
               console.log(sealNum);
             }}

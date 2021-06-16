@@ -10,6 +10,11 @@ import {
 import LoginPage from "./pages/login/Login";
 import Checklist from "./pages/checklist/checklist";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

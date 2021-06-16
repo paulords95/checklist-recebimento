@@ -22,22 +22,22 @@ export default function CheckListTabs(props) {
       <Typography component="h4" variant="h5">
         Selecione o formulário a ser preenchido
       </Typography>
-      <DialogForm1 isOpen={open} handleClose={() => setOpen(false)} />
-      <Button
-        variant="contained"
-        color="primary"
-        id="1"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
+      <DialogForm1
+        isOpen={open}
+        handleClose={() => setOpen(false)}
+        seqRec={props.seqRec}
+      />
+      <Button variant="contained" color="primary" id="1" onClick={() => {}}>
         Conferência geral do produto recebido e condições do veículo condutor
       </Button>
       <Button
         variant="contained"
         color="primary"
         id="2"
-        onClick={props.onClickBtn}
+        onClick={() => {
+          setOpen(true);
+          props.onClickBtnTransVehicle();
+        }}
       >
         Meio de Transporte
       </Button>
