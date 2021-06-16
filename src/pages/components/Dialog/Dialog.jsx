@@ -60,13 +60,18 @@ export default function DialogForm1(props) {
   useEffect(() => {
     console.log(props.seqRec);
     setItem(props.seqRec);
+    if (props.seqRec.tipVei > 0) {
+      console.log(props.seqRec.tipVei.toString());
+      handleVehicleValue(props.seqRec.tipVei.toString());
+    }
   }, []);
 
   return (
     <div>
       <Dialog open={props.isOpen} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
-          Meio de Transporte | Nº Recebimento: {"item.codRec.toString()"}
+          Meio de Transporte | Nº Recebimento:{" "}
+          {props.seqRec.codRec ? <span>{props.seqRec.codRec}</span> : ""}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>Veículo</DialogContentText>
