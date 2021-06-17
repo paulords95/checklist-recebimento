@@ -50,8 +50,7 @@ export default function DialogForm2(props) {
       props.seqRec.quesOne > 0 &&
       props.seqRec.quesTwo > 0 &&
       props.seqRec.quesThree > 0 &&
-      props.seqRec.quesFour > 0 &&
-      props.seqRec.quesFive > 0
+      props.seqRec.quesFour > 0
     ) {
       setEnableForm(false);
     }
@@ -341,12 +340,22 @@ export default function DialogForm2(props) {
         </div>
         <div className="save-btn">
           <DialogActions>
-            <Button onClick={props.handleClose} color="primary">
-              Cancelar
-            </Button>
+            {!enableForm ? (
+              ""
+            ) : (
+              <Button onClick={props.handleClose} color="primary">
+                Cancelar
+              </Button>
+            )}
+
             <Button
               color="primary"
               onClick={() => {
+                if (!enableForm) {
+                  props.handleClose();
+
+                  return;
+                }
                 console.log(item);
                 if (
                   answers1 === undefined ||
@@ -360,10 +369,12 @@ export default function DialogForm2(props) {
                   );
                   return;
                 }
+
                 console.log(answers1, answers2, answers3, answers4, answers5);
+                toast.success("Formulário salvo com sucesso!");
               }}
             >
-              Salvar
+              {!enableForm ? "Sair" : "Salvar"}
             </Button>
           </DialogActions>
         </div>
