@@ -96,6 +96,32 @@ export default function DialogForm1(props) {
     console.log(item);
   }, [props.seqRec]);
 
+  const handlePost = async (
+    recNum,
+    vehicle,
+    trailer,
+    seal,
+    sealInput,
+    cleaning
+  ) => {
+    try {
+      const body = { recNum, vehicle, trailer, seal, sealInput, cleaning };
+      const response = await fetch(
+        "http://192.168.2.39:1106/post/vehicle-information/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Token: localStorage.token.toString(),
+          },
+          body: JSON.stringify(body),
+        }
+      );
+      const parseRes = await response.json();
+      console.log(parseRes);
+    } catch (error) {}
+  };
+
   return (
     <div>
       <Dialog open={props.isOpen} aria-labelledby="form-dialog-title">
@@ -402,6 +428,14 @@ export default function DialogForm1(props) {
               }
               toast.success("Registros salvos com sucesso");
               console.log(vehicleValues);
+              handlePost(
+                props.seqRec.codRec,
+                vehicleValues.vehicle,
+                vehicleValues.trailer,
+                vehicleValues.seal,
+                sealNum,
+                vehicleValues.cleaning
+              );
               setTimeout(() => {
                 setPost(true);
               }, 1000);

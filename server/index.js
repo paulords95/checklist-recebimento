@@ -12,6 +12,8 @@ app.use("/auth", require("./routes/soap-auth"));
 
 app.use("/item", require("./routes/searchChecklist"));
 
+app.use("/post", require("./routes/postChecklist"));
+
 app.listen(process.env.PORT, () => {
   console.log(`server running at port ${process.env.PORT}`);
 });
