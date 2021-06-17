@@ -392,7 +392,7 @@ export default function DialogForm1(props) {
           </>
         )}
         <DialogActions>
-          {post ? (
+          {post || !allowForm ? (
             ""
           ) : (
             <Button onClick={props.handleClose} color="primary">
@@ -442,7 +442,7 @@ export default function DialogForm1(props) {
             }}
             color="primary"
           >
-            {post ? "Sair" : "Salvar"}
+            {post || !allowForm ? "Sair" : "Salvar"}
           </Button>
         </DialogActions>
       </Dialog>

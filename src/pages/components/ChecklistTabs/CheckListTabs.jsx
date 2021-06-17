@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 import DialogForm1 from "../Dialog/Dialog";
+import DialogForm2 from "../Dialog-form2/dialog-form2";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CheckListTabs(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
   const classes = useStyles();
 
   return (
@@ -22,25 +24,38 @@ export default function CheckListTabs(props) {
       <Typography component="h4" variant="h5">
         Selecione o formulário a ser preenchido
       </Typography>
-      <DialogForm1
-        isOpen={open}
-        handleClose={() => setOpen(false)}
+      <DialogForm2
+        isOpen2={open1}
+        handleClose={() => setOpen1(false)}
         seqRec={props.seqRec}
       />
-      <Button variant="contained" color="primary" id="1" onClick={() => {}}>
-        Conferência geral do produto recebido e condições do veículo condutor
-      </Button>
+      <DialogForm1
+        isOpen={open2}
+        handleClose={() => setOpen2(false)}
+        seqRec={props.seqRec}
+      />
+
       <Button
         variant="contained"
         color="primary"
         id="2"
         onClick={() => {
-          setOpen(true);
-          props.onClickBtnTransVehicle();
+          setOpen2(true);
         }}
       >
         Meio de Transporte
       </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        id="1"
+        onClick={() => {
+          setOpen1(true);
+        }}
+      >
+        Conferência geral do produto recebido e condições do veículo condutor
+      </Button>
+
       <Button
         variant="contained"
         color="primary"

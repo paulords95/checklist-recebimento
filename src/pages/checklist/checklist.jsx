@@ -125,7 +125,6 @@ const CheckList = ({ setAuth }) => {
             {renderItem ? (
               <ChecklistTabs
                 seqRec={itemInfoValid}
-                onClickBtnTransVehicle={() => {}}
                 onClickBtn={(e) => {
                   if (e.currentTarget.id === "1") {
                     console.log("First Dialog");

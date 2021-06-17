@@ -20,7 +20,6 @@ const formatDate = (date) => {
 
 router.post("/vehicle-information/", authorization, async (req, res) => {
   try {
-    console.log(req.body);
     const { recNum, cleaning, sealInput, seal, trailer, vehicle } = req.body;
 
     const sql =
