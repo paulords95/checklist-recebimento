@@ -24,16 +24,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DialogForm2(props) {
   const classes = useStyles();
+  const [answers1, setAnswers1] = useState();
+  const [answers2, setAnswers2] = useState();
+  const [answers3, setAnswers3] = useState();
+  const [answers4, setAnswers4] = useState();
+  const [answers5, setAnswers5] = useState();
+  const [enableForm, setEnableForm] = useState(true);
   const [item, setItem] = useState({
-    tipVei: "",
-    tipCar: "",
-    posLac: "",
-    nroLac: "",
-    lpzVei: "",
+    answer1: "",
+    answer2: "",
+    answer3: "",
+    answer4: "",
+    answer5: "",
   });
 
   useEffect(() => {
-    console.log(props.seqRec);
+    setItem({
+      answer1: props.seqRec.quesOne,
+      answer2: props.seqRec.quesTwo,
+      answer3: props.seqRec.quesThree,
+      answer4: props.seqRec.quesFour,
+      answer5: props.seqRec.quesFive,
+    });
+    if (
+      props.seqRec.quesOne > 0 &&
+      props.seqRec.quesTwo > 0 &&
+      props.seqRec.quesThree > 0 &&
+      props.seqRec.quesFour > 0 &&
+      props.seqRec.quesFive > 0
+    ) {
+      setEnableForm(false);
+    }
   }, [props.seqRec]);
 
   return (
@@ -43,10 +64,18 @@ export default function DialogForm2(props) {
           Conferência geral do produto recebido e condições do veículo condutor
           | Nº Recebimento: {props.seqRec.codRec}
         </DialogTitle>
+        {!enableForm ? (
+          <Alert severity="warning">
+            O formulário para o recebimento nº {props.seqRec.codRec} já foi
+            preenchido previamente!
+          </Alert>
+        ) : (
+          ""
+        )}
         <div>
           <DialogContent>
             <DialogContentText>
-              Os lacres encontram-se íntegros, sem evidências de violações e
+              1. Os lacres encontram-se íntegros, sem evidências de violações e
               correspondem ao informado na nota fiscal?
             </DialogContentText>
             <RadioBtn
@@ -57,8 +86,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Sim"
                       value="Sim"
+                      disabled={item.answer1 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers1(1);
+                      }}
                     />
                     <label htmlFor="Sim">Sim</label>
                   </div>
@@ -67,8 +99,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Não"
                       value="Não"
+                      disabled={item.answer1 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers1(2);
+                      }}
                     />
                     <label htmlFor="Não">Não</label>
                   </div>
@@ -78,7 +113,10 @@ export default function DialogForm2(props) {
                       id="Não aplicável"
                       value="Não aplicável"
                       name="clean"
-                      onChange={() => {}}
+                      disabled={item.answer1 > 0 ? true : false}
+                      onChange={() => {
+                        setAnswers1(3);
+                      }}
                     />
                     <label htmlFor="Não">Não aplicável</label>
                   </div>
@@ -90,7 +128,7 @@ export default function DialogForm2(props) {
         <div>
           <DialogContent>
             <DialogContentText>
-              Existem evidências de focos de umidade e presença de sujeira na
+              2. Existem evidências de focos de umidade e presença de sujeira na
               carroceria do veículo ou interior do container?
             </DialogContentText>
             <RadioBtn
@@ -101,8 +139,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Sim"
                       value="Sim"
+                      disabled={item.answer2 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers2(1);
+                      }}
                     />
                     <label htmlFor="Sim">Sim</label>
                   </div>
@@ -111,8 +152,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Não"
                       value="Não"
+                      disabled={item.answer2 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers2(2);
+                      }}
                     />
                     <label htmlFor="Não">Não</label>
                   </div>
@@ -121,8 +165,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Não aplicável"
                       value="Não aplicável"
+                      disabled={item.answer2 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers2(3);
+                      }}
                     />
                     <label htmlFor="Não">Não aplicável</label>
                   </div>
@@ -134,8 +181,9 @@ export default function DialogForm2(props) {
         <div>
           <DialogContent>
             <DialogContentText>
-              Existem evidências de que o veículo foi utilizado para transporte
-              de animais, dejetos de animais ou de subprodutos de origem animal?
+              3. Existem evidências de que o veículo foi utilizado para
+              transporte de animais, dejetos de animais ou de subprodutos de
+              origem animal?
             </DialogContentText>
             <RadioBtn
               input={
@@ -145,8 +193,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Sim"
                       value="Sim"
+                      disabled={item.answer3 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers3(1);
+                      }}
                     />
                     <label htmlFor="Sim">Sim</label>
                   </div>
@@ -156,7 +207,10 @@ export default function DialogForm2(props) {
                       id="Não"
                       value="Não"
                       name="clean"
-                      onChange={() => {}}
+                      disabled={item.answer3 > 0 ? true : false}
+                      onChange={() => {
+                        setAnswers3(2);
+                      }}
                     />
                     <label htmlFor="Não">Não</label>
                   </div>
@@ -166,7 +220,10 @@ export default function DialogForm2(props) {
                       id="Não aplicável"
                       value="Não aplicável"
                       name="clean"
-                      onChange={() => {}}
+                      disabled={item.answer3 > 0 ? true : false}
+                      onChange={() => {
+                        setAnswers3(3);
+                      }}
                     />
                     <label htmlFor="Não">Não aplicável</label>
                   </div>
@@ -179,7 +236,7 @@ export default function DialogForm2(props) {
         <div>
           <DialogContent>
             <DialogContentText>
-              Existem evidências de que o veículo transportou pesticidas,
+              4. Existem evidências de que o veículo transportou pesticidas,
               herbicidas, inseticidas ou outras substâncias químicas com
               potencial de contaminação?
             </DialogContentText>
@@ -191,8 +248,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Sim"
                       value="Sim"
+                      disabled={item.answer4 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers4(1);
+                      }}
                     />
                     <label htmlFor="Sim">Sim</label>
                   </div>
@@ -202,7 +262,10 @@ export default function DialogForm2(props) {
                       id="Não"
                       value="Não"
                       name="clean"
-                      onChange={() => {}}
+                      disabled={item.answer4 > 0 ? true : false}
+                      onChange={() => {
+                        setAnswers4(2);
+                      }}
                     />
                     <label htmlFor="Não">Não</label>
                   </div>
@@ -211,8 +274,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Não aplicável"
                       value="Não aplicável"
+                      disabled={item.answer4 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers4(3);
+                      }}
                     />
                     <label htmlFor="Não">Não aplicável</label>
                   </div>
@@ -224,7 +290,7 @@ export default function DialogForm2(props) {
         <div style={{ paddingBottom: 10 }}>
           <DialogContent>
             <DialogContentText>
-              Estava chovendo no momento do carregamento?
+              5. Estava chovendo no momento do carregamento?
             </DialogContentText>
             <RadioBtn
               input={
@@ -234,8 +300,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Sim"
                       value="Sim"
+                      disabled={item.answer5 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers5(1);
+                      }}
                     />
                     <label htmlFor="Sim">Sim</label>
                   </div>
@@ -245,7 +314,10 @@ export default function DialogForm2(props) {
                       id="Não"
                       value="Não"
                       name="clean"
-                      onChange={() => {}}
+                      disabled={item.answer5 > 0 ? true : false}
+                      onChange={() => {
+                        setAnswers5(2);
+                      }}
                     />
                     <label htmlFor="Não">Não</label>
                   </div>
@@ -254,8 +326,11 @@ export default function DialogForm2(props) {
                       type="radio"
                       id="Não aplicável"
                       value="Não aplicável"
+                      disabled={item.answer5 > 0 ? true : false}
                       name="clean"
-                      onChange={() => {}}
+                      onChange={() => {
+                        setAnswers5(3);
+                      }}
                     />
                     <label htmlFor="Não">Não aplicável</label>
                   </div>
@@ -269,7 +344,27 @@ export default function DialogForm2(props) {
             <Button onClick={props.handleClose} color="primary">
               Cancelar
             </Button>
-            <Button color="primary">Salvar</Button>
+            <Button
+              color="primary"
+              onClick={() => {
+                console.log(item);
+                if (
+                  answers1 === undefined ||
+                  answers2 === undefined ||
+                  answers3 === undefined ||
+                  answers4 === undefined ||
+                  answers5 === undefined
+                ) {
+                  toast.error(
+                    "É necessário responder todas as perguntas para finalizar o formulário!"
+                  );
+                  return;
+                }
+                console.log(answers1, answers2, answers3, answers4, answers5);
+              }}
+            >
+              Salvar
+            </Button>
           </DialogActions>
         </div>
       </Dialog>

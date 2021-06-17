@@ -93,7 +93,6 @@ export default function DialogForm1(props) {
         setSealNum(props.seqRec.nroLac);
       }
     }
-    console.log(item);
   }, [props.seqRec]);
 
   const handlePost = async (
