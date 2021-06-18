@@ -63,4 +63,45 @@ router.post("/vehicle-and-product/", authorization, async (req, res) => {
   }
 });
 
+router.post("/product-conditions/", authorization, async (req, res) => {
+  try {
+    const { seqRec } = req.body;
+
+    const sql = "select * from usu_t159 where usu_codrec = :seqRec";
+
+    const selectRow = await db(sql, seqRec);
+
+    const products = [];
+    if (selectRow.rows) {
+      if (selectRow.rows.length > 0) {
+        for (let row of selectRow.rows) {
+          products.push({
+            USU_CODREC: row[0],
+            USU_SEQPRO: row[1],
+            USU_CODPRO: row[2],
+            USU_CODDER: row[3],
+            USU_LOTFOR: row[4],
+            USU_CODLOT: row[5],
+            USU_DATVAL: row[6],
+            USU_NUMNFC: row[7],
+            USU_CODFOR: row[8],
+            USU_UNIMED: row[9],
+            USU_QTDREC: row[10],
+            USU_B1: row[11],
+            USU_B2: row[12],
+            USU_B3: row[13],
+            USU_B4: row[14],
+            USU_IDEPRO: row[15],
+            USU_ACAIME: row[16],
+            USU_OUTAIM: row[17],
+          });
+        }
+      }
+    }
+    res.json(products);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 module.exports = router;
