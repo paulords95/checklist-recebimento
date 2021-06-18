@@ -117,7 +117,6 @@ export default function DialogForm1(props) {
         }
       );
       const parseRes = await response.json();
-      console.log(parseRes);
     } catch (error) {}
   };
 
@@ -133,7 +132,7 @@ export default function DialogForm1(props) {
         ) : (
           <Alert severity="warning">
             O formulário para o recebimento nº {props.seqRec.codRec} já foi
-            preenchido previamente!
+            preenchido!
           </Alert>
         )}
         {post ? (
@@ -144,250 +143,260 @@ export default function DialogForm1(props) {
         ) : (
           <>
             {" "}
-            <DialogContent>
-              <DialogContentText>Veículo</DialogContentText>
-              <RadioBtn
-                input={
-                  <form className="radio-form" disabled>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Caminhão"
-                        value={vehicleValues.vehicle}
-                        disabled={props.seqRec.tipVei > 0 ? true : false}
-                        name="truck"
-                        // checked={item.tipVei === 1 ? true : allowForm}
-                        onChange={() => {
-                          handleVehicleValue("1");
-                        }}
-                      />
-                      <label htmlFor="Caminhão">Caminhão</label>
-                    </div>
+            <div>
+              <DialogContent>
+                <DialogContentText>Veículo</DialogContentText>
+                <RadioBtn
+                  input={
+                    <form className="radio-form" disabled>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Caminhão"
+                          value={vehicleValues.vehicle}
+                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          name="truck"
+                          // checked={item.tipVei === 1 ? true : allowForm}
+                          onChange={() => {
+                            handleVehicleValue("1");
+                          }}
+                        />
+                        <label htmlFor="Caminhão">Caminhão</label>
+                      </div>
 
-                    <div>
-                      <input
-                        type="radio"
-                        id="Van"
-                        value="Van"
-                        disabled={props.seqRec.tipVei > 0 ? true : false}
-                        name="truck"
-                        //checked={item.tipVei === 2 ? true : allowForm}
-                        onChange={() => {
-                          handleVehicleValue("2");
-                        }}
-                      />
-                      <label htmlFor="Van">Van</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Pickup fechada"
-                        disabled={props.seqRec.tipVei > 0 ? true : false}
-                        value="Pickup fechada"
-                        name="truck"
-                        // checked={item.tipVei === 3 ? true : allowForm}
-                        onChange={() => {
-                          handleVehicleValue("3");
-                        }}
-                      />
-                      <label htmlFor="Pickup fechada">Pickup fechada</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Outro"
-                        value="Outro"
-                        name="truck"
-                        disabled={props.seqRec.tipVei > 0 ? true : false}
-                        // checked={item.tipVei === 4 ? true : allowForm}
-                        onChange={() => {
-                          handleVehicleValue("4");
-                        }}
-                      />
-                      <label htmlFor="Outro">Outro</label>
-                    </div>
-                  </form>
-                }
-              />
-            </DialogContent>
-            <DialogContent>
-              <DialogContentText>Tipo de Carroceria</DialogContentText>
-              <RadioBtn
-                input={
-                  <form className="radio-form">
-                    <div>
-                      <input
-                        type="radio"
-                        id="Baú/sider"
-                        value="Baú/sider"
-                        name="trailer"
-                        disabled={props.seqRec.tipCar > 0 ? true : false}
-                        //checked={item.tipCar === 1 ? true : allowForm}
-                        onChange={() => {
-                          handleTrailerValue("1");
-                        }}
-                      />
-                      <label htmlFor="Baú/sider">Baú/sider</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Enlonado"
-                        disabled={props.seqRec.tipCar > 0 ? true : false}
-                        //checked={item.tipCar === 2 ? true : allowForm}
-                        value="Enlonado"
-                        name="trailer"
-                        onChange={() => {
-                          handleTrailerValue("2");
-                        }}
-                      />
-                      <label htmlFor="Enlonado">Enlonado</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Container"
-                        value="Container"
-                        disabled={props.seqRec.tipCar > 0 ? true : false}
-                        //checked={item.tipCar === 3 ? true : allowForm}
-                        name="trailer"
-                        onChange={() => {
-                          handleTrailerValue("3");
-                        }}
-                      />
-                      <label htmlFor="Container">Container</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Outro"
-                        disabled={props.seqRec.tipCar > 0 ? true : false}
-                        //checked={item.tipCar === 4 ? true : allowForm}
-                        value="Outro"
-                        name="trailer"
-                        onChange={() => {
-                          handleTrailerValue("4");
-                        }}
-                      />
-                      <label htmlFor="Outro">Outro</label>
-                    </div>
-                  </form>
-                }
-              />
-            </DialogContent>
-            <DialogContent>
-              <DialogContentText>Lacre</DialogContentText>
-              <RadioBtn
-                input={
-                  <form className="radio-form">
-                    <div>
-                      <input
-                        type="radio"
-                        id="Sim"
-                        value="Sim"
-                        name="lacre"
-                        disabled={props.seqRec.posLac > 0 ? true : false}
-                        //checked={item.posLac === 1 ? true : allowForm}
-                        onChange={() => {
-                          setSealEnable(false);
-                          handleSealValue("1");
-                        }}
-                      />
-                      <label htmlFor="Sim">Sim</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Não"
-                        value="Não"
-                        disabled={props.seqRec.posLac > 0 ? true : false}
-                        //checked={item.posLac === 2 ? true : allowForm}
-                        name="lacre"
-                        onChange={() => {
-                          setSealEnable(true);
-                          setSealNum("");
-                          handleSealValue("2");
-                        }}
-                      />
-                      <label htmlFor="Não">Não</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Não aplicável"
-                        value="Não aplicável"
-                        disabled={props.seqRec.posLac > 0 ? true : false}
-                        //checked={item.posLac === 3 ? true : allowForm}
-                        name="lacre"
-                        onChange={() => {
-                          setSealEnable(true);
-                          setSealNum("");
-                          handleSealValue("3");
-                        }}
-                      />
-                      <label htmlFor="Não aplicável">Não aplicável</label>
-                    </div>
-                    <div>
-                      <label htmlFor="Nº Lacre">Nº Lacre: </label>
-                      <input
-                        type="text"
-                        id="Nº Lacre"
-                        name="lacre"
-                        disabled={sealEnable}
-                        onChange={(e) => {
-                          setVehiclesValues({
-                            vehicle: vehicleValues.vehicle,
-                            trailer: vehicleValues.trailer,
-                            seal: vehicleValues.seal,
-                            numSeal: e.target.value,
-                            cleaning: vehicleValues.cleaning,
-                          });
-                          setSealNum(e.target.value);
-                        }}
-                        value={sealNum}
-                      />
-                    </div>
-                  </form>
-                }
-              />
-            </DialogContent>
-            <DialogContent>
-              <DialogContentText>Condições de Limpeza</DialogContentText>
-              <RadioBtn
-                input={
-                  <form className="radio-form">
-                    <div>
-                      <input
-                        type="radio"
-                        id="Satisfatório"
-                        value="Satisfatório"
-                        disabled={props.seqRec.lpzVei > 0 ? true : false}
-                        //checked={item.lpzVei === 1 ? true : allowForm}
-                        name="clean"
-                        onChange={() => {
-                          handleCleaningValue("1");
-                        }}
-                      />
-                      <label htmlFor="Satisfatório">Satisfatório</label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="Não satisfatório"
-                        disabled={props.seqRec.lpzVei > 0 ? true : false}
-                        //checked={item.lpzVei === 2 ? true : allowForm}
-                        value="Não satisfatório"
-                        name="clean"
-                        onChange={() => {
-                          handleCleaningValue("2");
-                        }}
-                      />
-                      <label htmlFor="Não satisfatório">Não satisfatório</label>
-                    </div>
-                  </form>
-                }
-              />
-            </DialogContent>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Van"
+                          value="Van"
+                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          name="truck"
+                          //checked={item.tipVei === 2 ? true : allowForm}
+                          onChange={() => {
+                            handleVehicleValue("2");
+                          }}
+                        />
+                        <label htmlFor="Van">Van</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Pickup fechada"
+                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          value="Pickup fechada"
+                          name="truck"
+                          // checked={item.tipVei === 3 ? true : allowForm}
+                          onChange={() => {
+                            handleVehicleValue("3");
+                          }}
+                        />
+                        <label htmlFor="Pickup fechada">Pickup fechada</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Outro"
+                          value="Outro"
+                          name="truck"
+                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          // checked={item.tipVei === 4 ? true : allowForm}
+                          onChange={() => {
+                            handleVehicleValue("4");
+                          }}
+                        />
+                        <label htmlFor="Outro">Outro</label>
+                      </div>
+                    </form>
+                  }
+                />
+              </DialogContent>
+            </div>
+            <div>
+              <DialogContent>
+                <DialogContentText>Tipo de Carroceria</DialogContentText>
+                <RadioBtn
+                  input={
+                    <form className="radio-form">
+                      <div>
+                        <input
+                          type="radio"
+                          id="Baú/sider"
+                          value="Baú/sider"
+                          name="trailer"
+                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          //checked={item.tipCar === 1 ? true : allowForm}
+                          onChange={() => {
+                            handleTrailerValue("1");
+                          }}
+                        />
+                        <label htmlFor="Baú/sider">Baú/sider</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Enlonado"
+                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          //checked={item.tipCar === 2 ? true : allowForm}
+                          value="Enlonado"
+                          name="trailer"
+                          onChange={() => {
+                            handleTrailerValue("2");
+                          }}
+                        />
+                        <label htmlFor="Enlonado">Enlonado</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Container"
+                          value="Container"
+                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          //checked={item.tipCar === 3 ? true : allowForm}
+                          name="trailer"
+                          onChange={() => {
+                            handleTrailerValue("3");
+                          }}
+                        />
+                        <label htmlFor="Container">Container</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Outro"
+                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          //checked={item.tipCar === 4 ? true : allowForm}
+                          value="Outro"
+                          name="trailer"
+                          onChange={() => {
+                            handleTrailerValue("4");
+                          }}
+                        />
+                        <label htmlFor="Outro">Outro</label>
+                      </div>
+                    </form>
+                  }
+                />
+              </DialogContent>
+            </div>
+            <div>
+              <DialogContent>
+                <DialogContentText>Lacre</DialogContentText>
+                <RadioBtn
+                  input={
+                    <form className="radio-form">
+                      <div>
+                        <input
+                          type="radio"
+                          id="Sim"
+                          value="Sim"
+                          name="lacre"
+                          disabled={props.seqRec.posLac > 0 ? true : false}
+                          //checked={item.posLac === 1 ? true : allowForm}
+                          onChange={() => {
+                            setSealEnable(false);
+                            handleSealValue("1");
+                          }}
+                        />
+                        <label htmlFor="Sim">Sim</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Não"
+                          value="Não"
+                          disabled={props.seqRec.posLac > 0 ? true : false}
+                          //checked={item.posLac === 2 ? true : allowForm}
+                          name="lacre"
+                          onChange={() => {
+                            setSealEnable(true);
+                            setSealNum("");
+                            handleSealValue("2");
+                          }}
+                        />
+                        <label htmlFor="Não">Não</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Não aplicável"
+                          value="Não aplicável"
+                          disabled={props.seqRec.posLac > 0 ? true : false}
+                          //checked={item.posLac === 3 ? true : allowForm}
+                          name="lacre"
+                          onChange={() => {
+                            setSealEnable(true);
+                            setSealNum("");
+                            handleSealValue("3");
+                          }}
+                        />
+                        <label htmlFor="Não aplicável">Não aplicável</label>
+                      </div>
+                      <div>
+                        <label htmlFor="Nº Lacre">Nº Lacre: </label>
+                        <input
+                          type="text"
+                          id="Nº Lacre"
+                          name="lacre"
+                          disabled={sealEnable}
+                          onChange={(e) => {
+                            setVehiclesValues({
+                              vehicle: vehicleValues.vehicle,
+                              trailer: vehicleValues.trailer,
+                              seal: vehicleValues.seal,
+                              numSeal: e.target.value,
+                              cleaning: vehicleValues.cleaning,
+                            });
+                            setSealNum(e.target.value);
+                          }}
+                          value={sealNum}
+                        />
+                      </div>
+                    </form>
+                  }
+                />
+              </DialogContent>
+            </div>
+            <div>
+              <DialogContent>
+                <DialogContentText>Condições de Limpeza</DialogContentText>
+                <RadioBtn
+                  input={
+                    <form className="radio-form">
+                      <div>
+                        <input
+                          type="radio"
+                          id="Satisfatório"
+                          value="Satisfatório"
+                          disabled={props.seqRec.lpzVei > 0 ? true : false}
+                          //checked={item.lpzVei === 1 ? true : allowForm}
+                          name="clean"
+                          onChange={() => {
+                            handleCleaningValue("1");
+                          }}
+                        />
+                        <label htmlFor="Satisfatório">Satisfatório</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="Não satisfatório"
+                          disabled={props.seqRec.lpzVei > 0 ? true : false}
+                          //checked={item.lpzVei === 2 ? true : allowForm}
+                          value="Não satisfatório"
+                          name="clean"
+                          onChange={() => {
+                            handleCleaningValue("2");
+                          }}
+                        />
+                        <label htmlFor="Não satisfatório">
+                          Não satisfatório
+                        </label>
+                      </div>
+                    </form>
+                  }
+                />
+              </DialogContent>
+            </div>
           </>
         )}
         <DialogActions>
@@ -426,7 +435,6 @@ export default function DialogForm1(props) {
                 return;
               }
               toast.success("Registros salvos com sucesso");
-              console.log(vehicleValues);
               handlePost(
                 props.seqRec.codRec,
                 vehicleValues.vehicle,

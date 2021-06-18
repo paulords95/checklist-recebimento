@@ -44,10 +44,6 @@ export default function OutlinedCard(props) {
         </div>
         <div className="sub-info">
           <div>
-            Cód. de Registro:
-            <span className={classes.bold}>{props.codReg}</span>
-          </div>
-          <div>
             Revisão:<span className={classes.bold}>{props.codRev}</span>
           </div>
           <div>
