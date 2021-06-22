@@ -91,7 +91,7 @@ const Products = (props) => {
 
           <Button
             onClick={() => {
-              console.log(productsList[0]);
+              console.log(currentProduct);
             }}
             color="primary"
           >

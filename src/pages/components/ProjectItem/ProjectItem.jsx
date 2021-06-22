@@ -17,13 +17,17 @@ const ProductItem = (props) => {
           Lote Interno: <div className="item-info">{props.lotCod}</div>
         </div>
         <div className="subtitle">
-          Fornecedor: <div className="item-info">{props.forCod}</div>
+          Fornecedor:{" "}
+          <div className="item-info">
+            {props.forCod.toLocaleString("pt-BR")}
+          </div>
         </div>
         <div className="subtitle">
           Validade: <div className="item-info">{props.valid}</div>
         </div>
         <div className="subtitle">
-          NF: <div className="item-info">{props.nf}</div>
+          NF:{" "}
+          <div className="item-info">{props.nf.toLocaleString("pt-BR")}</div>
         </div>
         {/*<div className="subtitle">
           Unid. de Medida: <div className="item-info">{props.measureUnit}</div>
@@ -31,7 +35,7 @@ const ProductItem = (props) => {
         <div className="subtitle">
           Quantidade:{" "}
           <div className="item-info">
-            {props.quantity} {props.measureUnit}
+            {props.quantity.toLocaleString("pt-BR")} {props.measureUnit}
           </div>
         </div>
       </div>
