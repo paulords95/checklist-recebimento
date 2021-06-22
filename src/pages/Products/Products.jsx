@@ -50,6 +50,7 @@ const Products = (props) => {
     );
     const itemData = await response.json();
     setProductsList(itemData);
+    setCurrentProduct(itemData[0]);
   };
 
   useEffect(() => {
@@ -65,7 +66,16 @@ const Products = (props) => {
         </DialogTitle>
         <div>
           <DialogContent>
-            <ProductItem productNum={currentProduct.USU_CODPRO} />
+            <ProductItem
+              productNum={currentProduct.USU_CODPRO}
+              lotCod={currentProduct.USU_CODLOT}
+              forCod={currentProduct.USU_CODFOR}
+              forLot={currentProduct.USU_LOTFOR}
+              valid={currentProduct.USU_DATVAL}
+              nf={currentProduct.USU_NUMNFC}
+              measureUnit={currentProduct.USU_UNIMED}
+              quantity={currentProduct.USU_QTDREC}
+            />
           </DialogContent>
         </div>
         <Pagination
