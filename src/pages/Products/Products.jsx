@@ -7,6 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { toast } from "react-toastify";
 import Alert from "@material-ui/lab/Alert";
+import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
 
 import ProductItem from "../components/ProjectItem/ProjectItem";
@@ -31,6 +32,12 @@ const useStyles = makeStyles({
 const Products = (props) => {
   const classes = useStyles();
   const [productsList, setProductsList] = useState([]);
+  const [page, setPage] = React.useState(1);
+  const [currentProduct, setCurrentProduct] = useState([]);
+  const handleChange = (event, value) => {
+    setPage(value);
+    setCurrentProduct(productsList[value - 1]);
+  };
 
   const fetchProducts = async () => {
     const response = await fetch(
@@ -58,16 +65,14 @@ const Products = (props) => {
         </DialogTitle>
         <div>
           <DialogContent>
-            {productsList.map((product) => {
-              return (
-                <ProductItem
-                  key={product.USU_CODPRO}
-                  productNum={product.USU_CODPRO}
-                />
-              );
-            })}
+            <ProductItem productNum={currentProduct.USU_CODPRO} />
           </DialogContent>
         </div>
+        <Pagination
+          count={productsList.length}
+          onChange={handleChange}
+          shape="rounded"
+        />
 
         <DialogActions>
           <Button onClick={props.handleClose} color="primary">
