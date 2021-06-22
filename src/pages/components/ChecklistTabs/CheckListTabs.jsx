@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 
 import DialogForm1 from "../Dialog/Dialog";
 import DialogForm2 from "../Dialog-form2/dialog-form2";
+import Producs from "../../Products/Products";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CheckListTabs(props) {
   const [open1, setOpen1] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
   const classes = useStyles();
 
   return (
@@ -34,7 +36,11 @@ export default function CheckListTabs(props) {
         handleClose={() => setOpen2(false)}
         seqRec={props.seqRec}
       />
-
+      <Producs
+        isOpen3={open3}
+        handleClose={() => setOpen3(false)}
+        seqRec={props.seqRec}
+      />
       <Button
         variant="contained"
         color="primary"
@@ -60,7 +66,9 @@ export default function CheckListTabs(props) {
         variant="contained"
         color="primary"
         id="3"
-        onClick={props.onClickBtn}
+        onClick={() => {
+          setOpen3(true);
+        }}
       >
         Avaliação do Produto
       </Button>

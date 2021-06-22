@@ -31,7 +31,7 @@ const CheckList = ({ setAuth }) => {
     setItemInfo("");
     setItemLoading(true);
     const response = await fetch(
-      `http://192.168.2.39:1106/item/search/chklst=${itemSeq}`,
+      `http://192.168.2.69:1106/item/search/chklst=${itemSeq}`,
       {
         headers: {
           Token: localStorage.token.toString(),

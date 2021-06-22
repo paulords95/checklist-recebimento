@@ -89,7 +89,7 @@ export default function LoginPage({ setAuth }) {
     try {
       setOpen(true);
       const body = { user, password };
-      const response = await fetch("http://192.168.2.39:1106/auth/login", {
+      const response = await fetch("http://192.168.2.69:1106/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

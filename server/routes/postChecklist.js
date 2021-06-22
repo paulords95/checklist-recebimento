@@ -85,7 +85,7 @@ router.get(
               USU_CODDER: row[3],
               USU_LOTFOR: row[4],
               USU_CODLOT: row[5],
-              USU_DATVAL: row[6],
+              USU_DATVAL: formatDate(row[6]),
               USU_NUMNFC: row[7],
               USU_CODFOR: row[8],
               USU_UNIMED: row[9],

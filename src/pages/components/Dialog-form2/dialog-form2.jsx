@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DialogForm2(props) {
-  const classes = useStyles();
   const [answers1, setAnswers1] = useState();
   const [answers2, setAnswers2] = useState();
   const [answers3, setAnswers3] = useState();
@@ -61,7 +60,7 @@ export default function DialogForm2(props) {
     try {
       const body = { seqRec, form1, form2, form3, form4, form5 };
       const response = await fetch(
-        "http://192.168.2.39:1106/post/vehicle-and-product/",
+        "http://192.168.2.69:1106/post/vehicle-and-product/",
         {
           method: "POST",
           headers: {
