@@ -3,6 +3,8 @@ import Typography from "@material-ui/core/Typography";
 
 import "./projectitem.css";
 
+import ProjectForm from "../ProductForm/ProductForm";
+
 const ProductItem = (props) => {
   return (
     <div className="product-item-wrap">
@@ -39,7 +41,9 @@ const ProductItem = (props) => {
           </div>
         </div>
       </div>
-      <div className="form">Questions</div>
+      <div className="form">
+        <ProjectForm />
+      </div>
       <div className="product-identification">Identificação do Produto:</div>
       <div className="product-action">Ação Imediata:</div>
     </div>

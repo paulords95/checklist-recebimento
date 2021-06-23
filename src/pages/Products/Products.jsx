@@ -91,7 +91,7 @@ const Products = (props) => {
 
           <Button
             onClick={() => {
-              console.log(currentProduct);
+              toast.warning("Prod: " + currentProduct.USU_CODPRO);
             }}
             color="primary"
           >
