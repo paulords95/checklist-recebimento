@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./productform.css";
 
-const ProjectForm = () => {
+const ProjectForm = (props) => {
+  const [currentProduct, setCurrentProduct] = useState([]);
+
+  useEffect(() => {
+    setCurrentProduct(props.productObj);
+  }, [props.productObj]);
+
   return (
     <div>
       <form className="radio-form-product">
@@ -16,7 +22,9 @@ const ProjectForm = () => {
               id="Sim"
               value="Sim"
               name="clean"
-              onChange={() => {}}
+              onChange={() => {
+                console.log(currentProduct);
+              }}
             />
             <label htmlFor="Sim">Sim</label>
           </div>
@@ -26,7 +34,9 @@ const ProjectForm = () => {
               id="Não"
               value="Não"
               name="clean"
-              onChange={() => {}}
+              onChange={() => {
+                console.log(currentProduct);
+              }}
             />
             <label htmlFor="Não">Não</label>
           </div>
@@ -36,7 +46,9 @@ const ProjectForm = () => {
               id="Não aplicável"
               value="Não aplicável"
               name="clean"
-              onChange={() => {}}
+              onChange={() => {
+                console.log(currentProduct);
+              }}
             />
             <label htmlFor="Não">Não aplicável</label>
           </div>

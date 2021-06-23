@@ -67,6 +67,7 @@ const Products = (props) => {
         <div>
           <DialogContent>
             <ProductItem
+              productObj={currentProduct}
               productNum={currentProduct.USU_CODPRO}
               lotCod={currentProduct.USU_CODLOT}
               forCod={currentProduct.USU_CODFOR}

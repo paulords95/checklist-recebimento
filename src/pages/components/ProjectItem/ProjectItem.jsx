@@ -42,7 +42,7 @@ const ProductItem = (props) => {
         </div>
       </div>
       <div className="form">
-        <ProjectForm />
+        <ProjectForm productObj={props.productObj} />
       </div>
       <div className="product-identification">Identificação do Produto:</div>
       <div className="product-action">Ação Imediata:</div>
