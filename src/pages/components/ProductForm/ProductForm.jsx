@@ -5,15 +5,21 @@ import "./productform.css";
 
 const ProjectForm = (props) => {
   const [currentProduct, setCurrentProduct] = useState([]);
-  const [answer1, setAnswer1] = useState();
-  const [answer2, setAnswer2] = useState();
-  const [answer3, setAnswer3] = useState();
-  const [answer4, setAnswer4] = useState();
-  const [answer5, setAnswer5] = useState();
-  const [answer6, setAnswer6] = useState();
+  const [answer1, setAnswer1] = useState(0);
+  const [answer2, setAnswer2] = useState(0);
+  const [answer3, setAnswer3] = useState(0);
+  const [answer4, setAnswer4] = useState(0);
+  const [answer5, setAnswer5] = useState(0);
+  const [answer6, setAnswer6] = useState(0);
 
   useEffect(() => {
     setCurrentProduct(props.productObj);
+    setAnswer1(0);
+    setAnswer2(0);
+    setAnswer3(0);
+    setAnswer4(0);
+    setAnswer5(0);
+    setAnswer6(0);
   }, [props.productObj]);
 
   return (
@@ -25,10 +31,11 @@ const ProjectForm = (props) => {
         <div className="radios">
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Sim"
-              value="Sim"
               name="clean"
+              value={answer1}
+              checked={answer1 === 1 ? true : false}
               onChange={() => {
                 setAnswer1(1);
               }}
@@ -37,9 +44,10 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não"
-              value="Não"
+              value={answer1}
+              checked={answer1 === 2 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer1(2);
@@ -49,10 +57,11 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não aplicável"
-              value="Não aplicável"
+              value={answer1}
               name="clean"
+              checked={answer1 === 3 ? true : false}
               onChange={() => {
                 setAnswer1(3);
               }}
@@ -66,9 +75,10 @@ const ProjectForm = (props) => {
         <div className="radios">
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Sim"
-              value="Sim"
+              value={answer2}
+              checked={answer2 === 1 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer2(1);
@@ -78,9 +88,10 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não"
-              value="Não"
+              value={answer2}
+              checked={answer2 === 2 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer2(2);
@@ -90,9 +101,10 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não aplicável"
-              value="Não aplicável"
+              value={answer2}
+              checked={answer2 === 3 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer2(3);
@@ -111,9 +123,10 @@ const ProjectForm = (props) => {
         <div className="radios">
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Sim"
-              value="Sim"
+              value={answer3}
+              checked={answer3 === 1 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(1);
@@ -123,9 +136,10 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não"
-              value="Não"
+              value={answer3}
+              checked={answer3 === 2 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(2);
@@ -135,9 +149,10 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não aplicável"
-              value="Não aplicável"
+              value={answer3}
+              checked={answer3 === 3 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(3);
@@ -155,9 +170,10 @@ const ProjectForm = (props) => {
         <div className="radios">
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Sim"
-              value="Sim"
+              value={answer4}
+              checked={answer4 === 1 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(1);
@@ -167,9 +183,10 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não"
-              value="Não"
+              value={answer4}
+              checked={answer4 === 2 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(2);
@@ -179,9 +196,10 @@ const ProjectForm = (props) => {
           </div>
           <div>
             <input
-              type="radio"
+              type="checkbox"
               id="Não aplicável"
-              value="Não aplicável"
+              value={answer4}
+              checked={answer4 === 3 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(3);
@@ -205,9 +223,10 @@ const ProjectForm = (props) => {
           <div className="radios">
             <div>
               <input
-                type="radio"
+                type="checkbox"
                 id="Sim"
-                value="Sim"
+                value={answer5}
+                checked={answer5 === 1 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer5(1);
@@ -217,9 +236,10 @@ const ProjectForm = (props) => {
             </div>
             <div>
               <input
-                type="radio"
+                type="checkbox"
                 id="Não"
-                value="Não"
+                value={answer5}
+                checked={answer5 === 2 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer5(2);
@@ -234,9 +254,10 @@ const ProjectForm = (props) => {
           <div className="radios">
             <div>
               <input
-                type="radio"
+                type="checkbox"
                 id="Sim"
-                value="Sim"
+                value={answer6}
+                checked={answer6 === 1 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(1);
@@ -246,9 +267,10 @@ const ProjectForm = (props) => {
             </div>
             <div>
               <input
-                type="radio"
+                type="checkbox"
                 id="Não"
-                value="Não"
+                value={answer6}
+                checked={answer6 === 2 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(2);
@@ -258,9 +280,10 @@ const ProjectForm = (props) => {
             </div>
             <div>
               <input
-                type="radio"
+                type="checkbox"
                 id="Não aplicável"
-                value="Não aplicável"
+                value={answer6}
+                checked={answer6 === 3 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(3);
