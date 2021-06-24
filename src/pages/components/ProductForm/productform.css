@@ -15,3 +15,11 @@
   text-align: start;
   padding-bottom: 5px;
 }
+
+.product-identification {
+  font-weight: 600;
+}
+
+.product-action {
+  font-weight: 600;
+}
