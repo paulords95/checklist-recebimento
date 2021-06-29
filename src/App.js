@@ -31,7 +31,6 @@ function App() {
         },
       });
       const parseRes = await response.json();
-      console.log(parseRes);
       parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (error) {
       console.error(error.message);

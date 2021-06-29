@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
+import { toast } from "react-toastify";
 
 import "./productform.css";
 
@@ -38,6 +39,9 @@ const ProjectForm = (props) => {
               checked={answer1 === 1 ? true : false}
               onChange={() => {
                 setAnswer1(1);
+                if (answer1 != 2) {
+                  setAnswer2(0);
+                }
               }}
             />
             <label htmlFor="Sim">Sim</label>
@@ -51,22 +55,12 @@ const ProjectForm = (props) => {
               name="clean"
               onChange={() => {
                 setAnswer1(2);
+                if (answer1 != 2) {
+                  setAnswer2(0);
+                }
               }}
             />
             <label htmlFor="Não">Não</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="Não aplicável"
-              value={answer1}
-              name="clean"
-              checked={answer1 === 3 ? true : false}
-              onChange={() => {
-                setAnswer1(3);
-              }}
-            />
-            <label htmlFor="Não">Não aplicável</label>
           </div>
         </div>
       </form>
@@ -78,6 +72,7 @@ const ProjectForm = (props) => {
               type="checkbox"
               id="Sim"
               value={answer2}
+              disabled={answer1 == 1 ? false : true}
               checked={answer2 === 1 ? true : false}
               name="clean"
               onChange={() => {
@@ -91,6 +86,7 @@ const ProjectForm = (props) => {
               type="checkbox"
               id="Não"
               value={answer2}
+              disabled={answer1 == 1 ? false : true}
               checked={answer2 === 2 ? true : false}
               name="clean"
               onChange={() => {
@@ -104,6 +100,7 @@ const ProjectForm = (props) => {
               type="checkbox"
               id="Não aplicável"
               value={answer2}
+              disabled={answer1 == 1 ? false : true}
               checked={answer2 === 3 ? true : false}
               name="clean"
               onChange={() => {
