@@ -12,6 +12,7 @@ const ProjectForm = (props) => {
   const [answer4, setAnswer4] = useState(0);
   const [answer5, setAnswer5] = useState(0);
   const [answer6, setAnswer6] = useState(0);
+  const [post, setPost] = useState(false);
 
   useEffect(() => {
     setCurrentProduct(props.productObj);
@@ -22,6 +23,79 @@ const ProjectForm = (props) => {
     setAnswer5(0);
     setAnswer6(0);
   }, [props.productObj]);
+
+  const handleProduct = async (
+    b1,
+    b2,
+    b3,
+    b4,
+    idepro,
+    acaime,
+    outaim,
+    codrec,
+    seqpro
+  ) => {
+    try {
+      const body = { b1, b2, b3, b4, idepro, acaime, outaim, codrec, seqpro };
+      const response = await fetch(
+        "http://192.168.2.69:1106/product/update-answers",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Token: localStorage.token.toString(),
+          },
+          body: JSON.stringify(body),
+        }
+      );
+      const parseRes = await response.json();
+      if (parseRes) {
+        toast.success("Registro salvo");
+        setPost(true);
+      } else {
+        toast.error(parseRes);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (answer1 < 1 && currentProduct.USU_B1 <= 0) {
+      toast.error("Responda o item nº 1");
+      return;
+    }
+    if (answer2 < 1 && currentProduct.USU_B2 <= 0 && answer1 === 1) {
+      toast.error("Responda o item nº 2");
+      return;
+    }
+    if (answer3 < 1 && currentProduct.USU_B3 <= 0) {
+      toast.error("Responda o item nº 3");
+      return;
+    }
+    if (answer4 < 1 && currentProduct.USU_B4 <= 0) {
+      toast.error("Responda o item nº 4");
+      return;
+    }
+    if (answer5 < 1 && currentProduct.USU_IDEPRO <= 0) {
+      toast.error("Responda o item Identificação do Produto");
+      return;
+    }
+
+    handleProduct(
+      answer1,
+      answer2,
+      answer3,
+      answer4,
+      answer5,
+      answer6,
+      "sd",
+      currentProduct.USU_CODREC,
+      currentProduct.USU_SEQPRO
+    );
+
+    console.log(answer1, answer2, answer3, answer4, answer5, answer6);
+  };
 
   return (
     <div>
@@ -37,6 +111,7 @@ const ProjectForm = (props) => {
               name="clean"
               value={answer1}
               checked={answer1 === 1 ? true : false}
+              disabled={currentProduct.USU_B1 > 0 ? true : false}
               onChange={() => {
                 setAnswer1(1);
                 if (answer1 != 2) {
@@ -52,6 +127,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer1}
               checked={answer1 === 2 ? true : false}
+              disabled={currentProduct.USU_B1 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer1(2);
@@ -124,6 +200,7 @@ const ProjectForm = (props) => {
               id="Sim"
               value={answer3}
               checked={answer3 === 1 ? true : false}
+              disabled={currentProduct.USU_B3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(1);
@@ -137,6 +214,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer3}
               checked={answer3 === 2 ? true : false}
+              disabled={currentProduct.USU_B3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(2);
@@ -150,6 +228,7 @@ const ProjectForm = (props) => {
               id="Não aplicável"
               value={answer3}
               checked={answer3 === 3 ? true : false}
+              disabled={currentProduct.USU_B3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(3);
@@ -171,6 +250,7 @@ const ProjectForm = (props) => {
               id="Sim"
               value={answer4}
               checked={answer4 === 1 ? true : false}
+              disabled={currentProduct.USU_B4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(1);
@@ -184,6 +264,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer4}
               checked={answer4 === 2 ? true : false}
+              disabled={currentProduct.USU_B4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(2);
@@ -197,6 +278,7 @@ const ProjectForm = (props) => {
               id="Não aplicável"
               value={answer4}
               checked={answer4 === 3 ? true : false}
+              disabled={currentProduct.USU_B4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(3);
@@ -224,6 +306,7 @@ const ProjectForm = (props) => {
                 id="Sim"
                 value={answer5}
                 checked={answer5 === 1 ? true : false}
+                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer5(1);
@@ -237,6 +320,7 @@ const ProjectForm = (props) => {
                 id="Não"
                 value={answer5}
                 checked={answer5 === 2 ? true : false}
+                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer5(2);
@@ -255,6 +339,7 @@ const ProjectForm = (props) => {
                 id="Sim"
                 value={answer6}
                 checked={answer6 === 1 ? true : false}
+                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(1);
@@ -268,6 +353,7 @@ const ProjectForm = (props) => {
                 id="Não"
                 value={answer6}
                 checked={answer6 === 2 ? true : false}
+                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(2);
@@ -281,6 +367,7 @@ const ProjectForm = (props) => {
                 id="Não aplicável"
                 value={answer6}
                 checked={answer6 === 3 ? true : false}
+                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(3);
@@ -291,21 +378,7 @@ const ProjectForm = (props) => {
           </div>
         </form>
       </div>
-      <Button
-        onClick={() => {
-          console.log(
-            currentProduct.USU_CODPRO,
-            answer1,
-            answer2,
-            answer3,
-            answer4,
-            answer5,
-            answer6
-          );
-        }}
-      >
-        Salvar
-      </Button>
+      <Button onClick={handleSubmit}>Salvar</Button>
     </div>
   );
 };
