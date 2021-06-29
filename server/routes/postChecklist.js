@@ -75,13 +75,17 @@ router.get(
       const selectRow = await db(sql, seqRec);
 
       const products = [];
+
       if (selectRow.rows) {
         if (selectRow.rows.length > 0) {
           for (let row of selectRow.rows) {
+            const prodname = await db(
+              `SELECT DESPRO FROM E075PRO WHERE CODPRO = ${row[2]}`
+            );
             products.push({
               USU_CODREC: row[0],
               USU_SEQPRO: row[1],
-              USU_CODPRO: row[2],
+              USU_CODPRO: prodname.rows[0][0],
               USU_CODDER: row[3],
               USU_LOTFOR: row[4],
               USU_CODLOT: row[5],
