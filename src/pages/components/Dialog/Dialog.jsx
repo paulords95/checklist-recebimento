@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 
+import ENDPOINT from "../../../utils/endpoint";
+
 import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
@@ -106,7 +108,7 @@ export default function DialogForm1(props) {
     try {
       const body = { recNum, vehicle, trailer, seal, sealInput, cleaning };
       const response = await fetch(
-        "http://192.168.2.69:1106/post/vehicle-information/",
+        `${ENDPOINT.ENDPOINT}/post/vehicle-information/`,
         {
           method: "POST",
           headers: {

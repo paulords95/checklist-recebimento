@@ -12,6 +12,7 @@ import Checklist from "./pages/checklist/checklist";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ENDPOINT } from "./utils/endpoint";
 
 toast.configure();
 
@@ -24,7 +25,7 @@ function App() {
 
   const isAuth = async () => {
     try {
-      const response = await fetch("http://192.168.2.69:1106/auth/is-verify", {
+      const response = await fetch(`${ENDPOINT.ENDPOINT}/auth/is-verify`, {
         method: "GET",
         headers: {
           Token: localStorage.token.toString(),

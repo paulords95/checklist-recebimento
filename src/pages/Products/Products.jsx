@@ -10,6 +10,8 @@ import Alert from "@material-ui/lab/Alert";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
 
+import ENDPOINT from "../../utils/endpoint";
+
 import ProductItem from "../components/ProjectItem/ProjectItem";
 
 const useStyles = makeStyles({
@@ -41,7 +43,7 @@ const Products = (props) => {
 
   const fetchProducts = async () => {
     const response = await fetch(
-      `http://192.168.2.69:1106/post/product-conditions/seq=${props.seqRec.codRec}`,
+      `${ENDPOINT.ENDPOINT}/post/product-conditions/seq=${props.seqRec.codRec}`,
       {
         headers: {
           Token: localStorage.token.toString(),

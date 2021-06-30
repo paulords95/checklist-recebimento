@@ -12,6 +12,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 
+import ENDPOINT from "../../utils/endpoint";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -89,7 +91,7 @@ export default function LoginPage({ setAuth }) {
     try {
       setOpen(true);
       const body = { user, password };
-      const response = await fetch("http://192.168.2.69:1106/auth/login", {
+      const response = await fetch(`${ENDPOINT.ENDPOINT}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

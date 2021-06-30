@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import "./dialog-form2.css";
 
+import ENDPOINT from "../../../utils/endpoint";
+
 import RadioBtn from "../RadioBtn/RadioBtn";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +62,7 @@ export default function DialogForm2(props) {
     try {
       const body = { seqRec, form1, form2, form3, form4, form5 };
       const response = await fetch(
-        "http://192.168.2.69:1106/post/vehicle-and-product/",
+        `${ENDPOINT.ENDPOINT}/post/vehicle-and-product/`,
         {
           method: "POST",
           headers: {

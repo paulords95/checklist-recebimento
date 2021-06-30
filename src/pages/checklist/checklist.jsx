@@ -7,6 +7,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./checklist.css";
 
+import ENDPOINT from "../../utils/endpoint";
+
 import ChecklistTabs from "../components/ChecklistTabs/CheckListTabs";
 import OutlinedCard from "../components/Card/Card";
 
@@ -31,7 +33,7 @@ const CheckList = ({ setAuth }) => {
     setItemInfo("");
     setItemLoading(true);
     const response = await fetch(
-      `http://192.168.2.69:1106/item/search/chklst=${itemSeq}`,
+      `${ENDPOINT.ENDPOINT}/item/search/chklst=${itemSeq}`,
       {
         headers: {
           Token: localStorage.token.toString(),

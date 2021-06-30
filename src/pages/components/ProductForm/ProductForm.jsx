@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
 import { toast } from "react-toastify";
 
+import ENDPOINT from "../../../utils/endpoint";
+
 import "./productform.css";
 
 const ProjectForm = (props) => {
@@ -39,7 +41,7 @@ const ProjectForm = (props) => {
     try {
       const body = { b1, b2, b3, b4, idepro, acaime, outaim, codrec, seqpro };
       const response = await fetch(
-        "http://192.168.2.69:1106/product/update-answers",
+        `${ENDPOINT.ENDPOINT}/product/update-answers`,
         {
           method: "POST",
           headers: {
