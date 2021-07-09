@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { toast } from "react-toastify";
 import Alert from "@material-ui/lab/Alert";
@@ -35,7 +34,16 @@ const Products = (props) => {
   const classes = useStyles();
   const [productsList, setProductsList] = useState([]);
   const [page, setPage] = React.useState(1);
-  const [currentProduct, setCurrentProduct] = useState([]);
+  const [currentProduct, setCurrentProduct] = useState({
+    USU_CODPRO: 0,
+    USU_CODLOT: "",
+    USU_CODFOR: "",
+    USU_LOTFOR: "",
+    USU_DATVAL: "",
+    USU_NUMNFC: "",
+    USU_UNIMED: "",
+    USU_QTDREC: "",
+  });
   const handleChange = (event, value) => {
     setPage(value);
     setCurrentProduct(productsList[value - 1]);
@@ -68,17 +76,21 @@ const Products = (props) => {
         </DialogTitle>
         <div>
           <DialogContent>
-            <ProductItem
-              productObj={currentProduct}
-              productNum={currentProduct.USU_CODPRO}
-              lotCod={currentProduct.USU_CODLOT}
-              forCod={currentProduct.USU_CODFOR}
-              forLot={currentProduct.USU_LOTFOR}
-              valid={currentProduct.USU_DATVAL}
-              nf={currentProduct.USU_NUMNFC}
-              measureUnit={currentProduct.USU_UNIMED}
-              quantity={currentProduct.USU_QTDREC}
-            />
+            {currentProduct ? (
+              <ProductItem
+                productObj={currentProduct}
+                productNum={currentProduct.USU_CODPRO}
+                lotCod={currentProduct.USU_CODLOT}
+                forCod={currentProduct.USU_CODFOR}
+                forLot={currentProduct.USU_LOTFOR}
+                valid={currentProduct.USU_DATVAL}
+                nf={currentProduct.USU_NUMNFC}
+                measureUnit={currentProduct.USU_UNIMED}
+                quantity={currentProduct.USU_QTDREC}
+              />
+            ) : (
+              <div>Não há produtos cadastrados</div>
+            )}
           </DialogContent>
         </div>
         <Pagination

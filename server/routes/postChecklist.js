@@ -73,7 +73,6 @@ router.get(
       const sql = "select * from usu_t159 where usu_codrec = :seqRec";
 
       const selectRow = await db(sql, seqRec);
-
       const products = [];
 
       if (selectRow.rows) {
@@ -103,6 +102,9 @@ router.get(
               USU_OUTAIM: row[17],
             });
           }
+        }
+        {
+          products.push(false);
         }
       }
       res.json(products);
