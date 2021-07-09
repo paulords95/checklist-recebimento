@@ -71,7 +71,7 @@ const Products = (props) => {
     <div>
       <Dialog open={props.isOpen3} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
-          Meio de Transporte | Nº Recebimento:{" "}
+          Produtos | Nº Recebimento:{" "}
           {props.seqRec.codRec ? <span>{props.seqRec.codRec}</span> : ""}
         </DialogTitle>
         <div>
@@ -94,7 +94,7 @@ const Products = (props) => {
           </DialogContent>
         </div>
         <Pagination
-          count={productsList.length}
+          count={productsList.length - 1}
           onChange={handleChange}
           shape="rounded"
         />
