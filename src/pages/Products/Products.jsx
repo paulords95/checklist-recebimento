@@ -66,7 +66,7 @@ const Products = (props) => {
           </DialogContent>
         </div>
         <Pagination
-          count={productsList.length}
+          count={productsList.length - 1}
           onChange={handleChange}
           shape="rounded"
         />

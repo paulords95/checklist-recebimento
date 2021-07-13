@@ -19,16 +19,15 @@ const formatDate = (date) => {
 };
 
 router.get(
-  "/check-answers/rec=:codrec&prod=:codpro",
+  "/check-answers/rec=:codrec&prod=:seqpro",
   authorization,
   async (req, res) => {
     try {
-      const { codrec, codpro } = req.params;
-      console.log(req.params);
+      const { codrec, seqpro } = req.params;
       const sql =
-        "select usu_b1, usu_b2, usu_b3, usu_b4, usu_idepro, usu_acaime from usu_t159 where usu_codrec = :codrec AND usu_codpro = :codpro";
+        "select usu_b1, usu_b2, usu_b3, usu_b4, usu_idepro,  usu_acaime ,usu_codpro from usu_t159 where usu_codrec = :codrec AND usu_seqpro = :seqpro";
 
-      const result = await db(sql, codrec, codpro);
+      const result = await db(sql, codrec, seqpro);
       const response = [];
 
       if (result.rows) {
@@ -40,6 +39,7 @@ router.get(
             usu_b4: result.rows[0][3],
             usu_idepro: result.rows[0][4],
             usu_acaime: result.rows[0][5],
+            usu_codpro: result.rows[0][6],
           });
         }
       }

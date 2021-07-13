@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import { toast } from "react-toastify";
 
@@ -15,6 +16,8 @@ const ProjectForm = (props) => {
   const [answer5, setAnswer5] = useState(0);
   const [answer6, setAnswer6] = useState(0);
   const [post, setPost] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [answersFromDb, setAnswersFromDb] = useState([]);
 
   useEffect(() => {
     setCurrentProduct(props.productObj);
@@ -25,16 +28,20 @@ const ProjectForm = (props) => {
     setAnswer4(0);
     setAnswer5(0);
     setAnswer6(0);
-  }, [props.productObj]);
+    if (answersFromDb.usu_b1 > 0) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [props.productObj, answersFromDb]);
 
   useEffect(() => {
     (async () => {
       const codrec = currentProduct.USU_CODREC;
-      const codpro = currentProduct.USU_CODPRO;
 
       try {
         const response = await fetch(
-          `${ENDPOINT.ENDPOINT}/product/check-answers/rec=${codrec}&prod=${codpro}`,
+          `${ENDPOINT.ENDPOINT}/product/check-answers/rec=${codrec}&prod=${currentProduct.USU_SEQPRO}`,
           {
             headers: {
               Token: localStorage.token.toString(),
@@ -42,11 +49,12 @@ const ProjectForm = (props) => {
           }
         );
         const itemData = await response.json();
-        console.log(itemData);
+        setAnswersFromDb(itemData);
       } catch (error) {}
     })();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProduct]);
+  }, [currentProduct.USU_SEQPRO, post]);
 
   const handleProduct = async (
     b1,
@@ -85,7 +93,6 @@ const ProjectForm = (props) => {
   };
 
   const handleSubmit = () => {
-    console.log(post);
     if (answer1 < 1 && currentProduct.USU_B1 <= 0) {
       toast.error("Responda o item nº 1");
       return;
@@ -118,12 +125,19 @@ const ProjectForm = (props) => {
       currentProduct.USU_CODREC,
       currentProduct.USU_SEQPRO
     );
-
-    console.log(answer1, answer2, answer3, answer4, answer5, answer6);
   };
 
   return (
     <div>
+      <div>
+        {showAlert ? (
+          <Alert severity="warning">
+            O formulário de produtos já foi preenchido!
+          </Alert>
+        ) : (
+          ""
+        )}
+      </div>
       <form className="radio-form-product">
         <div>
           1. É obrigatório a apresentação de laudo/certificado de análise?
@@ -136,7 +150,7 @@ const ProjectForm = (props) => {
               name="clean"
               value={answer1}
               checked={answer1 === 1 ? true : false}
-              disabled={currentProduct.USU_B1 > 0 ? true : false}
+              disabled={answersFromDb.usu_b1 > 0 ? true : false}
               onChange={() => {
                 setAnswer1(1);
                 if (answer1 !== 2) {
@@ -152,7 +166,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer1}
               checked={answer1 === 2 ? true : false}
-              disabled={currentProduct.USU_B1 > 0 ? true : false}
+              disabled={answersFromDb.usu_b1 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer1(2);
@@ -225,7 +239,7 @@ const ProjectForm = (props) => {
               id="Sim"
               value={answer3}
               checked={answer3 === 1 ? true : false}
-              disabled={currentProduct.USU_B3 > 0 ? true : false}
+              disabled={answersFromDb.usu_b3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(1);
@@ -239,7 +253,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer3}
               checked={answer3 === 2 ? true : false}
-              disabled={currentProduct.USU_B3 > 0 ? true : false}
+              disabled={answersFromDb.usu_b3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(2);
@@ -253,7 +267,7 @@ const ProjectForm = (props) => {
               id="Não aplicável"
               value={answer3}
               checked={answer3 === 3 ? true : false}
-              disabled={currentProduct.USU_B3 > 0 ? true : false}
+              disabled={answersFromDb.usu_b3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(3);
@@ -275,7 +289,7 @@ const ProjectForm = (props) => {
               id="Sim"
               value={answer4}
               checked={answer4 === 1 ? true : false}
-              disabled={currentProduct.USU_B4 > 0 ? true : false}
+              disabled={answersFromDb.usu_b4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(1);
@@ -289,7 +303,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer4}
               checked={answer4 === 2 ? true : false}
-              disabled={currentProduct.USU_B4 > 0 ? true : false}
+              disabled={answersFromDb.usu_b4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(2);
@@ -303,7 +317,7 @@ const ProjectForm = (props) => {
               id="Não aplicável"
               value={answer4}
               checked={answer4 === 3 ? true : false}
-              disabled={currentProduct.USU_B4 > 0 ? true : false}
+              disabled={answersFromDb.usu_b4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(3);
@@ -331,7 +345,7 @@ const ProjectForm = (props) => {
                 id="Sim"
                 value={answer5}
                 checked={answer5 === 1 ? true : false}
-                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
+                disabled={answersFromDb.usu_idepro > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer5(1);
@@ -345,7 +359,7 @@ const ProjectForm = (props) => {
                 id="Não"
                 value={answer5}
                 checked={answer5 === 2 ? true : false}
-                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
+                disabled={answersFromDb.usu_idepro > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer5(2);
@@ -364,7 +378,7 @@ const ProjectForm = (props) => {
                 id="Sim"
                 value={answer6}
                 checked={answer6 === 1 ? true : false}
-                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
+                disabled={answersFromDb.usu_idepro > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(1);
@@ -378,7 +392,7 @@ const ProjectForm = (props) => {
                 id="Não"
                 value={answer6}
                 checked={answer6 === 2 ? true : false}
-                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
+                disabled={answersFromDb.usu_idepro > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(2);
@@ -392,7 +406,7 @@ const ProjectForm = (props) => {
                 id="Não aplicável"
                 value={answer6}
                 checked={answer6 === 3 ? true : false}
-                disabled={currentProduct.USU_IDEPRO > 0 ? true : false}
+                disabled={answersFromDb.usu_idepro > 0 ? true : false}
                 name="clean"
                 onChange={() => {
                   setAnswer6(3);
