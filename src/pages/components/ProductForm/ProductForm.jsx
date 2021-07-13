@@ -332,6 +332,7 @@ const ProjectForm = (props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
+          paddingBottom: "10px",
         }}
       >
         <form className="radio-form-product">
@@ -417,7 +418,24 @@ const ProjectForm = (props) => {
           </div>
         </form>
       </div>
-      <Button onClick={handleSubmit}>Salvar</Button>
+      <div style={{ marginBottom: "10px" }}>
+        <Button
+          type="submit"
+          halfWidth
+          variant="contained"
+          color="primary"
+          disabled={showAlert}
+          onClick={() => {
+            if (showAlert) {
+              toast.warning("O formário para este produto já foi preenchido!");
+            } else {
+              handleSubmit();
+            }
+          }}
+        >
+          Salvar Item
+        </Button>
+      </div>
     </div>
   );
 };

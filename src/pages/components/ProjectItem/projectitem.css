@@ -1,7 +1,7 @@
 .product-item-wrap {
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .product-info {
@@ -22,7 +22,7 @@
 
 .form {
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 10px;
   border: 1px solid grey;
   width: 100%;
   height: max-content;
