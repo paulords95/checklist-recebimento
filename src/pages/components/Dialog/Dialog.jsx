@@ -7,24 +7,13 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { toast } from "react-toastify";
 import Alert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core/styles";
 
 import ENDPOINT from "../../../utils/endpoint";
 
 import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
-
 export default function DialogForm1(props) {
-  const classes = useStyles();
   const [item, setItem] = useState({
     tipVei: "",
     tipCar: "",
@@ -95,6 +84,7 @@ export default function DialogForm1(props) {
         setSealNum(props.seqRec.nroLac);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.seqRec]);
 
   const handlePost = async (
@@ -118,7 +108,7 @@ export default function DialogForm1(props) {
           body: JSON.stringify(body),
         }
       );
-      const parseRes = await response.json();
+      console.log(response);
     } catch (error) {}
   };
 
@@ -411,6 +401,7 @@ export default function DialogForm1(props) {
           )}
           <Button
             onClick={() => {
+              console.log(item);
               if (!allowForm || post) {
                 props.handleClose();
 
@@ -428,7 +419,7 @@ export default function DialogForm1(props) {
                 toast.error("Informe o tipo de lacre");
                 return;
               }
-              if (vehicleValues.seal == 1 && sealNum < 1) {
+              if (vehicleValues.seal === 1 && sealNum < 1) {
                 toast.error("Informe o nº do lacre");
                 return;
               }

@@ -12,7 +12,7 @@ import Checklist from "./pages/checklist/checklist";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ENDPOINT } from "./utils/endpoint";
+import ENDPOINT from "./utils/endpoint";
 
 toast.configure();
 
@@ -32,13 +32,13 @@ function App() {
         },
       });
       const parseRes = await response.json();
+      console.log(await parseRes);
       parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (error) {
       console.error(error.message);
     }
   };
   useEffect(() => {
-    console.log(localStorage.token);
     isAuth();
   }, []);
 

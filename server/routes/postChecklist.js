@@ -84,7 +84,8 @@ router.get(
             products.push({
               USU_CODREC: row[0],
               USU_SEQPRO: row[1],
-              USU_CODPRO: prodname.rows[0][0],
+              USU_CODPRO: row[2],
+              USU_NOMPRO: prodname.rows[0][0],
               USU_CODDER: row[3],
               USU_LOTFOR: row[4],
               USU_CODLOT: row[5],

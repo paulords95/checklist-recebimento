@@ -7,22 +7,12 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { toast } from "react-toastify";
 import Alert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core/styles";
 
 import "./dialog-form2.css";
 
 import ENDPOINT from "../../../utils/endpoint";
 
 import RadioBtn from "../RadioBtn/RadioBtn";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
 
 export default function DialogForm2(props) {
   const [answers1, setAnswers1] = useState();

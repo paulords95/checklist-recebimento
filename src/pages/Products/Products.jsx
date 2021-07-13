@@ -5,66 +5,36 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { toast } from "react-toastify";
-import Alert from "@material-ui/lab/Alert";
 import Pagination from "@material-ui/lab/Pagination";
-import { makeStyles } from "@material-ui/core/styles";
 
 import ENDPOINT from "../../utils/endpoint";
 
 import ProductItem from "../components/ProjectItem/ProjectItem";
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
-
 const Products = (props) => {
-  const classes = useStyles();
   const [productsList, setProductsList] = useState([]);
-  const [page, setPage] = React.useState(1);
-  const [currentProduct, setCurrentProduct] = useState({
-    USU_CODPRO: 0,
-    USU_CODLOT: "",
-    USU_CODFOR: "",
-    USU_LOTFOR: "",
-    USU_DATVAL: "",
-    USU_NUMNFC: "",
-    USU_UNIMED: "",
-    USU_QTDREC: "",
-  });
+  const [currentProduct, setCurrentProduct] = useState();
   const handleChange = (event, value) => {
-    setPage(value);
     setCurrentProduct(productsList[value - 1]);
   };
 
-  const fetchProducts = async () => {
-    const response = await fetch(
-      `${ENDPOINT.ENDPOINT}/post/product-conditions/seq=${props.seqRec.codRec}`,
-      {
-        headers: {
-          Token: localStorage.token.toString(),
-        },
-      }
-    );
-    const itemData = await response.json();
-    setProductsList(itemData);
-    setCurrentProduct(itemData[0]);
-  };
-
   useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch(
+        `${ENDPOINT.ENDPOINT}/post/product-conditions/seq=${props.seqRec.codRec}`,
+        {
+          headers: {
+            Token: localStorage.token.toString(),
+          },
+        }
+      );
+      const itemData = await response.json();
+      setProductsList(itemData);
+      setCurrentProduct(itemData[0]);
+    };
+
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -78,8 +48,10 @@ const Products = (props) => {
           <DialogContent>
             {currentProduct ? (
               <ProductItem
+                codrec={props.seqRec.codRec.toString()}
                 productObj={currentProduct}
                 productNum={currentProduct.USU_CODPRO}
+                productName={currentProduct.USU_NOMPRO}
                 lotCod={currentProduct.USU_CODLOT}
                 forCod={currentProduct.USU_CODFOR}
                 forLot={currentProduct.USU_LOTFOR}
@@ -94,7 +66,7 @@ const Products = (props) => {
           </DialogContent>
         </div>
         <Pagination
-          count={productsList.length - 1}
+          count={productsList.length}
           onChange={handleChange}
           shape="rounded"
         />

@@ -18,6 +18,39 @@ const formatDate = (date) => {
   return formatBr;
 };
 
+router.get(
+  "/check-answers/rec=:codrec&prod=:codpro",
+  authorization,
+  async (req, res) => {
+    try {
+      const { codrec, codpro } = req.params;
+      console.log(req.params);
+      const sql =
+        "select usu_b1, usu_b2, usu_b3, usu_b4, usu_idepro, usu_acaime from usu_t159 where usu_codrec = :codrec AND usu_codpro = :codpro";
+
+      const result = await db(sql, codrec, codpro);
+      const response = [];
+
+      if (result.rows) {
+        for (let i of result.rows) {
+          response.push({
+            usu_b1: result.rows[0][0],
+            usu_b2: result.rows[0][1],
+            usu_b3: result.rows[0][2],
+            usu_b4: result.rows[0][3],
+            usu_idepro: result.rows[0][4],
+            usu_acaime: result.rows[0][5],
+          });
+        }
+      }
+
+      res.json(response[0]);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+);
+
 router.post("/update-answers/", authorization, async (req, res) => {
   try {
     const { b1, b2, b3, b4, idepro, acaime, outaim, codrec, seqpro } = req.body;

@@ -9,7 +9,7 @@ const ProductItem = (props) => {
     <div className="product-item-wrap">
       <div className="product-info">
         <div className="subtitle">
-          Produto: <div className="item-info">{props.productNum}</div>
+          Produto: <div className="item-info">{props.productName}</div>
         </div>
         <div className="subtitle">
           Lote Fornecedor: <div className="item-info">{props.forLot}</div>

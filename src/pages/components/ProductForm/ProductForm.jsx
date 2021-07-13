@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
-import Alert from "@material-ui/lab/Alert";
 import { toast } from "react-toastify";
 
 import ENDPOINT from "../../../utils/endpoint";
@@ -19,6 +18,7 @@ const ProjectForm = (props) => {
 
   useEffect(() => {
     setCurrentProduct(props.productObj);
+
     setAnswer1(0);
     setAnswer2(0);
     setAnswer3(0);
@@ -26,6 +26,27 @@ const ProjectForm = (props) => {
     setAnswer5(0);
     setAnswer6(0);
   }, [props.productObj]);
+
+  useEffect(() => {
+    (async () => {
+      const codrec = currentProduct.USU_CODREC;
+      const codpro = currentProduct.USU_CODPRO;
+
+      try {
+        const response = await fetch(
+          `${ENDPOINT.ENDPOINT}/product/check-answers/rec=${codrec}&prod=${codpro}`,
+          {
+            headers: {
+              Token: localStorage.token.toString(),
+            },
+          }
+        );
+        const itemData = await response.json();
+        console.log(itemData);
+      } catch (error) {}
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProduct]);
 
   const handleProduct = async (
     b1,
@@ -64,6 +85,7 @@ const ProjectForm = (props) => {
   };
 
   const handleSubmit = () => {
+    console.log(post);
     if (answer1 < 1 && currentProduct.USU_B1 <= 0) {
       toast.error("Responda o item nº 1");
       return;
@@ -117,7 +139,7 @@ const ProjectForm = (props) => {
               disabled={currentProduct.USU_B1 > 0 ? true : false}
               onChange={() => {
                 setAnswer1(1);
-                if (answer1 != 2) {
+                if (answer1 !== 2) {
                   setAnswer2(0);
                 }
               }}
@@ -134,7 +156,7 @@ const ProjectForm = (props) => {
               name="clean"
               onChange={() => {
                 setAnswer1(2);
-                if (answer1 != 2) {
+                if (answer1 !== 2) {
                   setAnswer2(0);
                 }
               }}
@@ -151,7 +173,7 @@ const ProjectForm = (props) => {
               type="checkbox"
               id="Sim"
               value={answer2}
-              disabled={answer1 == 1 ? false : true}
+              disabled={answer1 === 1 ? false : true}
               checked={answer2 === 1 ? true : false}
               name="clean"
               onChange={() => {
@@ -165,7 +187,7 @@ const ProjectForm = (props) => {
               type="checkbox"
               id="Não"
               value={answer2}
-              disabled={answer1 == 1 ? false : true}
+              disabled={answer1 === 1 ? false : true}
               checked={answer2 === 2 ? true : false}
               name="clean"
               onChange={() => {
@@ -179,7 +201,7 @@ const ProjectForm = (props) => {
               type="checkbox"
               id="Não aplicável"
               value={answer2}
-              disabled={answer1 == 1 ? false : true}
+              disabled={answer1 === 1 ? false : true}
               checked={answer2 === 3 ? true : false}
               name="clean"
               onChange={() => {
