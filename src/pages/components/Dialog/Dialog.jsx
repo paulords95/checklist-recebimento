@@ -14,13 +14,7 @@ import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
 export default function DialogForm1(props) {
-  const [item, setItem] = useState({
-    tipVei: "",
-    tipCar: "",
-    posLac: "",
-    nroLac: "",
-    lpzVei: "",
-  });
+ 
   const [sealNum, setSealNum] = useState("");
   const [allowForm, setAllowForm] = useState(true);
   const [sealEnable, setSealEnable] = useState(true);
@@ -73,7 +67,6 @@ export default function DialogForm1(props) {
   };
 
   useEffect(() => {
-    setItem(props.seqRec);
     if (props.seqRec.tipVei > 0) {
       setAllowForm(false);
       handleVehicleValue(`${props.seqRec.tipVei}`);
@@ -97,7 +90,7 @@ export default function DialogForm1(props) {
   ) => {
     try {
       const body = { recNum, vehicle, trailer, seal, sealInput, cleaning };
-      const response = await fetch(
+      await fetch(
         `${ENDPOINT.ENDPOINT}/post/vehicle-information/`,
         {
           method: "POST",
@@ -108,7 +101,6 @@ export default function DialogForm1(props) {
           body: JSON.stringify(body),
         }
       );
-      console.log(response);
     } catch (error) {}
   };
 
@@ -401,7 +393,6 @@ export default function DialogForm1(props) {
           )}
           <Button
             onClick={() => {
-              console.log(item);
               if (!allowForm || post) {
                 props.handleClose();
 

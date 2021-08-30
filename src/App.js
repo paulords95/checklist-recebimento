@@ -7,7 +7,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import LoginPage from "./pages/login/Login";
+//import LoginPage from "./pages/login/Login";
+import LoginPage from "./pages/NoAuthLogin/NoAuthLogin";
 import Checklist from "./pages/checklist/checklist";
 
 import { toast } from "react-toastify";

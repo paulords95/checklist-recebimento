@@ -50,7 +50,9 @@ const ProjectForm = (props) => {
         );
         const itemData = await response.json();
         setAnswersFromDb(itemData);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

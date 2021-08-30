@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import DialogForm1 from "../Dialog/Dialog";
 import DialogForm2 from "../Dialog-form2/dialog-form2";
 import Producs from "../../Products/Products";
+import Observatons from '../../components/Observations/Observations'
+import Corrections from '../Corrections/Corrections'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +21,8 @@ export default function CheckListTabs(props) {
   const [open1, setOpen1] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
+  const [open5, setOpen5] = React.useState(false);
   const classes = useStyles();
 
   return (
@@ -39,6 +43,16 @@ export default function CheckListTabs(props) {
       <Producs
         isOpen3={open3}
         handleClose={() => setOpen3(false)}
+        seqRec={props.seqRec}
+      />
+      <Observatons
+        isOpen4={open4}
+        handleClose={() => setOpen4(false)}
+        seqRec={props.seqRec}
+      />
+      <Corrections
+        isOpen5={open5}
+        handleClose={() => setOpen5(false)}
         seqRec={props.seqRec}
       />
       <Button
@@ -71,6 +85,37 @@ export default function CheckListTabs(props) {
         }}
       >
         Avaliação do Produto
+      </Button>
+      <hr></hr>
+      <Button
+        variant="contained"
+        color="primary"
+        id="3"
+        onClick={() => {
+          setOpen4(true)
+        }}
+      >
+        Observações
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        id="3"
+        onClick={() => {
+          setOpen5(true)
+        }}
+      >
+        Ações Corretivas
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        id="3"
+        onClick={() => {
+
+        }}
+      >
+        Foto Caminhão
       </Button>
     </div>
   );

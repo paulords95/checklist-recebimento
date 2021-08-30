@@ -1,3 +1,3 @@
-const ENDPOINT = "http://192.168.2.39:1106";
+const ENDPOINT = "http://qcolaps02.quimtia.net.br:3008";
 
 exports.ENDPOINT = ENDPOINT;

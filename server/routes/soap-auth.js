@@ -5,11 +5,14 @@ require("dotenv").config();
 const jwtGen = require("../utils/jwtGen");
 const authorization = require("../middleware/authorization");
 
+
+const {SOAP_ENDPOINT} = require('../credentials')
+
 router.post("/login", async (req, res) => {
   try {
     const { user, password } = req.body;
 
-    soap.createClient(process.env.SOAP_ENDPOINT, function (err, client) {
+    soap.createClient(SOAP_ENDPOINT, function (err, client) {
       console.log(err);
       if (client) {
         client.GetUser(

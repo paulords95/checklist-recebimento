@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const {JWT_SECRET} = require('../credentials')
+
 module.exports = async (req, res, next) => {
   try {
     const jwtToken = req.header("token");
@@ -9,7 +11,7 @@ module.exports = async (req, res, next) => {
       return res.status(403).json(false);
     }
 
-    const payload = jwt.verify(jwtToken, process.env.JWT_SECRET);
+    const payload = jwt.verify(jwtToken, JWT_SECRET);
 
     req.user = payload.user;
 
