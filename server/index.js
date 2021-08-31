@@ -4,7 +4,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-const {PORT_DEV} = require('./credentials')
+const { PORT_DEV } = require("./credentials");
 
 app.use(cors());
 app.use(express.json());
@@ -18,7 +18,9 @@ app.use("/post", require("./routes/postChecklist"));
 
 app.use("/product", require("./routes/updateProduct"));
 
-app.use('/simple-auth', require('./routes/userLogin'))
+app.use("/simple-auth", require("./routes/userLogin"));
+
+app.use("/filled-item", require("./routes/checkFilledItem"));
 
 app.listen(PORT_DEV, () => {
   console.log(`server running at port ${PORT_DEV}`);
