@@ -51,7 +51,7 @@ const ProjectForm = (props) => {
         const itemData = await response.json();
         setAnswersFromDb(itemData);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     })();
 
@@ -180,8 +180,7 @@ const ProjectForm = (props) => {
             <label htmlFor="Não">Não</label>
           </div>
         </div>
-      </form>
-      <form className="radio-form-product">
+
         <div>2. O produto possui laudo/certificado de análise?</div>
         <div className="radios">
           <div>
@@ -227,8 +226,7 @@ const ProjectForm = (props) => {
             <label htmlFor="Não">Não aplicável</label>
           </div>
         </div>
-      </form>
-      <form className="radio-form-product">
+
         <div>
           3. Todas as embalagens estão devidamente identificadas e o número do
           lote, datas de fabricação e validade estão de acordo com o laudo
@@ -278,8 +276,7 @@ const ProjectForm = (props) => {
             <label htmlFor="Não">Não aplicável</label>
           </div>
         </div>
-      </form>
-      <form className="radio-form-product">
+
         <div>
           4. Existe a presença de embalagens furadas, rasgadas, molhadas ou
           sujas?
@@ -337,88 +334,83 @@ const ProjectForm = (props) => {
           paddingBottom: "10px",
         }}
       >
-        <form className="radio-form-product">
-          <div className="product-identification">
-            Indentificação do Produto:
+        <div className="product-identification">Indentificação do Produto:</div>
+        <div className="radios">
+          <div>
+            <input
+              type="checkbox"
+              id="Sim"
+              value={answer5}
+              checked={answer5 === 1 ? true : false}
+              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              name="clean"
+              onChange={() => {
+                setAnswer5(1);
+              }}
+            />
+            <label htmlFor="Sim">Produto conforme</label>
           </div>
-          <div className="radios">
-            <div>
-              <input
-                type="checkbox"
-                id="Sim"
-                value={answer5}
-                checked={answer5 === 1 ? true : false}
-                disabled={answersFromDb.usu_idepro > 0 ? true : false}
-                name="clean"
-                onChange={() => {
-                  setAnswer5(1);
-                }}
-              />
-              <label htmlFor="Sim">Produto conforme</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                id="Não"
-                value={answer5}
-                checked={answer5 === 2 ? true : false}
-                disabled={answersFromDb.usu_idepro > 0 ? true : false}
-                name="clean"
-                onChange={() => {
-                  setAnswer5(2);
-                }}
-              />
-              <label htmlFor="Não">Produto não conforme</label>
-            </div>
+          <div>
+            <input
+              type="checkbox"
+              id="Não"
+              value={answer5}
+              checked={answer5 === 2 ? true : false}
+              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              name="clean"
+              onChange={() => {
+                setAnswer5(2);
+              }}
+            />
+            <label htmlFor="Não">Produto não conforme</label>
           </div>
-        </form>
-        <form className="radio-form-product">
-          <div className="product-action">Ação Imediata:</div>
-          <div className="radios">
-            <div>
-              <input
-                type="checkbox"
-                id="Sim"
-                value={answer6}
-                checked={answer6 === 1 ? true : false}
-                disabled={answersFromDb.usu_idepro > 0 ? true : false}
-                name="clean"
-                onChange={() => {
-                  setAnswer6(1);
-                }}
-              />
-              <label htmlFor="Sim">Devolução parcial</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                id="Não"
-                value={answer6}
-                checked={answer6 === 2 ? true : false}
-                disabled={answersFromDb.usu_idepro > 0 ? true : false}
-                name="clean"
-                onChange={() => {
-                  setAnswer6(2);
-                }}
-              />
-              <label htmlFor="Não">Devolução total</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                id="Não aplicável"
-                value={answer6}
-                checked={answer6 === 3 ? true : false}
-                disabled={answersFromDb.usu_idepro > 0 ? true : false}
-                name="clean"
-                onChange={() => {
-                  setAnswer6(3);
-                }}
-              />
-              <label htmlFor="Não">Outros</label>
-            </div>
+        </div>
+
+        <div className="product-action">Ação Imediata:</div>
+        <div className="radios">
+          <div>
+            <input
+              type="checkbox"
+              id="Sim"
+              value={answer6}
+              checked={answer6 === 1 ? true : false}
+              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              name="clean"
+              onChange={() => {
+                setAnswer6(1);
+              }}
+            />
+            <label htmlFor="Sim">Devolução parcial</label>
           </div>
-        </form>
+          <div>
+            <input
+              type="checkbox"
+              id="Não"
+              value={answer6}
+              checked={answer6 === 2 ? true : false}
+              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              name="clean"
+              onChange={() => {
+                setAnswer6(2);
+              }}
+            />
+            <label htmlFor="Não">Devolução total</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              id="Não aplicável"
+              value={answer6}
+              checked={answer6 === 3 ? true : false}
+              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              name="clean"
+              onChange={() => {
+                setAnswer6(3);
+              }}
+            />
+            <label htmlFor="Não">Outros</label>
+          </div>
+        </div>
       </div>
       <div style={{ marginBottom: "10px" }}>
         <Button

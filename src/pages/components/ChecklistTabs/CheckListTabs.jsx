@@ -8,6 +8,7 @@ import DialogForm2 from "../Dialog-form2/dialog-form2";
 import Producs from "../../Products/Products";
 import Observatons from '../../components/Observations/Observations'
 import Corrections from '../Corrections/Corrections'
+import CameraTruck from '../Camera/Camera'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,7 @@ export default function CheckListTabs(props) {
   const [open3, setOpen3] = React.useState(false);
   const [open4, setOpen4] = React.useState(false);
   const [open5, setOpen5] = React.useState(false);
+  const [open6, setOpen6] = React.useState(false);
   const classes = useStyles();
 
   return (
@@ -53,6 +55,11 @@ export default function CheckListTabs(props) {
       <Corrections
         isOpen5={open5}
         handleClose={() => setOpen5(false)}
+        seqRec={props.seqRec}
+      />
+           <CameraTruck
+        isOpen6={open6}
+        handleClose={() => setOpen6(false)}
         seqRec={props.seqRec}
       />
       <Button
@@ -112,7 +119,7 @@ export default function CheckListTabs(props) {
         color="primary"
         id="3"
         onClick={() => {
-
+          setOpen6(true)
         }}
       >
         Foto Caminhão
