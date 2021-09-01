@@ -72,7 +72,6 @@ router.get("/prod/:seq/", authorization, async (req, res) => {
         }
       }
     }
-    console.log(parsedResponse);
     res.json(
       parsedResponse.length > 0
         ? parsedResponse[0].every((val, i, arr) => val > 0)
