@@ -1,10 +1,7 @@
 const oracledb = require("oracledb");
 require("dotenv").config();
 
-
-const {USER, PASSWORD, CONNECTIONSTRING} = require('./credentials')
-
-
+const { USER, PASSWORD, CONNECTIONSTRING } = require("./credentials");
 
 const user = USER;
 const password = PASSWORD;
@@ -26,7 +23,11 @@ const db = async (query, ...parameters) => {
     return err.message;
   } finally {
     if (connection) {
-      await connection.close();
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 };
