@@ -1,35 +1,36 @@
 const oracledb = require("oracledb");
-require("dotenv").config();
 
 const { USER, PASSWORD, CONNECTIONSTRING } = require("./credentials");
+
+const SimpleOracleDB = require("simple-oracledb");
 
 const user = USER;
 const password = PASSWORD;
 const connectString = CONNECTIONSTRING;
 
-const db = async (query, ...parameters) => {
-  try {
-    connection = await oracledb.getConnection({
-      user,
-      password,
-      connectString,
-    });
+SimpleOracleDB.extend(oracledb);
 
-    result = await connection.execute(query, [...parameters], {
-      autoCommit: true,
-    });
-    return result;
-  } catch (err) {
-    return err.message;
-  } finally {
-    if (connection) {
-      try {
-        await connection.close();
-      } catch (err) {
-        console.error(err);
+const db = async (query, ...parameters) => {
+  return new Promise((resolve, reject) => {
+    oracledb.run(
+      {
+        user: user,
+        password: password,
+        connectString: connectString,
+      },
+      function onConnection(connection, callback) {
+        connection.query(query, [...parameters], callback);
+      },
+      function onActionDone(error, result) {
+        console.log(error);
+        if (error != null) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
       }
-    }
-  }
+    );
+  });
 };
 
 exports.db = db;

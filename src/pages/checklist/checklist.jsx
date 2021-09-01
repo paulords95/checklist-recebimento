@@ -42,12 +42,12 @@ const CheckList = ({ setAuth }) => {
     );
     const itemData = await response.json();
 
-    if (itemData.codRec) {
-      setItemInfoValid(itemData);
+    if (itemData[0].USU_CODREC) {
+      setItemInfoValid(itemData[0]);
       setRenderItem(true);
       setItemLoading(false);
     } else {
-      setItemInfo(itemData);
+      setItemInfo("itemData[0]");
       setRenderItem(false);
       setItemLoading(false);
     }
@@ -56,6 +56,18 @@ const CheckList = ({ setAuth }) => {
       setAuth(false);
       setItemLoading(false);
     }
+  };
+
+  const formatDate = (date) => {
+    const d = date;
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    const formatBr = new Date(d)
+      .toLocaleDateString("pt-BR", options)
+      .split("-")
+      .reverse()
+      .join("/");
+
+    return formatBr;
   };
 
   return (
@@ -115,10 +127,10 @@ const CheckList = ({ setAuth }) => {
           </div>
           {renderItem ? (
             <OutlinedCard
-              nroRec={itemInfoValid.codRec.toLocaleString("pt-BR")}
-              datRec={itemInfoValid.datRec}
-              codRev={itemInfoValid.codRev}
-              datEmi={itemInfoValid.datEmi}
+              nroRec={itemInfoValid.USU_CODREC.toLocaleString("pt-BR")}
+              datRec={formatDate(itemInfoValid.USU_DATREC)}
+              codRev={itemInfoValid.USU_CODREV}
+              datEmi={formatDate(itemInfoValid.USU_DATEMI)}
             />
           ) : (
             ""

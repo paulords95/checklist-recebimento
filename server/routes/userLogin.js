@@ -1,26 +1,20 @@
 const router = require("express").Router();
 
-
 const jwtGen = require("../utils/jwtGen");
 const authorization = require("../middleware/authorization");
-const {db} = require('../db')
+const { db } = require("../db");
 
-
-router.get('/get-users', async (req, res) => {
-    const sql = "select USU_NOMUSU, USU_CODERP from usu_t522 where usu_codccu = '831' OR usu_coderp = '17'  order by 1"
-    const users =  await db(sql)
-    const response = []
-    if (users.rows.length > 0) {
-       for (let i of users.rows) {
-        response.push({
-            cod: i[1],
-            name: i[0]
-        })
-       }
-    }
-    res.json(response)
-})
-
+router.get("/get-users", async (req, res) => {
+  const sql =
+    "select USU_NOMUSU, USU_CODERP from usu_t522 where usu_codccu = '831' OR usu_coderp = '17'  order by 1";
+  db(sql)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((e) => {
+      res.json(e);
+    });
+});
 
 router.post("/login-user", async (req, res) => {
   try {
@@ -30,8 +24,8 @@ router.post("/login-user", async (req, res) => {
 
     res.json({
       name: user,
-      token: token
-    })
+      token: token,
+    });
   } catch (error) {
     console.log(error);
   }
