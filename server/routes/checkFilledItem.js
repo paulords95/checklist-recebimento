@@ -68,13 +68,15 @@ router.get("/prod/:seq/", authorization, async (req, res) => {
     if (response.rows) {
       if (response.rows.length > 0) {
         for (let i of response.rows) {
-          parsedResponse.push(i);
+          for (let l of i) {
+            parsedResponse.push(l);
+          }
         }
       }
     }
     res.json(
       parsedResponse.length > 0
-        ? parsedResponse[0].every((val, i, arr) => val > 0)
+        ? parsedResponse.every((val, i, arr) => val > 0)
         : null
     );
   } catch (error) {

@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-
+import { toast } from "react-toastify";
 import DialogForm1 from "../Dialog/Dialog";
 import DialogForm2 from "../Dialog-form2/dialog-form2";
 import Producs from "../../Products/Products";
 import Observatons from "../../components/Observations/Observations";
 import Corrections from "../Corrections/Corrections";
 import CameraTruck from "../Camera/Camera";
+
+import ENDPOINT from "../../../utils/endpoint";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +28,59 @@ export default function CheckListTabs(props) {
   const [open5, setOpen5] = React.useState(false);
   const [open6, setOpen6] = React.useState(false);
   const classes = useStyles();
+
+  const [formFilled1, setFormFilled1] = React.useState(false);
+  const [formFilled2, setFormFilled2] = React.useState(false);
+  const [formFilled3, setFormFilled3] = React.useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(
+          `${ENDPOINT.ENDPOINT}/filled-item/form/${props.seqRec.codRec}`,
+          {
+            headers: {
+              Token: localStorage.token.toString(),
+            },
+          }
+        );
+        const parsedResponse = await response.json();
+        setFormFilled1(parsedResponse);
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        const response = await fetch(
+          `${ENDPOINT.ENDPOINT}/filled-item/form-2/${props.seqRec.codRec}`,
+          {
+            headers: {
+              Token: localStorage.token.toString(),
+            },
+          }
+        );
+        const parsedResponse = await response.json();
+        setFormFilled2(parsedResponse);
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        const response = await fetch(
+          `${ENDPOINT.ENDPOINT}/filled-item/prod/${props.seqRec.codRec}`,
+          {
+            headers: {
+              Token: localStorage.token.toString(),
+            },
+          }
+        );
+        const parsedResponse = await response.json();
+        setFormFilled3(parsedResponse);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.seqRec.codRec, open1, open2, open3]);
 
   return (
     <div className={classes.root}>
@@ -74,10 +129,16 @@ export default function CheckListTabs(props) {
       </Button>
       <Button
         variant="contained"
-        color="primary"
+        color={formFilled1 ? "Primary" : "disabled"}
         id="1"
         onClick={() => {
-          setOpen1(true);
+          if (formFilled1) {
+            setOpen1(true);
+          } else {
+            toast.error(
+              "É necessário preencher o formulário de Meio de Transporte para prosseguir!"
+            );
+          }
         }}
       >
         Conferência geral do produto recebido e condições do veículo condutor
@@ -85,10 +146,16 @@ export default function CheckListTabs(props) {
 
       <Button
         variant="contained"
-        color="primary"
+        color={formFilled2 ? "Primary" : "disabled"}
         id="3"
         onClick={() => {
-          setOpen3(true);
+          if (formFilled1 && formFilled2) {
+            setOpen3(true);
+          } else {
+            toast.error(
+              "É necessário preencher o formulário de Meio de Transporte e de Conferência Geral para prosseguir!"
+            );
+          }
         }}
       >
         Avaliação do Produto
@@ -96,7 +163,7 @@ export default function CheckListTabs(props) {
       <hr></hr>
       <Button
         variant="contained"
-        color="primary"
+        color="Primary"
         id="3"
         onClick={() => {
           setOpen4(true);
@@ -106,7 +173,7 @@ export default function CheckListTabs(props) {
       </Button>
       <Button
         variant="contained"
-        color="primary"
+        color="Primary"
         id="3"
         onClick={() => {
           setOpen5(true);
