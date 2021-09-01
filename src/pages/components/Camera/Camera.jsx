@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
@@ -11,8 +10,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     height: "100%",
     textAlign: "center",
+    margin: "0 auto",
   },
   imgBox: {
     maxWidth: "80%",
@@ -54,21 +57,24 @@ const CameraTruck = (props) => {
             <div className={classes.root}>
               <Grid container>
                 <Grid item xs={12}>
-                  <h5>Capture your image</h5>
+                  <h5>Capturar imagem</h5>
+
                   {source && (
-                    <Box
-                      display="flex"
-                      justifyContent="center"
-                      border={1}
-                      className={classes.imgBox}
+                    <div
+                      style={{
+                        margin: "0 auto",
+                        display: "flex",
+                      }}
                     >
                       <img
                         src={source}
                         alt={"snap"}
+                        style={{ width: "100%" }}
                         className={classes.img}
                       ></img>
-                    </Box>
+                    </div>
                   )}
+
                   <input
                     accept="image/*"
                     className={classes.input}
@@ -95,6 +101,15 @@ const CameraTruck = (props) => {
           </DialogContent>
         </div>
         <DialogActions>
+          <Button
+            onClick={async () => {
+              let blob = await fetch(source).then((r) => r.blob());
+              console.log(blob);
+            }}
+            color="primary"
+          >
+            LOG
+          </Button>
           <Button
             onClick={() => {
               props.handleClose();
