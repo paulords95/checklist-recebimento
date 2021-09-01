@@ -129,7 +129,7 @@ export default function CheckListTabs(props) {
       </Button>
       <Button
         variant="contained"
-        color={formFilled1 ? "Primary" : "disabled"}
+        color={formFilled1 ? "primary" : "default"}
         id="1"
         onClick={() => {
           if (formFilled1) {
@@ -146,12 +146,13 @@ export default function CheckListTabs(props) {
 
       <Button
         variant="contained"
-        color={formFilled2 ? "Primary" : "disabled"}
+        color={formFilled2 ? "primary" : "default"}
         id="3"
         onClick={() => {
           if (formFilled1 && formFilled2) {
             setOpen3(true);
           } else {
+            console.log(formFilled3);
             toast.error(
               "É necessário preencher o formulário de Meio de Transporte e de Conferência Geral para prosseguir!"
             );
@@ -163,7 +164,7 @@ export default function CheckListTabs(props) {
       <hr></hr>
       <Button
         variant="contained"
-        color="Primary"
+        color="secondary"
         id="3"
         onClick={() => {
           setOpen4(true);
@@ -173,7 +174,7 @@ export default function CheckListTabs(props) {
       </Button>
       <Button
         variant="contained"
-        color="Primary"
+        color="secondary"
         id="3"
         onClick={() => {
           setOpen5(true);
@@ -183,7 +184,7 @@ export default function CheckListTabs(props) {
       </Button>
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         id="3"
         onClick={() => {
           setOpen6(true);

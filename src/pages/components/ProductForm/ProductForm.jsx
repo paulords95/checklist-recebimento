@@ -49,6 +49,7 @@ const ProjectForm = (props) => {
           }
         );
         const itemData = await response.json();
+
         setAnswersFromDb(itemData);
       } catch (error) {
         console.log(error);
@@ -148,7 +149,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Sim"
+              id="Sim1"
               name="clean"
               value={answer1}
               checked={answer1 === 1 ? true : false}
@@ -165,7 +166,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Não"
+              id="Não2"
               value={answer1}
               checked={answer1 === 2 ? true : false}
               disabled={answersFromDb.usu_b1 > 0 ? true : false}
@@ -186,7 +187,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Sim"
+              id="Sim3"
               value={answer2}
               disabled={answer1 === 1 ? false : true}
               checked={answer2 === 1 ? true : false}
@@ -200,7 +201,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Não"
+              id="Não4"
               value={answer2}
               disabled={answer1 === 1 ? false : true}
               checked={answer2 === 2 ? true : false}
@@ -214,7 +215,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Não aplicável"
+              id="Não aplicável5"
               value={answer2}
               disabled={answer1 === 1 ? false : true}
               checked={answer2 === 3 ? true : false}
@@ -236,7 +237,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Sim"
+              id="Sim6"
               value={answer3}
               checked={answer3 === 1 ? true : false}
               disabled={answersFromDb.usu_b3 > 0 ? true : false}
@@ -250,7 +251,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Não"
+              id="Não7"
               value={answer3}
               checked={answer3 === 2 ? true : false}
               disabled={answersFromDb.usu_b3 > 0 ? true : false}
@@ -264,7 +265,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Não aplicável"
+              id="Não aplicável8"
               value={answer3}
               checked={answer3 === 3 ? true : false}
               disabled={answersFromDb.usu_b3 > 0 ? true : false}
@@ -285,7 +286,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Sim"
+              id="Sim9"
               value={answer4}
               checked={answer4 === 1 ? true : false}
               disabled={answersFromDb.usu_b4 > 0 ? true : false}
@@ -299,7 +300,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Não"
+              id="Não10"
               value={answer4}
               checked={answer4 === 2 ? true : false}
               disabled={answersFromDb.usu_b4 > 0 ? true : false}
@@ -313,7 +314,7 @@ const ProjectForm = (props) => {
           <div>
             <input
               type="checkbox"
-              id="Não aplicável"
+              id="Não aplicável11"
               value={answer4}
               checked={answer4 === 3 ? true : false}
               disabled={answersFromDb.usu_b4 > 0 ? true : false}
@@ -415,7 +416,6 @@ const ProjectForm = (props) => {
       <div style={{ marginBottom: "10px" }}>
         <Button
           type="submit"
-          halfWidth
           variant="contained"
           color="primary"
           disabled={showAlert}

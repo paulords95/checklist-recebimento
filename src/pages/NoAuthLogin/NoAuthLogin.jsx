@@ -10,16 +10,16 @@ import Container from "@material-ui/core/Container";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
 
-
-import './noauthlogin.css'
+import "./noauthlogin.css";
 
 import ENDPOINT from "../../utils/endpoint";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function Copyright() {
   return (
@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-
   },
   avatar: {
     margin: theme.spacing(1),
@@ -64,28 +63,29 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginPage({ setAuth }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [users, setUsers] = useState([])
-  const [curentUser, setCurrentUser] = useState('')
-
+  const [users, setUsers] = useState([]);
+  const [curentUser, setCurrentUser] = useState("");
 
   const handleClose = () => {
     setOpen(false);
   };
 
-
   const onChange = (e) => {
-    setCurrentUser(e.target.value)
+    setCurrentUser(e.target.value);
   };
 
   const HandleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${ENDPOINT.ENDPOINT}/simple-auth/login-user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(setCurrentUser),
-    });
+    const response = await fetch(
+      `${ENDPOINT.ENDPOINT}/simple-auth/login-user`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(setCurrentUser),
+      }
+    );
 
     const parseRes = await response.json();
     if (parseRes.token) {
@@ -93,28 +93,24 @@ export default function LoginPage({ setAuth }) {
       localStorage.setItem("token", parseRes.token);
       setAuth(true);
     }
-
   };
 
   const fetchUsers = () => {
+    fetch(`${ENDPOINT.ENDPOINT}/simple-auth/get-users`)
+      .then(async (res) => {
+        setUsers(await res.json());
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    fetch(`${ENDPOINT.ENDPOINT}/simple-auth/get-users`).then(async (res) => {
-      setUsers(await res.json())
-    }).catch((e)=> {
-      console.log(e)
-    })
- 
-  }
-
-  useEffect(()=> {
-    fetchUsers()
+  useEffect(() => {
+    fetchUsers();
     return () => {
-      setUsers([])
-    }
-  }, [])
-
-
-
+      setUsers([]);
+    };
+  }, []);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -130,36 +126,41 @@ export default function LoginPage({ setAuth }) {
           Login
         </Typography>
         <Fragment>
-        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Usuário</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          className='name-select'
-          value={curentUser}
-          onChange={onChange}
-        >
-          {users.map((user)=> {
-            return (
-              <MenuItem key={user.cod} value={user.name}>{user.name}</MenuItem>
-            )
-          })}
-        </Select>
-        <Button
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Usuário</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              className="name-select"
+              value={curentUser}
+              onChange={onChange}
+            >
+              {users.map((user) => {
+                return (
+                  <MenuItem key={user.cod} value={user.name}>
+                    {user.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+            <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              onClick={HandleLogin}
+              onClick={(e) => {
+                if (curentUser.length > 1) {
+                  HandleLogin(e);
+                } else {
+                  toast.error("Selecione um usuário");
+                }
+              }}
               className={classes.submit}
             >
               Entrar
             </Button>
-          
-      </FormControl>
-           
+          </FormControl>
         </Fragment>
-        
       </div>
       <Box mt={8}>
         <Copyright />

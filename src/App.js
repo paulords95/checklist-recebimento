@@ -29,11 +29,10 @@ function App() {
       const response = await fetch(`${ENDPOINT.ENDPOINT}/auth/is-verify`, {
         method: "GET",
         headers: {
-          Token: localStorage.token.toString(),
+          Token: localStorage.token ? localStorage.token.toString() : "",
         },
       });
       const parseRes = await response.json();
-      console.log(await parseRes);
       parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (error) {
       console.error(error.message);

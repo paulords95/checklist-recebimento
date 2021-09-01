@@ -107,7 +107,7 @@ export default function DialogForm2(props) {
                       <div>
                         <input
                           type="radio"
-                          id="Sim"
+                          id="Sim1"
                           value="Sim"
                           disabled={item.answer1 > 0 ? true : false}
                           name="clean"
@@ -120,7 +120,7 @@ export default function DialogForm2(props) {
                       <div>
                         <input
                           type="radio"
-                          id="Não"
+                          id="Não2"
                           value="Não"
                           disabled={item.answer1 > 0 ? true : false}
                           name="clean"
@@ -133,7 +133,7 @@ export default function DialogForm2(props) {
                       <div>
                         <input
                           type="radio"
-                          id="Não aplicável"
+                          id="Não aplicável3"
                           value="Não aplicável"
                           name="clean"
                           disabled={item.answer1 > 0 ? true : false}
@@ -160,7 +160,7 @@ export default function DialogForm2(props) {
                       <div>
                         <input
                           type="radio"
-                          id="Sim"
+                          id="Sim1"
                           value="Sim"
                           disabled={item.answer2 > 0 ? true : false}
                           name="clean"
@@ -173,7 +173,7 @@ export default function DialogForm2(props) {
                       <div>
                         <input
                           type="radio"
-                          id="Não"
+                          id="Não2"
                           value="Não"
                           disabled={item.answer2 > 0 ? true : false}
                           name="clean"
@@ -186,7 +186,7 @@ export default function DialogForm2(props) {
                       <div>
                         <input
                           type="radio"
-                          id="Não aplicável"
+                          id="Não aplicável3"
                           value="Não aplicável"
                           disabled={item.answer2 > 0 ? true : false}
                           name="clean"
