@@ -6,9 +6,9 @@ import Button from "@material-ui/core/Button";
 import DialogForm1 from "../Dialog/Dialog";
 import DialogForm2 from "../Dialog-form2/dialog-form2";
 import Producs from "../../Products/Products";
-import Observatons from '../../components/Observations/Observations'
-import Corrections from '../Corrections/Corrections'
-import CameraTruck from '../Camera/Camera'
+import Observatons from "../../components/Observations/Observations";
+import Corrections from "../Corrections/Corrections";
+import CameraTruck from "../Camera/Camera";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +57,7 @@ export default function CheckListTabs(props) {
         handleClose={() => setOpen5(false)}
         seqRec={props.seqRec}
       />
-           <CameraTruck
+      <CameraTruck
         isOpen6={open6}
         handleClose={() => setOpen6(false)}
         seqRec={props.seqRec}
@@ -99,7 +99,7 @@ export default function CheckListTabs(props) {
         color="primary"
         id="3"
         onClick={() => {
-          setOpen4(true)
+          setOpen4(true);
         }}
       >
         Observações
@@ -109,7 +109,7 @@ export default function CheckListTabs(props) {
         color="primary"
         id="3"
         onClick={() => {
-          setOpen5(true)
+          setOpen5(true);
         }}
       >
         Ações Corretivas
@@ -119,7 +119,7 @@ export default function CheckListTabs(props) {
         color="primary"
         id="3"
         onClick={() => {
-          setOpen6(true)
+          setOpen6(true);
         }}
       >
         Foto Caminhão

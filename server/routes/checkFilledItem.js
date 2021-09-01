@@ -22,7 +22,7 @@ router.get("/form/:seq/", authorization, async (req, res) => {
     const { seq } = req.params;
 
     const sql =
-      "select USU_lpzvei, USU_d5, USU_d6, USU_d7, USU_d8 from usu_t158 where usu_codrec = :seq";
+      "select USU_TIPVEI, USU_TIPCAR, USU_POSLAC, USU_LPZVEI from usu_t158 where usu_codrec = :seq";
 
     const response = await db(sql, seq);
     let parsedResponse = [];
@@ -33,7 +33,34 @@ router.get("/form/:seq/", authorization, async (req, res) => {
         }
       }
     }
-    res.json(parsedResponse[0]);
+    res.json(
+      parsedResponse.length > 0
+        ? parsedResponse[0].every((val, i, arr) => val > 0)
+        : null
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+router.get("/form-2/:seq/", authorization, async (req, res) => {
+  try {
+    const { seq } = req.params;
+
+    const sql =
+      "select USU_TIPVEI, USU_TIPCAR, USU_POSLAC, USU_NROLAC, USU_LPZVEI from usu_t158 where usu_codrec = :seq";
+
+    const response = await db(sql, seq);
+    let parsedResponse = [];
+    if (response.rows) {
+      if (response.rows.length > 0) {
+        for (let i of response.rows) {
+          parsedResponse.push(i);
+        }
+      }
+    }
+
+    res.json(parsedResponse[0].every((val, i, arr) => val > 0));
   } catch (error) {
     console.log(error.message);
   }
