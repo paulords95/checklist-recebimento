@@ -89,7 +89,6 @@ export default function DialogForm1(props) {
   ) => {
     try {
       const body = { recNum, vehicle, trailer, seal, sealInput, cleaning };
-      console.log(body);
       await fetch(`${ENDPOINT.ENDPOINT}/post/vehicle-information/`, {
         method: "POST",
         headers: {
@@ -294,7 +293,7 @@ export default function DialogForm1(props) {
                           name="lacre"
                           onChange={() => {
                             setSealEnable(true);
-                            setSealNum("''");
+                            setSealNum("");
                             handleSealValue("2");
                           }}
                         />
@@ -310,7 +309,7 @@ export default function DialogForm1(props) {
                           name="lacre"
                           onChange={() => {
                             setSealEnable(true);
-                            setSealNum("''");
+                            setSealNum("");
                             handleSealValue("3");
                           }}
                         />

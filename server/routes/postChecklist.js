@@ -21,6 +21,7 @@ const formatDate = (date) => {
 router.post("/vehicle-information/", authorization, async (req, res) => {
   try {
     const { recNum, cleaning, sealInput, seal, trailer, vehicle } = req.body;
+    console.log(req.body);
     const sql =
       "UPDATE USU_T158 SET USU_TIPVEI=:vehicle, USU_TIPCAR=:trailer, USU_POSLAC=:seal, USU_NROLAC=:sealInput, USU_LPZVEI=:cleaning WHERE USU_CODREC = :recNum";
 

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+const { LocalConvenienceStoreOutlined } = require("@material-ui/icons");
 const { db } = require("../db");
 
 const authorization = require("../middleware/authorization");
@@ -7,13 +8,22 @@ const authorization = require("../middleware/authorization");
 router.get("/form/:seq/", authorization, async (req, res) => {
   try {
     const { seq } = req.params;
-
     const sql =
       "select USU_TIPVEI, USU_TIPCAR, USU_POSLAC, USU_LPZVEI from usu_t158 where usu_codrec = :seq";
 
     db(sql, "select", seq)
       .then((response) => {
-        res.json(response);
+        const data = response[0];
+        if (
+          data.USU_TIPVEI > 0 ||
+          data.USU_TIPCAR > 0 ||
+          data.USU_POSLAC > 0 ||
+          data.USU_LPZVEI > 0
+        ) {
+          res.json(true);
+        } else {
+          res.json(false);
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -32,7 +42,19 @@ router.get("/form-2/:seq/", authorization, async (req, res) => {
 
     db(sql, "select", seq)
       .then((response) => {
-        res.json(response);
+        const data = response[0];
+
+        if (
+          data.USU_D5 > 0 ||
+          data.USU_D6 > 0 ||
+          data.USU_D7 > 0 ||
+          data.USU_D8 > 0 ||
+          data.USU_D9 > 0
+        ) {
+          res.json(true);
+        } else {
+          res.json(false);
+        }
       })
       .catch((e) => {
         console.log(e);

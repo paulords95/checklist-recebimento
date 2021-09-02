@@ -18,10 +18,16 @@ const db = async (query, operation, ...parameters) => {
         password: password,
         connectString: connectString,
       },
+
       function onConnection(connection, callback) {
         if (operation == "update") {
           try {
-            connection.update(query, [...parameters], callback);
+            connection.update(
+              query,
+              [...parameters],
+              { autoCommit: true },
+              callback
+            );
           } catch (error) {
             console.log(error);
           }

@@ -382,7 +382,6 @@ export default function DialogForm2(props) {
 
                   return;
                 }
-                console.log(item);
                 if (
                   answers1 === undefined ||
                   answers2 === undefined ||
@@ -403,7 +402,6 @@ export default function DialogForm2(props) {
                   answers4,
                   answers5
                 );
-                console.log(answers1, answers2, answers3, answers4, answers5);
                 toast.success("Formulário salvo com sucesso!");
               }}
             >

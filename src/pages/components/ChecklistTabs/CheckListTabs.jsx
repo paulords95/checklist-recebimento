@@ -45,6 +45,7 @@ export default function CheckListTabs(props) {
           }
         );
         const parsedResponse = await response.json();
+
         setFormFilled1(parsedResponse);
       } catch (error) {
         console.log(error);
@@ -59,6 +60,7 @@ export default function CheckListTabs(props) {
           }
         );
         const parsedResponse = await response.json();
+
         setFormFilled2(parsedResponse);
       } catch (error) {
         console.log(error);
@@ -73,6 +75,7 @@ export default function CheckListTabs(props) {
           }
         );
         const parsedResponse = await response.json();
+
         setFormFilled3(parsedResponse);
       } catch (error) {
         console.log(error);
@@ -152,7 +155,6 @@ export default function CheckListTabs(props) {
           if (formFilled1 && formFilled2) {
             setOpen3(true);
           } else {
-            console.log(formFilled3);
             toast.error(
               "É necessário preencher o formulário de Meio de Transporte e de Conferência Geral para prosseguir!"
             );
