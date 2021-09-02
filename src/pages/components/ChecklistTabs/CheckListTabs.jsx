@@ -31,7 +31,7 @@ export default function CheckListTabs(props) {
 
   const [formFilled1, setFormFilled1] = React.useState(false);
   const [formFilled2, setFormFilled2] = React.useState(false);
-  const [formFilled3, setFormFilled3] = React.useState(false);
+  //const [formFilled3, setFormFilled3] = React.useState(false);
 
   useEffect(() => {
     (async () => {
@@ -65,21 +65,21 @@ export default function CheckListTabs(props) {
       } catch (error) {
         console.log(error);
       }
-      try {
-        const response = await fetch(
-          `${ENDPOINT.ENDPOINT}/filled-item/prod/${props.seqRec.USU_CODREC}`,
-          {
-            headers: {
-              Token: localStorage.token.toString(),
-            },
-          }
-        );
-        const parsedResponse = await response.json();
-
-        setFormFilled3(parsedResponse);
-      } catch (error) {
-        console.log(error);
-      }
+      //try {
+      //  const response = await fetch(
+      //    `${ENDPOINT.ENDPOINT}/filled-item/prod/${props.seqRec.USU_CODREC}`,
+      //    {
+      //      headers: {
+      //        Token: localStorage.token.toString(),
+      //      },
+      //    }
+      //  );
+      //  const parsedResponse = await response.json();
+      //
+      //  setFormFilled3(parsedResponse);
+      //} catch (error) {
+      //  console.log(error);
+      //}
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

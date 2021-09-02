@@ -37,6 +37,7 @@ const ProductItem = (props) => {
 
   useEffect(() => {
     fetchName();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.productObj]);
 
   return (

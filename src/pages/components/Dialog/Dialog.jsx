@@ -14,7 +14,7 @@ import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
 export default function DialogForm1(props) {
-  const [sealNum, setSealNum] = useState("''");
+  const [sealNum, setSealNum] = useState("");
   const [allowForm, setAllowForm] = useState(true);
   const [sealEnable, setSealEnable] = useState(true);
   const [vehicleValues, setVehiclesValues] = useState({
