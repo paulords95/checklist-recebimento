@@ -42,12 +42,18 @@ const CheckList = ({ setAuth }) => {
     );
     const itemData = await response.json();
 
-    if (itemData[0].USU_CODREC) {
-      setItemInfoValid(itemData[0]);
-      setRenderItem(true);
-      setItemLoading(false);
+    if (itemData[0]) {
+      if (itemData[0].USU_CODREC) {
+        setItemInfoValid(itemData[0]);
+        setRenderItem(true);
+        setItemLoading(false);
+      } else {
+        setItemInfo("Sequência não encontrada");
+        setRenderItem(false);
+        setItemLoading(false);
+      }
     } else {
-      setItemInfo("itemData[0]");
+      setItemInfo("Sequência não encontrada");
       setRenderItem(false);
       setItemLoading(false);
     }
