@@ -21,14 +21,14 @@ const ProjectForm = (props) => {
 
   useEffect(() => {
     setCurrentProduct(props.productObj);
-
     setAnswer1(0);
     setAnswer2(0);
     setAnswer3(0);
     setAnswer4(0);
     setAnswer5(0);
     setAnswer6(0);
-    if (answersFromDb.usu_b1 > 0) {
+
+    if (answersFromDb.USU_B1 > 0) {
       setShowAlert(true);
     } else {
       setShowAlert(false);
@@ -37,11 +37,10 @@ const ProjectForm = (props) => {
 
   useEffect(() => {
     (async () => {
-      const codrec = currentProduct.USU_CODREC;
-
+      const { USU_CODREC, USU_SEQPRO } = currentProduct;
       try {
         const response = await fetch(
-          `${ENDPOINT.ENDPOINT}/product/check-answers/rec=${codrec}&prod=${currentProduct.USU_SEQPRO}`,
+          `${ENDPOINT.ENDPOINT}/product/check-answers/rec=${USU_CODREC}&prod=${USU_SEQPRO}`,
           {
             headers: {
               Token: localStorage.token.toString(),
@@ -49,15 +48,16 @@ const ProjectForm = (props) => {
           }
         );
         const itemData = await response.json();
-
-        setAnswersFromDb(itemData);
+        if (itemData[0]) {
+          setAnswersFromDb(itemData[0]);
+        }
       } catch (error) {
         console.log(error);
       }
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProduct.USU_SEQPRO, post]);
+  }, [currentProduct, post]);
 
   const handleProduct = async (
     b1,
@@ -153,7 +153,7 @@ const ProjectForm = (props) => {
               name="clean"
               value={answer1}
               checked={answer1 === 1 ? true : false}
-              disabled={answersFromDb.usu_b1 > 0 ? true : false}
+              disabled={answersFromDb.USU_B1 > 0 ? true : false}
               onChange={() => {
                 setAnswer1(1);
                 if (answer1 !== 2) {
@@ -169,7 +169,7 @@ const ProjectForm = (props) => {
               id="Não2"
               value={answer1}
               checked={answer1 === 2 ? true : false}
-              disabled={answersFromDb.usu_b1 > 0 ? true : false}
+              disabled={answersFromDb.USU_B1 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer1(2);
@@ -240,7 +240,7 @@ const ProjectForm = (props) => {
               id="Sim6"
               value={answer3}
               checked={answer3 === 1 ? true : false}
-              disabled={answersFromDb.usu_b3 > 0 ? true : false}
+              disabled={answersFromDb.USU_B3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(1);
@@ -254,7 +254,7 @@ const ProjectForm = (props) => {
               id="Não7"
               value={answer3}
               checked={answer3 === 2 ? true : false}
-              disabled={answersFromDb.usu_b3 > 0 ? true : false}
+              disabled={answersFromDb.USU_B3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(2);
@@ -268,7 +268,7 @@ const ProjectForm = (props) => {
               id="Não aplicável8"
               value={answer3}
               checked={answer3 === 3 ? true : false}
-              disabled={answersFromDb.usu_b3 > 0 ? true : false}
+              disabled={answersFromDb.USU_B3 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer3(3);
@@ -289,7 +289,7 @@ const ProjectForm = (props) => {
               id="Sim9"
               value={answer4}
               checked={answer4 === 1 ? true : false}
-              disabled={answersFromDb.usu_b4 > 0 ? true : false}
+              disabled={answersFromDb.USU_B4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(1);
@@ -303,7 +303,7 @@ const ProjectForm = (props) => {
               id="Não10"
               value={answer4}
               checked={answer4 === 2 ? true : false}
-              disabled={answersFromDb.usu_b4 > 0 ? true : false}
+              disabled={answersFromDb.USU_B4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(2);
@@ -317,7 +317,7 @@ const ProjectForm = (props) => {
               id="Não aplicável11"
               value={answer4}
               checked={answer4 === 3 ? true : false}
-              disabled={answersFromDb.usu_b4 > 0 ? true : false}
+              disabled={answersFromDb.USU_B4 > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer4(3);
@@ -343,7 +343,7 @@ const ProjectForm = (props) => {
               id="Sim"
               value={answer5}
               checked={answer5 === 1 ? true : false}
-              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              disabled={answersFromDb.USU_IDEPRO > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer5(1);
@@ -357,7 +357,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer5}
               checked={answer5 === 2 ? true : false}
-              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              disabled={answersFromDb.USU_IDEPRO > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer5(2);
@@ -375,7 +375,7 @@ const ProjectForm = (props) => {
               id="Sim"
               value={answer6}
               checked={answer6 === 1 ? true : false}
-              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              disabled={answersFromDb.USU_IDEPRO > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer6(1);
@@ -389,7 +389,7 @@ const ProjectForm = (props) => {
               id="Não"
               value={answer6}
               checked={answer6 === 2 ? true : false}
-              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              disabled={answersFromDb.USU_IDEPRO > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer6(2);
@@ -403,7 +403,7 @@ const ProjectForm = (props) => {
               id="Não aplicável"
               value={answer6}
               checked={answer6 === 3 ? true : false}
-              disabled={answersFromDb.usu_idepro > 0 ? true : false}
+              disabled={answersFromDb.USU_IDEPRO > 0 ? true : false}
               name="clean"
               onChange={() => {
                 setAnswer6(3);

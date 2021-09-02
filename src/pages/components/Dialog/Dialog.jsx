@@ -14,8 +14,7 @@ import RadioBtn from "../RadioBtn/RadioBtn";
 import "./dialog.css";
 
 export default function DialogForm1(props) {
- 
-  const [sealNum, setSealNum] = useState("");
+  const [sealNum, setSealNum] = useState("''");
   const [allowForm, setAllowForm] = useState(true);
   const [sealEnable, setSealEnable] = useState(true);
   const [vehicleValues, setVehiclesValues] = useState({
@@ -67,14 +66,14 @@ export default function DialogForm1(props) {
   };
 
   useEffect(() => {
-    if (props.seqRec.tipVei > 0) {
+    if (props.seqRec.USU_TIPVEI > 0) {
       setAllowForm(false);
-      handleVehicleValue(`${props.seqRec.tipVei}`);
-      handleTrailerValue(`${props.seqRec.tipCar}`);
-      handleSealValue(`${props.seqRec.posLac}`);
-      handleCleaningValue(`${props.seqRec.lpzVei}`);
-      if (props.seqRec.nroLac > 1) {
-        setSealNum(props.seqRec.nroLac);
+      handleVehicleValue(`${props.seqRec.USU_TIPVEI}`);
+      handleTrailerValue(`${props.seqRec.USU_TIPCAR}`);
+      handleSealValue(`${props.seqRec.USU_POSLAC}`);
+      handleCleaningValue(`${props.seqRec.USU_LPZVEI}`);
+      if (props.seqRec.USU_NROLAC > 1) {
+        setSealNum(props.seqRec.USU_NROLAC);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,17 +89,15 @@ export default function DialogForm1(props) {
   ) => {
     try {
       const body = { recNum, vehicle, trailer, seal, sealInput, cleaning };
-      await fetch(
-        `${ENDPOINT.ENDPOINT}/post/vehicle-information/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Token: localStorage.token.toString(),
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      console.log(body);
+      await fetch(`${ENDPOINT.ENDPOINT}/post/vehicle-information/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Token: localStorage.token.toString(),
+        },
+        body: JSON.stringify(body),
+      });
     } catch (error) {}
   };
 
@@ -109,20 +106,24 @@ export default function DialogForm1(props) {
       <Dialog open={props.isOpen} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
           Meio de Transporte | Nº Recebimento:{" "}
-          {props.seqRec.codRec ? <span>{props.seqRec.codRec}</span> : ""}
+          {props.seqRec.USU_CODREC ? (
+            <span>{props.seqRec.USU_CODREC}</span>
+          ) : (
+            ""
+          )}
         </DialogTitle>
         {allowForm ? (
           ""
         ) : (
           <Alert severity="warning">
-            O formulário para o recebimento nº {props.seqRec.codRec} já foi
+            O formulário para o recebimento nº {props.seqRec.USU_CODREC} já foi
             preenchido!
           </Alert>
         )}
         {post ? (
           <Alert severity="warning">
-            O formulário para o recebimento nº {props.seqRec.codRec} foi salvo
-            com sucesso!
+            O formulário para o recebimento nº {props.seqRec.USU_CODREC} foi
+            salvo com sucesso!
           </Alert>
         ) : (
           <>
@@ -138,7 +139,7 @@ export default function DialogForm1(props) {
                           type="radio"
                           id="Caminhão"
                           value={vehicleValues.vehicle}
-                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPVEI > 0 ? true : false}
                           name="truck"
                           // checked={item.tipVei === 1 ? true : allowForm}
                           onChange={() => {
@@ -153,7 +154,7 @@ export default function DialogForm1(props) {
                           type="radio"
                           id="Van"
                           value="Van"
-                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPVEI > 0 ? true : false}
                           name="truck"
                           //checked={item.tipVei === 2 ? true : allowForm}
                           onChange={() => {
@@ -166,7 +167,7 @@ export default function DialogForm1(props) {
                         <input
                           type="radio"
                           id="Pickup fechada"
-                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPVEI > 0 ? true : false}
                           value="Pickup fechada"
                           name="truck"
                           // checked={item.tipVei === 3 ? true : allowForm}
@@ -182,7 +183,7 @@ export default function DialogForm1(props) {
                           id="Outro"
                           value="Outro"
                           name="truck"
-                          disabled={props.seqRec.tipVei > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPVEI > 0 ? true : false}
                           // checked={item.tipVei === 4 ? true : allowForm}
                           onChange={() => {
                             handleVehicleValue("4");
@@ -207,7 +208,7 @@ export default function DialogForm1(props) {
                           id="Baú/sider"
                           value="Baú/sider"
                           name="trailer"
-                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPCAR > 0 ? true : false}
                           //checked={item.tipCar === 1 ? true : allowForm}
                           onChange={() => {
                             handleTrailerValue("1");
@@ -219,7 +220,7 @@ export default function DialogForm1(props) {
                         <input
                           type="radio"
                           id="Enlonado"
-                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPCAR > 0 ? true : false}
                           //checked={item.tipCar === 2 ? true : allowForm}
                           value="Enlonado"
                           name="trailer"
@@ -234,7 +235,7 @@ export default function DialogForm1(props) {
                           type="radio"
                           id="Container"
                           value="Container"
-                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPCAR > 0 ? true : false}
                           //checked={item.tipCar === 3 ? true : allowForm}
                           name="trailer"
                           onChange={() => {
@@ -247,7 +248,7 @@ export default function DialogForm1(props) {
                         <input
                           type="radio"
                           id="Outro"
-                          disabled={props.seqRec.tipCar > 0 ? true : false}
+                          disabled={props.seqRec.USU_TIPCAR > 0 ? true : false}
                           //checked={item.tipCar === 4 ? true : allowForm}
                           value="Outro"
                           name="trailer"
@@ -274,7 +275,7 @@ export default function DialogForm1(props) {
                           id="Sim"
                           value="Sim"
                           name="lacre"
-                          disabled={props.seqRec.posLac > 0 ? true : false}
+                          disabled={props.seqRec.USU_POSLAC > 0 ? true : false}
                           //checked={item.posLac === 1 ? true : allowForm}
                           onChange={() => {
                             setSealEnable(false);
@@ -288,12 +289,12 @@ export default function DialogForm1(props) {
                           type="radio"
                           id="Não"
                           value="Não"
-                          disabled={props.seqRec.posLac > 0 ? true : false}
+                          disabled={props.seqRec.USU_POSLAC > 0 ? true : false}
                           //checked={item.posLac === 2 ? true : allowForm}
                           name="lacre"
                           onChange={() => {
                             setSealEnable(true);
-                            setSealNum("");
+                            setSealNum("''");
                             handleSealValue("2");
                           }}
                         />
@@ -304,12 +305,12 @@ export default function DialogForm1(props) {
                           type="radio"
                           id="Não aplicável"
                           value="Não aplicável"
-                          disabled={props.seqRec.posLac > 0 ? true : false}
+                          disabled={props.seqRec.USU_POSLAC > 0 ? true : false}
                           //checked={item.posLac === 3 ? true : allowForm}
                           name="lacre"
                           onChange={() => {
                             setSealEnable(true);
-                            setSealNum("");
+                            setSealNum("''");
                             handleSealValue("3");
                           }}
                         />
@@ -351,7 +352,7 @@ export default function DialogForm1(props) {
                           type="radio"
                           id="Satisfatório"
                           value="Satisfatório"
-                          disabled={props.seqRec.lpzVei > 0 ? true : false}
+                          disabled={props.seqRec.USU_LPZVEI > 0 ? true : false}
                           //checked={item.lpzVei === 1 ? true : allowForm}
                           name="clean"
                           onChange={() => {
@@ -364,7 +365,7 @@ export default function DialogForm1(props) {
                         <input
                           type="radio"
                           id="Não satisfatório"
-                          disabled={props.seqRec.lpzVei > 0 ? true : false}
+                          disabled={props.seqRec.USU_LPZVEI > 0 ? true : false}
                           //checked={item.lpzVei === 2 ? true : allowForm}
                           value="Não satisfatório"
                           name="clean"
@@ -420,7 +421,7 @@ export default function DialogForm1(props) {
               }
               toast.success("Registros salvos com sucesso");
               handlePost(
-                props.seqRec.codRec,
+                props.seqRec.USU_CODREC,
                 vehicleValues.vehicle,
                 vehicleValues.trailer,
                 vehicleValues.seal,

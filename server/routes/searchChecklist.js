@@ -22,7 +22,7 @@ router.get("/search/chklst=:seqChk", authorization, async (req, res) => {
   try {
     const sql = "select * from usu_t158 where usu_codrec = :seq";
 
-    db(sql, req.params.seqChk)
+    db(sql, "select", req.params.seqChk)
       .then((response) => {
         res.json(response);
       })

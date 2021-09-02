@@ -13,6 +13,7 @@ import ProductItem from "../components/ProjectItem/ProjectItem";
 const Products = (props) => {
   const [productsList, setProductsList] = useState([]);
   const [currentProduct, setCurrentProduct] = useState();
+
   const handleChange = (event, value) => {
     setCurrentProduct(productsList[value - 1]);
   };
@@ -20,7 +21,7 @@ const Products = (props) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch(
-        `${ENDPOINT.ENDPOINT}/post/product-conditions/seq=${props.seqRec.codRec}`,
+        `${ENDPOINT.ENDPOINT}/post/product-conditions/seq=${props.seqRec.USU_CODREC}`,
         {
           headers: {
             Token: localStorage.token.toString(),
@@ -47,10 +48,9 @@ const Products = (props) => {
           <DialogContent>
             {currentProduct ? (
               <ProductItem
-                codrec={props.seqRec.codRec.toString()}
+                codrec={props.seqRec.USU_CODREC}
                 productObj={currentProduct}
                 productNum={currentProduct.USU_CODPRO}
-                productName={currentProduct.USU_NOMPRO}
                 lotCod={currentProduct.USU_CODLOT}
                 forCod={currentProduct.USU_CODFOR}
                 forLot={currentProduct.USU_LOTFOR}

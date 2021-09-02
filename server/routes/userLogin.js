@@ -7,7 +7,7 @@ const { db } = require("../db");
 router.get("/get-users", async (req, res) => {
   const sql =
     "select USU_NOMUSU, USU_CODERP from usu_t522 where usu_codccu = '831' OR usu_coderp = '17'  order by 1";
-  db(sql)
+  db(sql, "select")
     .then((response) => {
       res.json(response);
     })

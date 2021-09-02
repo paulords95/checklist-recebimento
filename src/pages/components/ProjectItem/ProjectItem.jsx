@@ -1,15 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./projectitem.css";
+import ENDPOINT from "../../../utils/endpoint";
 
 import ProjectForm from "../ProductForm/ProductForm";
 
+const formatDate = (date) => {
+  const d = date;
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  const formatBr = new Date(d)
+    .toLocaleDateString("pt-BR", options)
+    .split("-")
+    .reverse()
+    .join("/");
+
+  return formatBr;
+};
+
 const ProductItem = (props) => {
+  const [productName, setProductName] = useState("");
+
+  const fetchName = async () => {
+    const nameRes = await fetch(
+      `${ENDPOINT.ENDPOINT}/post/product-name/${props.productObj.USU_CODPRO}`,
+      {
+        headers: {
+          Token: localStorage.token.toString(),
+        },
+      }
+    );
+    const parsedRes = await nameRes.json();
+    if (parsedRes[0]) {
+      setProductName(parsedRes[0].DESPRO);
+    }
+  };
+
+  useEffect(() => {
+    fetchName();
+  }, [props.productObj]);
+
   return (
     <div className="product-item-wrap">
       <div className="product-info">
         <div className="subtitle">
-          Produto: <div className="item-info">{props.productName}</div>
+          Produto: <div className="item-info">{productName}</div>
         </div>
         <div className="subtitle">
           Lote Fornecedor: <div className="item-info">{props.forLot}</div>
@@ -24,7 +58,7 @@ const ProductItem = (props) => {
           </div>
         </div>
         <div className="subtitle">
-          Validade: <div className="item-info">{props.valid}</div>
+          Validade: <div className="item-info">{formatDate(props.valid)}</div>
         </div>
         <div className="subtitle">
           NF:{" "}

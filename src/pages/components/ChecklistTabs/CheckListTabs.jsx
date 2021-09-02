@@ -37,7 +37,7 @@ export default function CheckListTabs(props) {
     (async () => {
       try {
         const response = await fetch(
-          `${ENDPOINT.ENDPOINT}/filled-item/form/${props.seqRec.codRec}`,
+          `${ENDPOINT.ENDPOINT}/filled-item/form/${props.seqRec.USU_CODREC}`,
           {
             headers: {
               Token: localStorage.token.toString(),
@@ -51,7 +51,7 @@ export default function CheckListTabs(props) {
       }
       try {
         const response = await fetch(
-          `${ENDPOINT.ENDPOINT}/filled-item/form-2/${props.seqRec.codRec}`,
+          `${ENDPOINT.ENDPOINT}/filled-item/form-2/${props.seqRec.USU_CODREC}`,
           {
             headers: {
               Token: localStorage.token.toString(),
@@ -65,7 +65,7 @@ export default function CheckListTabs(props) {
       }
       try {
         const response = await fetch(
-          `${ENDPOINT.ENDPOINT}/filled-item/prod/${props.seqRec.codRec}`,
+          `${ENDPOINT.ENDPOINT}/filled-item/prod/${props.seqRec.USU_CODREC}`,
           {
             headers: {
               Token: localStorage.token.toString(),

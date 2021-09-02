@@ -21,16 +21,15 @@ const formatDate = (date) => {
 router.post("/vehicle-information/", authorization, async (req, res) => {
   try {
     const { recNum, cleaning, sealInput, seal, trailer, vehicle } = req.body;
-
     const sql =
       "UPDATE USU_T158 SET USU_TIPVEI=:vehicle, USU_TIPCAR=:trailer, USU_POSLAC=:seal, USU_NROLAC=:sealInput, USU_LPZVEI=:cleaning WHERE USU_CODREC = :recNum";
 
-    db(sql, vehicle, trailer, seal, sealInput, cleaning, recNum)
+    db(sql, "update", vehicle, trailer, seal, sealInput, cleaning, recNum)
       .then((response) => {
         res.json(response);
       })
       .catch((e) => {
-        console.log(e);
+        res.json(e.message);
       });
   } catch (error) {
     res.json(error.message);
@@ -44,7 +43,7 @@ router.post("/vehicle-and-product/", authorization, async (req, res) => {
     const sql =
       "UPDATE USU_T158 SET USU_D5=:form1, USU_D6=:form2, USU_D7=:form3, USU_D8=:form4, USU_D9=:form5 WHERE USU_CODREC = :seqRec";
 
-    db(sql, form1, form2, form3, form4, form5, seqRec)
+    db(sql, "update", form1, form2, form3, form4, form5, seqRec)
       .then((response) => {
         res.json(response);
       })
@@ -65,7 +64,7 @@ router.get(
 
       const sql = "select * from usu_t159 where usu_codrec = :seqRec";
 
-      db(sql, seqRec)
+      db(sql, "select", seqRec)
         .then((response) => {
           res.json(response);
         })
@@ -77,5 +76,20 @@ router.get(
     }
   }
 );
+
+router.get("/product-name/:codpro", authorization, async (req, res) => {
+  try {
+    const { codpro } = req.params;
+    const nameQuery = `SELECT DESPRO FROM E075PRO WHERE CODPRO = :codprod`;
+
+    db(nameQuery, "select", codpro)
+      .then((response) => {
+        res.json(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  } catch (error) {}
+});
 
 module.exports = router;

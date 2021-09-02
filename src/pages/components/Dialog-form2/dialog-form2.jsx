@@ -32,17 +32,17 @@ export default function DialogForm2(props) {
 
   useEffect(() => {
     setItem({
-      answer1: props.seqRec.quesOne,
-      answer2: props.seqRec.quesTwo,
-      answer3: props.seqRec.quesThree,
-      answer4: props.seqRec.quesFour,
-      answer5: props.seqRec.quesFive,
+      answer1: props.seqRec.USU_D5,
+      answer2: props.seqRec.USU_D6,
+      answer3: props.seqRec.USU_D7,
+      answer4: props.seqRec.USU_D8,
+      answer5: props.seqRec.USU_D9,
     });
     if (
-      props.seqRec.quesOne > 0 &&
-      props.seqRec.quesTwo > 0 &&
-      props.seqRec.quesThree > 0 &&
-      props.seqRec.quesFour > 0
+      props.seqRec.USU_D5 > 0 &&
+      props.seqRec.USU_D6 > 0 &&
+      props.seqRec.USU_D7 > 0 &&
+      props.seqRec.USU_D8 > 0
     ) {
       setEnableForm(false);
     }
@@ -78,11 +78,11 @@ export default function DialogForm2(props) {
       <Dialog open={props.isOpen2} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
           Conferência geral do produto recebido e condições do veículo condutor
-          | Nº Recebimento: {props.seqRec.codRec}
+          | Nº Recebimento: {props.seqRec.USU_CODREC}
         </DialogTitle>
         {!enableForm ? (
           <Alert severity="warning">
-            O formulário para o recebimento nº {props.seqRec.codRec} já foi
+            O formulário para o recebimento nº {props.seqRec.USU_CODREC} já foi
             preenchido!
           </Alert>
         ) : (
@@ -90,8 +90,8 @@ export default function DialogForm2(props) {
         )}
         {post ? (
           <Alert severity="warning">
-            O formulário para o recebimento nº {props.seqRec.codRec} foi salvo
-            com sucesso!
+            O formulário para o recebimento nº {props.seqRec.USU_CODREC} foi
+            salvo com sucesso!
           </Alert>
         ) : (
           <>
@@ -396,7 +396,7 @@ export default function DialogForm2(props) {
                   return;
                 }
                 handlePost(
-                  props.seqRec.codRec,
+                  props.seqRec.USU_CODREC,
                   answers1,
                   answers2,
                   answers3,

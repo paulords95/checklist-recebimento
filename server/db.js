@@ -10,7 +10,7 @@ const connectString = CONNECTIONSTRING;
 
 SimpleOracleDB.extend(oracledb);
 
-const db = async (query, ...parameters) => {
+const db = async (query, operation, ...parameters) => {
   return new Promise((resolve, reject) => {
     oracledb.run(
       {
@@ -19,10 +19,22 @@ const db = async (query, ...parameters) => {
         connectString: connectString,
       },
       function onConnection(connection, callback) {
-        connection.query(query, [...parameters], callback);
+        if (operation == "update") {
+          try {
+            connection.update(query, [...parameters], callback);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        if (operation == "select") {
+          try {
+            connection.query(query, [...parameters], callback);
+          } catch (error) {
+            console.log(error);
+          }
+        }
       },
       function onActionDone(error, result) {
-        console.log(error);
         if (error != null) {
           reject(error);
         } else {
