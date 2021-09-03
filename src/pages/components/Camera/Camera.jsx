@@ -8,6 +8,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import ENDPOINT from "../../../utils/endpoint";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -34,14 +36,33 @@ const useStyles = makeStyles((theme) => ({
 const CameraTruck = (props) => {
   const classes = useStyles();
   const [source, setSource] = useState("");
+  const [file, setFile] = useState(null);
   const handleCapture = (target) => {
     if (target.files) {
       if (target.files.length !== 0) {
         const file = target.files[0];
+        setFile(file);
         const newUrl = URL.createObjectURL(file);
         setSource(newUrl);
       }
     }
+  };
+
+  const savePicture = async (blob) => {
+    try {
+      const body = { blob };
+      const response = await fetch(`${ENDPOINT.ENDPOINT}/img/save/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Token: localStorage.token.toString(),
+        },
+
+        body: file,
+      });
+      const serverResponse = await response.json();
+      console.log(serverResponse);
+    } catch (error) {}
   };
   return (
     <div>
@@ -104,7 +125,8 @@ const CameraTruck = (props) => {
           <Button
             onClick={async () => {
               let blob = await fetch(source).then((r) => r.blob());
-              console.log(blob);
+
+              savePicture(file);
             }}
             color="primary"
           >

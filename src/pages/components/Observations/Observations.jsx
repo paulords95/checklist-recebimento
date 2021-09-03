@@ -103,6 +103,10 @@ const Observations = (props) => {
           {!allowInput ? (
             <Button
               onClick={() => {
+                if (observation.length < 2) {
+                  toast.error("Campo de texto em branco");
+                  return;
+                }
                 handlePost(observation, props.seqRec.USU_CODREC);
               }}
               color="primary"

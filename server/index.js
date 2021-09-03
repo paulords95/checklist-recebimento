@@ -24,6 +24,8 @@ app.use("/filled-item", require("./routes/checkFilledItem"));
 
 app.use("/obs", require("./routes/updateTextfields"));
 
+app.use("/img", require("./routes/savePicture"));
+
 app.listen(PORT_DEV, () => {
   console.log(`server running at port ${PORT_DEV}`);
 });

@@ -103,6 +103,10 @@ const Corrections = (props) => {
           {!allowInput ? (
             <Button
               onClick={() => {
+                if (corrention.length < 2) {
+                  toast.error("Campo de texto em branco");
+                  return;
+                }
                 handlePost(corrention, props.seqRec.USU_CODREC);
               }}
               color="primary"
