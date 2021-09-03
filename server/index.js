@@ -22,6 +22,8 @@ app.use("/simple-auth", require("./routes/userLogin"));
 
 app.use("/filled-item", require("./routes/checkFilledItem"));
 
+app.use("/obs", require("./routes/updateTextfields"));
+
 app.listen(PORT_DEV, () => {
   console.log(`server running at port ${PORT_DEV}`);
 });
