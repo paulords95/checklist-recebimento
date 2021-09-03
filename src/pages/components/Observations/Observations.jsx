@@ -100,14 +100,18 @@ const Observations = (props) => {
           >
             Cancelar
           </Button>
-          <Button
-            onClick={() => {
-              handlePost(observation, props.seqRec.USU_CODREC);
-            }}
-            color="primary"
-          >
-            Salvar
-          </Button>
+          {!allowInput ? (
+            <Button
+              onClick={() => {
+                handlePost(observation, props.seqRec.USU_CODREC);
+              }}
+              color="primary"
+            >
+              Salvar
+            </Button>
+          ) : (
+            <></>
+          )}
         </DialogActions>
       </Dialog>
     </div>

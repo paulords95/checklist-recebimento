@@ -5,6 +5,10 @@ const { db } = require("../db");
 
 const authorization = require("../middleware/authorization");
 
+const checkStr = (str) => {
+  return /\S/.test(str);
+};
+
 router.post("/obsrec/", authorization, async (req, res) => {
   try {
     const { USU_OBSREC, USU_CODREC } = req.body;
@@ -29,7 +33,10 @@ router.get("/obsrec/:USU_CODREC", authorization, async (req, res) => {
 
     db(sql, "select", USU_CODREC)
       .then((response) => {
-        if (response[0].USU_OBSREC != null) {
+        if (
+          response[0].USU_OBSREC != null ||
+          !checkStr(response[0].USU_OBSREC)
+        ) {
           res.json(true);
         } else {
           res.json(false);
@@ -47,9 +54,7 @@ router.get("/obsrec/:USU_CODREC", authorization, async (req, res) => {
 router.post("/acacor/", authorization, async (req, res) => {
   try {
     const { USU_ACACOR, USU_CODREC } = req.body;
-    console.log(req.body);
-    const sql = "UPDATE USU_T158 SET USU_ACACOR=':1' WHERE USU_CODREC=:2";
-
+    const sql = "UPDATE USU_T158 SET USU_ACACOR=:1 WHERE USU_CODREC=:2";
     db(sql, "update", USU_ACACOR, USU_CODREC)
       .then((response) => {
         res.json(response);
@@ -69,8 +74,10 @@ router.get("/acacor/:USU_CODREC", authorization, async (req, res) => {
 
     db(sql, "select", USU_CODREC)
       .then((response) => {
-        console.log(response);
-        if (response[0].USU_ACACOR != null) {
+        if (
+          response[0].USU_ACACOR != null ||
+          !checkStr(response[0].USU_ACACOR)
+        ) {
           res.json(true);
         } else {
           res.json(false);

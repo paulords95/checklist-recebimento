@@ -41,7 +41,6 @@ const CheckList = ({ setAuth }) => {
       }
     );
     const itemData = await response.json();
-
     if (itemData[0]) {
       if (itemData[0].USU_CODREC) {
         setItemInfoValid(itemData[0]);

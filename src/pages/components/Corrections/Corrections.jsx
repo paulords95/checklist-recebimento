@@ -100,15 +100,18 @@ const Corrections = (props) => {
           >
             Cancelar
           </Button>
-          <Button
-            onClick={() => {
-              console.log(corrention, props.seqRec.USU_CODREC);
-              handlePost(corrention, props.seqRec.USU_CODREC);
-            }}
-            color="primary"
-          >
-            Salvar
-          </Button>
+          {!allowInput ? (
+            <Button
+              onClick={() => {
+                handlePost(corrention, props.seqRec.USU_CODREC);
+              }}
+              color="primary"
+            >
+              Salvar
+            </Button>
+          ) : (
+            <></>
+          )}
         </DialogActions>
       </Dialog>
     </div>
