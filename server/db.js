@@ -11,6 +11,7 @@ const connectString = CONNECTIONSTRING;
 SimpleOracleDB.extend(oracledb);
 
 const db = async (query, operation, ...parameters) => {
+  console.log(query);
   return new Promise((resolve, reject) => {
     oracledb.run(
       {

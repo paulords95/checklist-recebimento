@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -7,10 +7,12 @@ import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
 
 import ENDPOINT from "../../../utils/endpoint";
+import { toast } from "react-toastify";
 
 const Observations = (props) => {
   const [observation, setObservation] = useState("");
   const [result, setResult] = useState(false);
+  const [allowInput, setAllowInput] = useState(true);
 
   const handlePost = async (USU_OBSREC, USU_CODREC) => {
     try {
@@ -25,18 +27,37 @@ const Observations = (props) => {
         body: JSON.stringify(body),
       });
       const serverResponse = await response.json();
-      console.log(serverResponse);
       if (serverResponse.rowsAffected) {
         if (serverResponse.rowsAffected > 0) {
+          toast.success("Item salvo");
           setResult(true);
+          setAllowInput(false);
         }
       } else {
         setResult(false);
+        toast.error("Erro ao salvar item");
       }
     } catch (error) {
+      toast.error("Erro ao salvar item");
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      const filled = await fetch(
+        `${ENDPOINT.ENDPOINT}/obs/obsrec/${props.seqRec.USU_CODREC}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Token: localStorage.token.toString(),
+          },
+        }
+      );
+      setAllowInput(await filled.json());
+    })();
+  }, [props.seqRec.USU_CODREC, result]);
 
   return (
     <div>
@@ -52,7 +73,7 @@ const Observations = (props) => {
 
         <div style={{ width: "100%" }}>
           <DialogContent>
-            {result ? (
+            {allowInput ? (
               <Alert severity="warning">
                 O campo observações para o recebimento nº{" "}
                 {props.seqRec.USU_CODREC} já foi preenchido!
