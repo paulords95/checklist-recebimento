@@ -73,7 +73,7 @@ const Observations = (props) => {
 
         <div style={{ width: "100%" }}>
           <DialogContent>
-            {allowInput ? (
+            {!allowInput ? (
               <Alert severity="warning">
                 O campo observações para o recebimento nº{" "}
                 {props.seqRec.USU_CODREC} já foi preenchido!

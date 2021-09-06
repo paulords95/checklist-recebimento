@@ -35,7 +35,7 @@ router.get("/obsrec/:USU_CODREC", authorization, async (req, res) => {
       .then((response) => {
         if (
           response[0].USU_OBSREC != null ||
-          !checkStr(response[0].USU_OBSREC)
+          checkStr(response[0].USU_OBSREC)
         ) {
           res.json(true);
         } else {
