@@ -32,8 +32,6 @@ router.post("/save/:seq", authorization, async (req, res) => {
     const imgdata = req.body.res;
     const seq = req.params.seq;
 
-    console.log(seq);
-
     let base64Image = imgdata.split(";base64,").pop();
 
     fs.writeFile(
@@ -41,19 +39,18 @@ router.post("/save/:seq", authorization, async (req, res) => {
       base64Image,
       { encoding: "base64" },
       function (err) {
-        console.log("File created");
+        setTimeout(() => {
+          saveToPath(seq)
+            .then((data) => {
+              res.json("Salvo");
+            })
+            .catch((e) => {
+              console.log(e);
+              res.json("Erro");
+            });
+        }, 1000);
       }
     );
-
-    saveToPath(seq)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-
-    return res.json("Salvo");
   } catch (e) {
     console.log(e);
   }

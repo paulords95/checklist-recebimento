@@ -7,8 +7,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import ENDPOINT from "../../../utils/endpoint";
+import Alert from "@material-ui/lab/Alert";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,8 +40,13 @@ const CameraTruck = (props) => {
   const classes = useStyles();
   const [source, setSource] = useState("");
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState();
 
   const handleCapture = async (target) => {
+    if (status) {
+      setStatus(false);
+    }
     if (target.files) {
       if (target.files.length !== 0) {
         const file = target.files[0];
@@ -58,6 +66,7 @@ const CameraTruck = (props) => {
   }
 
   const savePicture = async () => {
+    setLoading(true);
     blobToBase64(file)
       .then(async (data) => {
         const body = {
@@ -77,7 +86,16 @@ const CameraTruck = (props) => {
             }
           );
           const serverResponse = await response.json();
-          console.log(serverResponse);
+
+          if (serverResponse === "Salvo") {
+            setLoading(false);
+            setStatus(true);
+            toast.success("Salvo com sucesso");
+          } else {
+            setStatus(false);
+            setLoading(false);
+            toast.success("Erro ao salvar imagem");
+          }
         } catch (error) {}
       })
       .catch((e) => {
@@ -102,46 +120,63 @@ const CameraTruck = (props) => {
           <DialogContent>
             <div className={classes.root}>
               <Grid container>
-                <Grid item xs={12}>
-                  <h5>Capturar imagem</h5>
+                {loading ? (
+                  <div style={{ margin: "0 auto", padding: 40 }}>
+                    <CircularProgress />{" "}
+                  </div>
+                ) : (
+                  <Grid item xs={12}>
+                    <h5>Capturar imagem</h5>
 
-                  {source && (
-                    <div
-                      style={{
-                        margin: "0 auto",
-                        display: "flex",
-                      }}
-                    >
-                      <img
-                        src={source}
-                        alt={"snap"}
-                        style={{ width: "100%" }}
-                        className={classes.img}
-                      ></img>
-                    </div>
-                  )}
+                    {source && (
+                      <div
+                        style={{
+                          margin: "0 auto",
+                          display: "flex",
+                        }}
+                      >
+                        {status ? (
+                          <div
+                            style={{
+                              margin: "0 auto",
+                              display: "flex",
+                            }}
+                          >
+                            <Alert>Salvo</Alert>
+                          </div>
+                        ) : (
+                          <img
+                            src={source}
+                            alt={"snap"}
+                            style={{ width: "100%" }}
+                            className={classes.img}
+                          ></img>
+                        )}
+                      </div>
+                    )}
 
-                  <input
-                    accept="image/*"
-                    className={classes.input}
-                    id="icon-button-file"
-                    type="file"
-                    capture="environment"
-                    onChange={(e) => handleCapture(e.target)}
-                  />
-                  <label htmlFor="icon-button-file">
-                    <IconButton
-                      color="primary"
-                      aria-label="upload picture"
-                      component="span"
-                    >
-                      <PhotoCameraRoundedIcon
-                        fontSize="large"
+                    <input
+                      accept="image/*"
+                      className={classes.input}
+                      id="icon-button-file"
+                      type="file"
+                      capture="environment"
+                      onChange={(e) => handleCapture(e.target)}
+                    />
+                    <label htmlFor="icon-button-file">
+                      <IconButton
                         color="primary"
-                      />
-                    </IconButton>
-                  </label>
-                </Grid>
+                        aria-label="upload picture"
+                        component="span"
+                      >
+                        <PhotoCameraRoundedIcon
+                          fontSize="large"
+                          color="primary"
+                        />
+                      </IconButton>
+                    </label>
+                  </Grid>
+                )}
               </Grid>
             </div>
           </DialogContent>
@@ -149,20 +184,24 @@ const CameraTruck = (props) => {
         <DialogActions>
           <Button
             onClick={async () => {
-              savePicture();
-            }}
-            color="primary"
-          >
-            LOG
-          </Button>
-          <Button
-            onClick={() => {
               props.handleClose();
             }}
             color="primary"
           >
-            Salvar
+            Sair
           </Button>
+          {status ? (
+            ""
+          ) : (
+            <Button
+              onClick={() => {
+                savePicture();
+              }}
+              color="primary"
+            >
+              Salvar
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>
