@@ -4,6 +4,8 @@ require("dotenv").config();
 const fs = require("fs");
 const { db } = require("../db");
 
+const saveToPath = require("../utils/saveToPath");
+
 const authorization = require("../middleware/authorization");
 
 function blobToFile(theBlob, fileName) {
@@ -25,11 +27,35 @@ const formatDate = (date) => {
   return formatBr;
 };
 
-router.post("/save/", authorization, async (req, res) => {
+router.post("/save/:seq", authorization, async (req, res) => {
   try {
-    console.log(req.body);
-  } catch (error) {
-    console.log(error.message);
+    const imgdata = req.body.res;
+    const seq = req.params.seq;
+
+    console.log(seq);
+
+    let base64Image = imgdata.split(";base64,").pop();
+
+    fs.writeFile(
+      `${seq}.png`,
+      base64Image,
+      { encoding: "base64" },
+      function (err) {
+        console.log("File created");
+      }
+    );
+
+    saveToPath(seq)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    return res.json("Salvo");
+  } catch (e) {
+    console.log(e);
   }
 });
 

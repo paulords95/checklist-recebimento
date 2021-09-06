@@ -2,18 +2,18 @@ const path = require("path");
 const mv = require("mv");
 const fs = require("fs");
 
-const currentDate = require('../date')
+const currentDate = require("../date");
 
 const savePicToPath = (name) => {
   return new Promise((resolve, reject) => {
-    const currentPath = path.join(__dirname, "../", `${name}.jpeg`);
+    const currentPath = path.join(__dirname, "../", `${name}.png`);
     const destinationPath = path.join(
-      `\\\\qcolweb01.quimtia.net.br\\c$\\Imagens-entrada-de-veículos\\${currentDate()}`,
+      `\\\\qcolweb01.quimtia.net.br\\c$\\FotosRecebimento\\${currentDate()}`,
       `${name}.jpg`
     );
 
     fs.access(
-      `\\\\qcolweb01.quimtia.net.br\\c$\\Imagens-entrada-de-veículos\\${currentDate()}`,
+      `\\\\qcolweb01.quimtia.net.br\\c$\\FotosRecebimento\\${currentDate()}`,
       (error) => {
         if (!error) {
           mv(currentPath, destinationPath, function (err) {
@@ -26,7 +26,7 @@ const savePicToPath = (name) => {
         } else {
           fs.mkdir(
             path.join(
-              "\\\\qcolweb01.quimtia.net.br\\c$\\Imagens-entrada-de-veículos",
+              "\\\\qcolweb01.quimtia.net.br\\c$\\FotosRecebimento",
               `${currentDate()}`
             ),
             (err) => {
