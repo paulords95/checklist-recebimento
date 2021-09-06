@@ -2,7 +2,7 @@
 const svc = new Service({
   name: "Server - ChecklistRecebimento",
   description: "Server - ChecklistRecebimento",
-  script: "C:\\localapps\\Server - ChecklistRecebimento\\server\\index.js",
+  script: "C:\\local-apps\\checklist-recebimento\\server\\index.js",
   env: {
     value: process.env.USER,
   },

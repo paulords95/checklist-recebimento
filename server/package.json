@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mv": "^2.1.1",
+    "node-windows": "^1.0.0-beta.5",
     "oracledb": "^5.2.0",
     "simple-oracledb": "^2.0.0",
     "soap": "^0.39.0"

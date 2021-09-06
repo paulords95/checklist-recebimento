@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 
 require("dotenv").config();
 
-const { PORT_DEV } = require("./credentials");
+const { PORT } = require("./credentials");
 
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
@@ -30,6 +30,6 @@ app.use("/obs", require("./routes/updateTextfields"));
 
 app.use("/img", require("./routes/savePicture"));
 
-app.listen(PORT_DEV, () => {
-  console.log(`server running at port ${PORT_DEV}`);
+app.listen(PORT, () => {
+  console.log(`server running at port ${PORT}`);
 });
