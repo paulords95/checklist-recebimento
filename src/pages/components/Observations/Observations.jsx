@@ -29,9 +29,9 @@ const Observations = (props) => {
       const serverResponse = await response.json();
       if (serverResponse.rowsAffected) {
         if (serverResponse.rowsAffected > 0) {
+          setAllowInput(false);
           toast.success("Item salvo");
           setResult(true);
-          setAllowInput(false);
         }
       } else {
         setResult(false);
@@ -73,7 +73,7 @@ const Observations = (props) => {
 
         <div style={{ width: "100%" }}>
           <DialogContent>
-            {!allowInput ? (
+            {result || !allowInput ? (
               <Alert severity="warning">
                 O campo observações para o recebimento nº{" "}
                 {props.seqRec.USU_CODREC} já foi preenchido!
@@ -100,7 +100,7 @@ const Observations = (props) => {
           >
             Cancelar
           </Button>
-          {!allowInput ? (
+          {!result ? (
             <Button
               onClick={() => {
                 if (observation.length < 2) {

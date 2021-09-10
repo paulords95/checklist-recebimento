@@ -55,7 +55,6 @@ const Corrections = (props) => {
           },
         }
       );
-      console.log(allowInput);
       setAllowInput(await filled.json());
     })();
   }, [props.seqRec.USU_CODREC, result]);
@@ -74,7 +73,7 @@ const Corrections = (props) => {
 
         <div style={{ width: "100%" }}>
           <DialogContent>
-            {!allowInput ? (
+            {result || !allowInput ? (
               <Alert severity="warning">
                 O campo Ações Corretivas para o recebimento nº{" "}
                 {props.seqRec.USU_CODREC} já foi preenchido!
@@ -101,7 +100,7 @@ const Corrections = (props) => {
           >
             Cancelar
           </Button>
-          {!allowInput ? (
+          {!result ? (
             <Button
               onClick={() => {
                 if (corrention.length < 2) {

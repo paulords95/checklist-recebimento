@@ -137,8 +137,8 @@ export default function LoginPage({ setAuth }) {
             >
               {users.map((user) => {
                 return (
-                  <MenuItem key={user.USU_CODERP} value={user.USU_NOMUSU}>
-                    {user.USU_NOMUSU}
+                  <MenuItem key={user.CODUSU} value={user.NOMUSU}>
+                    {user.NOMUSU}
                   </MenuItem>
                 );
               })}
