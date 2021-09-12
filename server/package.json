@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "base64topdf": "^1.1.8",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -17,7 +18,9 @@
     "mv": "^2.1.1",
     "node-windows": "^1.0.0-beta.5",
     "oracledb": "^5.2.0",
+    "pdf-to-printer": "^3.0.0",
     "simple-oracledb": "^2.0.0",
-    "soap": "^0.39.0"
+    "soap": "^0.39.0",
+    "strong-soap": "^3.2.1"
   }
 }
