@@ -29,6 +29,7 @@ export default function CheckListTabs(props) {
   const [open5, setOpen5] = React.useState(false);
   const [open6, setOpen6] = React.useState(false);
   const [printStatus, setPrintStatus] = useState(false)
+  const [picTaken, setPicTaken] = useState(false)
   const classes = useStyles();
 
   const [formFilled1, setFormFilled1] = React.useState(false);
@@ -84,6 +85,7 @@ export default function CheckListTabs(props) {
       //}
     })();
 
+    checkPicTaken()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.seqRec.codRec, open1, open2, open3]);
 
@@ -106,6 +108,26 @@ export default function CheckListTabs(props) {
       );
       const parsedResponse = await response.json();
       return (parsedResponse)
+
+
+    } catch (error) {
+      return error
+    }
+  }
+  const checkPicTaken = async () => {
+    try {
+      const response = await fetch(
+        `${ENDPOINT.ENDPOINT}/finish/saved/${props.seqRec.USU_CODREC}`,
+        {
+
+          headers: {
+            "Content-Type": "application/json",
+            Token: localStorage.token.toString(),
+          },
+        }
+      );
+      const parsedResponse = await response.json();
+      setPicTaken(parsedResponse)
 
 
     } catch (error) {
@@ -229,14 +251,18 @@ export default function CheckListTabs(props) {
         color="primary"
         id="4"
         onClick={async () => {
-          setPrintStatus(true)
-          const printResult = await handlePrint()
-          if (printResult === 'print success') {
-            toast.success('Relatório impresso')
-            setPrintStatus(false)
+          if (picTaken) {
+            setPrintStatus(true)
+            const printResult = await handlePrint()
+            if (printResult === 'print success') {
+              toast.success('Relatório impresso')
+              setPrintStatus(false)
+            } else {
+              toast.error('Erro ao imprimir')
+              setPrintStatus(false)
+            }
           } else {
-            toast.error('Erro ao imprimir')
-            setPrintStatus(false)
+            toast.warn('É necessário registrar a foto do caminhão antes de imprimir')
           }
         }}
       >
