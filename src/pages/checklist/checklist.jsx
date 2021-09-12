@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import Input from "@material-ui/core/Input";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
+    margin: 'auto',
+    display: 'flex',
+    alignContent: 'center'
   },
 }));
 
@@ -27,6 +31,7 @@ const CheckList = ({ setAuth }) => {
   const [itemInfo, setItemInfo] = useState([]);
   const [itemInfoValid, setItemInfoValid] = useState([]);
   const [itemLoading, setItemLoading] = useState(false);
+  const [todaySeq, setTodaySeq] = useState([])
 
   const SearchItem = async () => {
     setRenderItem(false);
@@ -75,6 +80,21 @@ const CheckList = ({ setAuth }) => {
     return formatBr;
   };
 
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        `${ENDPOINT.ENDPOINT}/item/search/alltoday`,
+        {
+          headers: {
+            Token: localStorage.token.toString(),
+          },
+        }
+      );
+
+      setTodaySeq(await response.json())
+    })()
+  }, [])
+
   return (
     <div>
       <div
@@ -107,14 +127,14 @@ const CheckList = ({ setAuth }) => {
           CHECKLIST DE RECEBIMENTO
         </Typography>
 
-        <div style={{ marginTop: 40 }}>
+        <div style={{ marginTop: 80, display: 'flex', flexDirection: 'column' }}>
           <form
             className={classes.root}
             noValidate
             autoComplete="off"
             onSubmit={(e) => e.preventDefault()}
           >
-            <Input
+            {/*<Input
               type="number"
               onChange={(e) => {
                 const regex = /[.,\s]/g;
@@ -122,11 +142,24 @@ const CheckList = ({ setAuth }) => {
                 setItemSeq(string);
               }}
               inputProps={{ "aria-label": "description" }}
+            />*/}
+            <Autocomplete
+              id="combo-box-demo"
+              options={todaySeq}
+              getOptionLabel={(option) => option.USU_CODREC.toString()}
+              style={{ width: 300 }}
+              onInputChange={(e) => {
+                setItemSeq(e.target.innerText)
+              }}
+              renderInput={(params) => <TextField {...params} onChange={(e) => {
+                setItemSeq(e.target.value)
+              }} label="Nº Recebimento" variant="outlined" />}
             />
             <Button onClick={SearchItem}>
               <SearchIcon />
             </Button>
           </form>
+
           <div style={{ paddingTop: "40px" }}>
             {itemLoading ? <CircularProgress /> : ""}
           </div>

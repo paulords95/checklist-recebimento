@@ -97,7 +97,7 @@ export default function DialogForm1(props) {
         },
         body: JSON.stringify(body),
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (

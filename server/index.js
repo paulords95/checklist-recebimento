@@ -32,6 +32,8 @@ app.use("/img", require("./routes/savePicture"));
 
 app.use('/print', require('./routes/printRel'))
 
+app.use('/finish', require('./routes/finishChecklist'))
+
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
 });

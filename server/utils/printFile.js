@@ -54,6 +54,13 @@ const printFile = (codRec) => {
               })
               .catch((e) => {
                 reject("print error");
+                try {
+                  fs.unlinkSync(`./${codRec}.pdf`);
+                  resolve("print success");
+                } catch (err) {
+                  console.error(err);
+                  reject("print error");
+                }
               });
           } catch (error) {
             console.log(error)
