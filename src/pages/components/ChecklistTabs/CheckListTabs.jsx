@@ -85,6 +85,32 @@ export default function CheckListTabs(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.seqRec.codRec, open1, open2, open3]);
 
+
+  const handlePrint = async () => {
+    try {
+      const response = await fetch(
+        `${ENDPOINT.ENDPOINT}/print/rel`,
+        {
+
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+            Token: localStorage.token.toString(),
+          },
+          body: JSON.stringify({
+            seqRec: props.seqRec.USU_CODREC
+          }),
+        }
+      );
+      const parsedResponse = await response.json();
+      return (parsedResponse)
+
+
+    } catch (error) {
+      return error
+    }
+  }
+
   return (
     <div className={classes.root}>
       <Typography component="h4" variant="h5">
@@ -193,6 +219,18 @@ export default function CheckListTabs(props) {
         }}
       >
         Foto Caminhão
+      </Button>
+      <hr></hr>
+      <Button
+        variant="contained"
+        color="primary"
+        id="4"
+        onClick={async () => {
+          console.log(await handlePrint())
+
+        }}
+      >
+        Imprimir
       </Button>
     </div>
   );
