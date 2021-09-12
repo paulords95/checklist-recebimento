@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -9,6 +9,7 @@ import Producs from "../../Products/Products";
 import Observatons from "../../components/Observations/Observations";
 import Corrections from "../Corrections/Corrections";
 import CameraTruck from "../Camera/Camera";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import ENDPOINT from "../../../utils/endpoint";
 
@@ -27,6 +28,7 @@ export default function CheckListTabs(props) {
   const [open4, setOpen4] = React.useState(false);
   const [open5, setOpen5] = React.useState(false);
   const [open6, setOpen6] = React.useState(false);
+  const [printStatus, setPrintStatus] = useState(false)
   const classes = useStyles();
 
   const [formFilled1, setFormFilled1] = React.useState(false);
@@ -221,13 +223,21 @@ export default function CheckListTabs(props) {
         Foto Caminhão
       </Button>
       <hr></hr>
+      {printStatus ? <LinearProgress /> : ''}
       <Button
         variant="contained"
         color="primary"
         id="4"
         onClick={async () => {
-          console.log(await handlePrint())
-
+          setPrintStatus(true)
+          const printResult = await handlePrint()
+          if (printResult === 'print success') {
+            toast.success('Relatório impresso')
+            setPrintStatus(false)
+          } else {
+            toast.error('Erro ao imprimir')
+            setPrintStatus(false)
+          }
         }}
       >
         Imprimir
