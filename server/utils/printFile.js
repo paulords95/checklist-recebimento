@@ -5,8 +5,6 @@ var soap = require("strong-soap").soap;
 
 const { SOAP_ENDPOINT_PRINT, ERP_USER, ERP_PASS } = require("../credentials");
 
-const user = "paulo.silva";
-const password = "1995!Oluap";
 
 const printFile = (codRec) => {
   return new Promise((resolve, reject) => {
