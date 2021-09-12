@@ -147,12 +147,19 @@ const CheckList = ({ setAuth }) => {
               id="combo-box-demo"
               options={todaySeq}
               getOptionLabel={(option) => option.USU_CODREC.toString()}
+
               style={{ width: 300 }}
-              onInputChange={(e) => {
-                setItemSeq(e.target.innerText)
+              onChange={(value1, value2) => {
+                if (value2) {
+                  if (value2.USU_CODREC != null) {
+                    setItemSeq(value2.USU_CODREC)
+                  }
+                } else {
+                  setItemSeq(1)
+                }
               }}
-              renderInput={(params) => <TextField {...params} onChange={(e) => {
-                setItemSeq(e.target.value)
+              renderInput={(params) => <TextField {...params} onChange={(value1, value2) => {
+                setItemSeq(value1.target.value)
               }} label="Nº Recebimento" variant="outlined" />}
             />
             <Button onClick={SearchItem}>
