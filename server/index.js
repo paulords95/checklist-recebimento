@@ -30,6 +30,8 @@ app.use("/obs", require("./routes/updateTextfields"));
 
 app.use("/img", require("./routes/savePicture"));
 
+app.use('/print', require('./routes/printRel'))
+
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
 });

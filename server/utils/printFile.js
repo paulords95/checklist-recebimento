@@ -5,7 +5,6 @@ var soap = require("strong-soap").soap;
 
 const { SOAP_ENDPOINT_PRINT, ERP_USER, ERP_PASS } = require("../credentials");
 
-
 const printFile = (codRec) => {
   return new Promise((resolve, reject) => {
     const arrArgs = {
@@ -39,10 +38,10 @@ const printFile = (codRec) => {
           //printer: "\\\\qcolps01.quimtia.net.br\\COLOR",
         };
 
+
         ptp
           .print(`./${codRec}.pdf`, options)
           .then((result) => {
-            console.log(result);
             try {
               fs.unlinkSync(`./${codRec}.pdf`);
               resolve("print success");

@@ -1,46 +1,26 @@
-const soap = require("soap");
+const router = require("express").Router();
 
-const { SOAP_ENDPOINT } = require("../credentials");
+const authorization = require("../middleware/authorization");
 
-try {
-  const user = "paulo.silva";
-  const password = "1995!Oluap";
 
-  soap.createClient(SOAP_ENDPOINT, function (err, client) {
-    console.log(err);
-    if (client) {
-      client.GetUser(
-        {
-          user: user,
-          password: password,
-          encryption: "0",
-          parameters: "",
-        },
+const printFile = require('../utils/printFile')
 
-        function (err, result) {
-          if (err) return console.log(err);
-          let response = "";
-          if (result.result.erroExecucao) {
-            response = ["Credenciais inválidas"];
-          } else if (result.result.codUsu) {
-            response = [];
-            const token = jwtGen(result.result.codUsu);
 
-            response.push({
-              codUsu: result.result.codUsu,
-              nomCom: result.result.nomCom,
-              nomUsu: result.result.nomUsu,
-              token: token,
-            });
-          } else {
-            response = "Erro desconhecido";
-          }
+router.post("/rel", authorization, async (req, res) => {
+  const { seqRec } = req.body
 
-          res.json(response[0]);
-        }
-      );
-    }
-  });
-} catch (error) {
-  console.log(error);
-}
+  try {
+    console.log(seqRec)
+    printFile(seqRec).then((response) => {
+      console.log(response)
+    }).catch((e) => {
+      console.log(e)
+    })
+    res.json('printed')
+  } catch (error) {
+    console.log(error);
+    res.json('failed to print')
+  }
+});
+
+module.exports = router;
