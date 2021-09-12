@@ -5,7 +5,7 @@ var soap = require("strong-soap").soap;
 
 const { SOAP_ENDPOINT_PRINT, ERP_USER, ERP_PASS } = require("../credentials");
 
-const printFile = (codRec) => {
+const printFile = (codRec, printer) => {
   return new Promise((resolve, reject) => {
     try {
       const arrArgs = {
@@ -35,7 +35,7 @@ const printFile = (codRec) => {
           );
 
           const options = {
-            printer: "Microsoft Print to PDF",
+            printer: printer,
             //printer: "\\\\qcolps01.quimtia.net.br\\COLOR",
           };
 

@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { toast } from "react-toastify";
 import DialogForm1 from "../Dialog/Dialog";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 import DialogForm2 from "../Dialog-form2/dialog-form2";
 import Producs from "../../Products/Products";
 import Observatons from "../../components/Observations/Observations";
@@ -30,6 +32,8 @@ export default function CheckListTabs(props) {
   const [open6, setOpen6] = React.useState(false);
   const [printStatus, setPrintStatus] = useState(false)
   const [picTaken, setPicTaken] = useState(false)
+  const [printers, setPrinters] = useState([])
+  const [printerPicked, setPrinterPicked] = useState(null)
   const classes = useStyles();
 
   const [formFilled1, setFormFilled1] = React.useState(false);
@@ -83,9 +87,20 @@ export default function CheckListTabs(props) {
       //} catch (error) {
       //  console.log(error);
       //}
+
+      const printers = await fetch(`${ENDPOINT.ENDPOINT}/print/getprinters`, {
+        headers: {
+          Token: localStorage.token.toString(),
+        },
+      })
+      const parsedPrinters = await printers.json()
+      setPrinters(parsedPrinters)
     })();
 
+
     checkPicTaken()
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.seqRec.codRec, open1, open2, open3]);
 
@@ -246,11 +261,28 @@ export default function CheckListTabs(props) {
       </Button>
       <hr></hr>
       {printStatus ? <LinearProgress /> : ''}
+      <Autocomplete
+        id="combo-box-demo"
+        options={printers}
+        getOptionLabel={(option) => option.name}
+        style={{ width: 400, margin: '0 auto' }}
+        onInputChange={(e) => {
+          setPrinterPicked(e.target.innerText)
+        }}
+        renderInput={(params) => <TextField {...params} onChange={(e) => {
+          setPrinterPicked(e.target.value)
+        }} label="Impressora" variant="outlined" />}
+      />
       <Button
         variant="contained"
         color="primary"
         id="4"
         onClick={async () => {
+          console.log(printerPicked)
+
+
+
+
           if (picTaken) {
             setPrintStatus(true)
             const printResult = await handlePrint()
