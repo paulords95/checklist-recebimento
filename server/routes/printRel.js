@@ -32,10 +32,7 @@ router.get('/getprinters', authorization, async (req, res) => {
 router.post("/rel", authorization, async (req, res) => {
   const { seqRec, printer } = req.body
   try {
-
-
-
-    printFile(seqRec, 'Microsoft Print To PDF').then((response) => {
+    printFile(seqRec, printer).then((response) => {
       res.json(response)
     }).catch((e) => {
       res.json(e)

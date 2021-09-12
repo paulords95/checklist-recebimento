@@ -117,7 +117,8 @@ export default function CheckListTabs(props) {
             Token: localStorage.token.toString(),
           },
           body: JSON.stringify({
-            seqRec: props.seqRec.USU_CODREC
+            seqRec: props.seqRec.USU_CODREC,
+            printer: printerPicked
           }),
         }
       );
@@ -278,14 +279,10 @@ export default function CheckListTabs(props) {
         color="primary"
         id="4"
         onClick={async () => {
-          console.log(printerPicked)
-
-
-
-
+          checkPicTaken()
           if (picTaken) {
             setPrintStatus(true)
-            const printResult = await handlePrint()
+            const printResult = await handlePrint(printerPicked)
             if (printResult === 'print success') {
               toast.success('Relatório impresso')
               setPrintStatus(false)
